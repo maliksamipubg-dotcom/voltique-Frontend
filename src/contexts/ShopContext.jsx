@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { signInWithPopup, signOut } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase.js'
+import { backendUrl } from '../config.js'
 export const ShopContext = createContext();
 
 // Maps Firebase / network / backend errors to a user friendly message.
@@ -36,7 +37,6 @@ const ShopContextProvider = (props) =>{
 
     const currency = 'Rs';
     const delivery_fee = 300;
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [search,setSearch] = useState('');
     const [showSearch,setShowSearch] = useState(false);
     const [cartItems,setCartItems] = useState({});
