@@ -1,0 +1,203 @@
+/* Navbar.css */
+
+/* === General Navbar Styling === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 5%;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid rgba(36, 86, 230, 0.08);
+}
+
+/* === Logo === */
+.navbar-logo {
+  width: 140px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* === Desktop Menu === */
+.navbar-menu {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.navbar-menu a {
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu a:hover {
+  color: #2456e6;
+}
+
+.navbar-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #2456e6;
+  transition: width 0.3s ease-in-out;
+}
+
+.navbar-menu a:hover::after,
+.navbar-menu a.active::after {
+  width: 50%;
+}
+
+/* === Icons Section === */
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-icons img {
+  width: 22px;
+  cursor: pointer;
+  filter: grayscale(30%);
+  transition: all 0.2s ease;
+}
+.navbar-icons img:hover {
+  transform: scale(1.1);
+  filter: none;
+}
+
+/* === Profile Dropdown === */
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 12px;
+  background: #ffffff;
+  border-radius: 10px;
+  width: 180px;
+  box-shadow: 0 8px 25px rgba(36, 86, 230, 0.12);
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+.profile-dropdown:hover .profile-dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-dropdown-content p {
+  padding: 12px 20px;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-dropdown-content p:hover {
+  background: #eff6ff;
+  color: #2456e6;
+}
+
+/* === Cart Badge === */
+.cart-icon {
+  position: relative;
+}
+.cart-count {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  background: #2456e6;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 500;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Mobile Menu === */
+.mobile-menu-icon {
+  display: none;
+  width: 22px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+  .mobile-menu-icon {
+    display: block;
+  }
+}
+
+/* === Mobile Sidebar === */
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.4s ease-in-out;
+  z-index: 200;
+  box-shadow: -4px 0 15px rgba(36, 86, 230, 0.12);
+}
+.mobile-sidebar.open {
+  width: 75%;
+}
+
+.mobile-sidebar .back-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px;
+  cursor: pointer;
+  font-weight: 500;
+  border-bottom: 1px solid #f1f5f9;
+}
+.mobile-sidebar a {
+  display: block;
+  padding: 16px 28px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.3s;
+}
+.mobile-sidebar a:hover {
+  background: #f9fafb;
+  color: #2456e6;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

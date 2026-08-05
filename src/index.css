@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #2456e6;
+  --primary-dark: #1a3fae;
+  --accent-color: #0e7490;
+  --dark-color: #0a1628;
+  --bg-color: #f4f6fa;
+  --card-color: #ffffff;
+  --border-color: #e2e8f0;
+  --muted-color: #52607a;
+}
+
+a.active hr{
+  display: block;
+}
+
+*{
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .heading-font{
+  font-family: "Space Grotesk", sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+html, body{
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body{
+  background-color: var(--bg-color);
+}
+
+button{
+  touch-action: manipulation;
+}
+
+button:active{
+  transform: scale(0.97);
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+/* Modern Toast Styling */
+.Toastify__toast.modern-toast{
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -8px rgba(2, 6, 23, 0.25);
+  padding: 12px 16px;
+  font-family: "Inter", sans-serif;
+}
+
+.Toastify__toast.modern-toast--stacked{
+  border-radius: 12px;
+}
+
+.Toastify__toast-body.modern-toast-body{
+  font-size: 14px;
+  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+}
+
+.Toastify__toast.modern-toast .Toastify__close-button{
+  align-self: center;
+  opacity: 0.7;
+}
+
+.Toastify__toast.modern-toast .Toastify__close-button:hover{
+  opacity: 1;
+}
+
+.Toastify__toast.modern-toast.Toastify__toast--success{
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.Toastify__toast.modern-toast.Toastify__toast--error{
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.Toastify__toast.modern-toast.Toastify__toast--warning{
+  background: linear-gradient(135deg, #ea580c, #c2410c);
+}
+
+.Toastify__toast.modern-toast.Toastify__toast--info{
+  background: linear-gradient(135deg, #2456e6, #1a3fae);
+}
+
+.Toastify__toast.modern-toast .Toastify__progress-bar{
+  height: 3px;
+  border-radius: 9999px;
+}
+
+@media (max-width: 480px){
+  .Toastify__toast-container{
+    width: calc(100vw - 32px);
+    max-width: 100%;
+    margin: 0 16px;
+    right: 0;
+    left: 0;
+  }
+}
+
+@media (max-width:640px) {
+  a.active{
+    background-color: var(--primary-color);
+    color: white;
+  }
+}
+
+.brand-logo{
+  display: block;
+  width: auto;
+  height: 40px;
+  max-width: 100%;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+@media (min-width: 768px){
+  .brand-logo{
+    height: 46px;
+  }
+}
+
+@media (min-width: 992px){
+  .brand-logo{
+    height: 52px;
+  }
+}
+
+@media (min-width: 1200px){
+  .brand-logo{
+    height: 56px;
+  }
+}
+
+/* Floating WhatsApp Button */
+@keyframes whatsapp-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.whatsapp-fab{
+  cursor: pointer;
+  animation: whatsapp-fade-in 0.6s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .whatsapp-fab{
+    animation: none;
+  }
+}

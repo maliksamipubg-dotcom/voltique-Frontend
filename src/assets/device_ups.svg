@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="d1" x1="0" y1="0" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#475569"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  <rect x="20" y="14" width="160" height="172" rx="12" fill="url(#d1)" stroke="#475569" stroke-width="2"/>
+  <path d="M78 14 v-10 a10 10 0 0 1 20 0 v10" stroke="#64748B" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <rect x="34" y="30" width="84" height="34" rx="6" fill="#0B1220" stroke="#2563EB" stroke-width="2"/>
+  <text x="42" y="52" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#38BDF8">12V / 6A</text>
+  <circle cx="158" cy="47" r="10" fill="#0B1220" stroke="#475569" stroke-width="2"/>
+  <circle cx="158" cy="47" r="4" fill="#38BDF8"/>
+  <g stroke="#475569" stroke-width="4" stroke-linecap="round">
+    <line x1="34" y1="82" x2="158" y2="82"/>
+    <line x1="34" y1="94" x2="158" y2="94"/>
+  </g>
+  <rect x="34" y="110" width="30" height="36" rx="5" fill="#1E40AF"/>
+  <text x="38" y="133" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#E0EAFF">6A</text>
+  <rect x="70" y="110" width="30" height="36" rx="5" fill="#0EA5E9"/>
+  <text x="74" y="133" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#0B1220">10A</text>
+  <rect x="106" y="110" width="30" height="36" rx="5" fill="#1E40AF"/>
+  <text x="110" y="133" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#E0EAFF">12A</text>
+  <path d="M34 168 q20 -10 40 0 q20 10 40 0 q20 -10 44 0" stroke="#475569" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>

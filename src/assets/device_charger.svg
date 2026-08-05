@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="c2" x1="0" y1="0" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#475569"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  <rect x="34" y="26" width="132" height="120" rx="12" fill="url(#c2)" stroke="#475569" stroke-width="2"/>
+  <path d="M82 26 v-12 a10 10 0 0 1 20 0 v12" stroke="#64748B" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <rect x="48" y="42" width="72" height="32" rx="6" fill="#0B1220" stroke="#2563EB" stroke-width="2"/>
+  <text x="56" y="62" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#38BDF8">AUTO</text>
+  <circle cx="148" cy="58" r="9" fill="#0B1220" stroke="#475569" stroke-width="2"/>
+  <circle cx="148" cy="58" r="3.5" fill="#38BDF8"/>
+  <g stroke="#475569" stroke-width="4" stroke-linecap="round">
+    <line x1="48" y1="88" x2="150" y2="88"/>
+    <line x1="48" y1="100" x2="150" y2="100"/>
+  </g>
+  <rect x="48" y="112" width="96" height="22" rx="6" fill="#1E293B" stroke="#334155" stroke-width="1.5"/>
+  <text x="56" y="127" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#E2E8F0">FULLY CHARGED</text>
+  <path d="M62 160 q10 -8 24 0 q14 8 28 0 q14 -8 24 0" stroke="#475569" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M34 90 q-18 6 -20 22 q-2 14 14 20" stroke="#DC2626" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(20,128) rotate(40)">
+    <rect x="-8" y="-9" width="16" height="18" rx="4" fill="#DC2626" stroke="#991B1B" stroke-width="1.5"/>
+    <rect x="-2" y="-11" width="4" height="5" rx="1.5" fill="#FCA5A5"/>
+  </g>
+  <path d="M166 92 q20 6 22 22 q2 14 -14 20" stroke="#0F172A" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(180,130) rotate(-40)">
+    <rect x="-8" y="-9" width="16" height="18" rx="4" fill="#0F172A" stroke="#111827" stroke-width="1.5"/>
+    <rect x="-2" y="-11" width="4" height="5" rx="1.5" fill="#475569"/>
+  </g>
+</svg>

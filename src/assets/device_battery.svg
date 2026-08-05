@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="batG" x1="0" y1="0" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#94A3B8"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  <rect x="30" y="58" width="140" height="84" rx="10" fill="url(#batG)" stroke="#64748B" stroke-width="2"/>
+  <rect x="82" y="46" width="8" height="16" rx="3" fill="#DC2626"/>
+  <rect x="98" y="46" width="8" height="16" rx="3" fill="#0F172A"/>
+  <rect x="42" y="70" width="46" height="26" rx="4" fill="#0B1220" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="48" y="87" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#38BDF8">12V 6A</text>
+  <rect x="98" y="74" width="56" height="34" rx="4" fill="#1E293B"/>
+  <path d="M100 94 v-10 h8 v10 h10 v-13 h8 v13 h10 v-10 h8 v10 h10 v-6 h6" stroke="#0EA5E9" stroke-width="3" fill="none"/>
+  <rect x="42" y="108" width="116" height="8" rx="4" fill="#CBD5E1"/>
+  <text x="55" y="133" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">BATTERY CHARGER</text>
+  <path d="M110 133 v34 h-20 l12 14 v12 h14 v-12 l14 -14 h-16 v-34" fill="#DC2626"/>
+  <rect x="118" y="70" width="6" height="4" fill="#0F172A"/>
+</svg>
