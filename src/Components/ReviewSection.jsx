@@ -202,7 +202,7 @@ const ReviewForm = ({ productId, onSaved }) => {
       <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={60} placeholder='Review title (optional)' className='w-full max-w-sm px-3 py-2 border border-slate-300 rounded-lg text-sm mb-3 outline-none focus:border-primary' />
       <textarea value={description} onChange={(e) => setDescription(e.target.value)} maxLength={500} rows={4} placeholder='Share your experience with this product...' className='w-full px-3 py-2 border border-slate-300 rounded-lg text-sm outline-none focus:border-primary resize-none' />
       <p className='text-xs text-gray-400 mt-1'>{description.length}/500</p>
-      <div className='flex gap-3 mt-3'>
+      <div className='flex gap-3 mt-3 flex-wrap'>
         <button onClick={existingReview ? updateReview : submit} disabled={submitting} className='px-6 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors disabled:opacity-50'>
           {submitting ? 'SUBMITTING...' : existingReview ? 'UPDATE REVIEW' : 'SUBMIT REVIEW'}
         </button>
@@ -402,7 +402,7 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
       {showForm && <div ref={reviewFormRef} id='review-form' className='mb-8 scroll-mt-24'><ReviewForm productId={productId} onSaved={() => { setShowForm(false); fetchReviews(); loadEligibility() }} /></div>}
 
       {totalReviews > 0 && (
-        <div className='flex items-center justify-between mb-4'>
+        <div className='flex items-center justify-between gap-3 flex-wrap mb-4'>
           <p className='text-sm font-semibold text-gray-700'>{totalReviews} review{totalReviews !== 1 ? 's' : ''}</p>
           <select value={sort} onChange={(e) => setSort(e.target.value)} className='px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white text-gray-700 outline-none focus:border-primary'>
             <option value="recent">Most Recent</option>

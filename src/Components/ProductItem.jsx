@@ -67,9 +67,9 @@ return (
                 <p className={`${large ? 'text-xs sm:text-sm' : 'text-[11px]'} text-slate-500 mt-1.5 truncate`}>Options: {models.join(' | ')}</p>
             )}
 
-            <div className='flex items-center justify-between gap-2 mt-auto pt-3'>
-                <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-bold text-primary-dark whitespace-nowrap`}>{currency}{price}</p>
-                <span className={`${large ? 'text-xs' : 'text-[11px]'} font-semibold bg-blue-50 text-primary border border-blue-200 rounded-lg px-2.5 py-1.5 whitespace-nowrap group-hover:bg-primary group-hover:text-white transition-colors duration-300`}>
+            <div className='flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 mt-auto pt-3'>
+                <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-bold text-primary-dark min-w-0`}>{currency}{price}</p>
+                <span className={`${large ? 'text-xs' : 'text-[11px]'} font-semibold bg-blue-50 text-primary border border-blue-200 rounded-lg px-2.5 py-1.5 group-hover:bg-primary group-hover:text-white transition-colors duration-300`}>
                     Add to Cart
                 </span>
             </div>

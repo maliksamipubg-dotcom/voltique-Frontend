@@ -301,14 +301,14 @@ Please confirm my order.`;
                 const isStock = ['stock', 'stock status'].includes(spec.name.trim().toLowerCase());
                 const stockIn = spec.value.trim().toLowerCase() === 'in stock';
                 return (
-                  <div key={i} className={`flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
+                  <div key={i} className={`flex items-center justify-between gap-3 flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
                     <div className='flex items-center gap-2.5 sm:gap-3 min-w-0'>
                       <span className='w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-blue-50 text-primary border border-blue-100'>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5 sm:w-4 sm:h-4'>
                           <path d={getSpecIcon(spec.name)} />
                         </svg>
                       </span>
-                      <span className='text-slate-600 font-medium'>{spec.name}</span>
+                      <span className='text-slate-600 font-medium min-w-0 break-words'>{spec.name}</span>
                     </div>
                     {isStock ? (
                       <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white shrink-0 ${stockIn ? 'bg-accent' : 'bg-red-600'}`}>
@@ -389,7 +389,7 @@ Please confirm my order.`;
       </div>
       {/**Description and Review Section */}
       <div className='mt-20'>
-        <div className='flex'>
+        <div className='flex flex-wrap'>
           <b className='border border-slate-200 px-5 py-3 text-sm rounded-t-lg bg-white text-primary'>Description</b>
           <p className='border border-slate-200 px-5 py-3 text-sm rounded-t-lg bg-white text-gray-600'>Specifications & Care</p>
         </div>

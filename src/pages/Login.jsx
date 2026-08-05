@@ -113,7 +113,7 @@ const Login = () => {
           required   
           className='w-full px-4 py-2 rounded-lg bg-white/90 text-gray-800 border border-gray-200 focus:ring-2 focus:ring-sky-400 outline-none'
         />
-        <div className='w-full flex justify-between text-sm text-white/90 mt-[-6px]'>
+        <div className='w-full flex justify-between gap-x-2 gap-y-1 flex-wrap text-sm text-white/90 mt-[-6px]'>
           <p className='cursor-pointer hover:underline'>Forgot your password?</p>
           {
             currentState === 'Login' 
