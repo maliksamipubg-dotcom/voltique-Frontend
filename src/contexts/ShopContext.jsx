@@ -1,4 +1,4 @@
-import { createContext,  useEffect,  useState } from "react";
+import { createContext,  useEffect,  useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios'
@@ -6,6 +6,33 @@ import { signInWithPopup, signOut } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase.js'
 import { backendUrl } from '../config.js'
 export const ShopContext = createContext();
+
+// Session-scoped caches so products/categories render instantly on reloads and
+// repeat visits without re-fetching the full catalog every time.
+const PRODUCTS_CACHE_KEY = 'voltique_products_cache'
+const CATEGORIES_CACHE_KEY = 'voltique_categories_cache'
+const CACHE_TTL_MS = 5 * 60 * 1000
+
+const readSessionCache = (key) => {
+    try {
+        const raw = sessionStorage.getItem(key)
+        if (!raw) return null
+        const parsed = JSON.parse(raw)
+        if (!parsed || !parsed.data) return null
+        if (Date.now() - parsed.timestamp > CACHE_TTL_MS) return null
+        return parsed.data
+    } catch {
+        return null
+    }
+}
+
+const writeSessionCache = (key, data) => {
+    try {
+        sessionStorage.setItem(key, JSON.stringify({ timestamp: Date.now(), data }))
+    } catch {
+        // Ignore quota / privacy-mode errors — caching is best effort.
+    }
+}
 
 // Maps Firebase / network / backend errors to a user friendly message.
 const getGoogleErrorMessage = (error) => {
@@ -40,12 +67,20 @@ const ShopContextProvider = (props) =>{
     const [search,setSearch] = useState('');
     const [showSearch,setShowSearch] = useState(false);
     const [cartItems,setCartItems] = useState({});
-    const [products,setProducts] = useState([]);
-    const [categories,setCategories] = useState([]);
+    // Initialize from the session cache so the catalog is available on the
+    // very first paint (products appear instantly), then refreshed in the
+    // background by the mount effect below.
+    const [products,setProducts] = useState(() => readSessionCache(PRODUCTS_CACHE_KEY) || []);
+    const [categories,setCategories] = useState(() => readSessionCache(CATEGORIES_CACHE_KEY) || []);
     const [token,setToken] = useState('')
     const [user,setUser] = useState(null)
     const navigate = useNavigate();
     const location = useLocation();
+    // Guards: fetch the catalog only once per mount and never fire duplicate
+    // concurrent requests for the same data.
+    const dataLoadedRef = useRef(false);
+    const productsRequestRef = useRef(null);
+    const categoriesRequestRef = useRef(null);
 
     const loadUserProfile = async () => {
         const t = localStorage.getItem('token');
@@ -191,28 +226,44 @@ const ShopContextProvider = (props) =>{
         return totalAmount;
     }
     const getProductsData = async ()=>{
-        try {
-            const response = await axios.get( backendUrl + '/api/product/list')
-            if(response.data.success){
-                setProducts(response.data.products)
-            }else{
-                toast.error(response.data.message)
+        // Prevent duplicate concurrent requests (e.g. StrictMode double-mount
+        // or two components requesting at once) from hitting the API twice.
+        if (productsRequestRef.current) return productsRequestRef.current;
+        productsRequestRef.current = (async () => {
+            try {
+                const response = await axios.get( backendUrl + '/api/product/list')
+                if(response.data.success){
+                    setProducts(response.data.products)
+                    writeSessionCache(PRODUCTS_CACHE_KEY, response.data.products)
+                }else{
+                    toast.error(response.data.message)
+                }
+                
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            } finally {
+                productsRequestRef.current = null;
             }
-            
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
+        })();
+        return productsRequestRef.current;
     }
     const getCategoriesData = async ()=>{
-        try {
-            const response = await axios.get( backendUrl + '/api/category/list')
-            if(response.data.success){
-                setCategories(response.data.categories)
+        if (categoriesRequestRef.current) return categoriesRequestRef.current;
+        categoriesRequestRef.current = (async () => {
+            try {
+                const response = await axios.get( backendUrl + '/api/category/list')
+                if(response.data.success){
+                    setCategories(response.data.categories)
+                    writeSessionCache(CATEGORIES_CACHE_KEY, response.data.categories)
+                }
+            } catch (error) {
+                console.log(error)
+            } finally {
+                categoriesRequestRef.current = null;
             }
-        } catch (error) {
-            console.log(error)
-        }
+        })();
+        return categoriesRequestRef.current;
     }
     const getUserCart = async (token) => {
         try {
@@ -227,9 +278,13 @@ const ShopContextProvider = (props) =>{
         }
     }
     useEffect(()=>{
-        getProductsData()
-        getCategoriesData()
-    },[location.pathname])
+        if (dataLoadedRef.current) return
+        dataLoadedRef.current = true
+
+        // Fetch both endpoints in parallel, never blocking first paint. Any
+        // session-cached data was already rendered via the state initializers.
+        Promise.allSettled([getProductsData(), getCategoriesData()])
+    },[])
     useEffect(()=>{
         if (!token && localStorage.getItem('token')) {
             setToken(localStorage.getItem('token'))
