@@ -119,8 +119,8 @@ const Navbar = () => {
         <div onClick={() => setVisible(false)} className='fixed inset-0 z-40 bg-black/40 sm:hidden' />
       )}
       <div
-        className={`fixed top-0 right-0 bottom-0 z-50 w-72 max-w-[85vw] bg-white shadow-2xl sm:hidden transition-transform duration-300 ${
-          visible ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 left-0 bottom-0 z-50 w-72 max-w-[85vw] bg-white shadow-2xl sm:hidden transition-transform duration-300 ${
+          visible ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div
