@@ -301,7 +301,7 @@ Please confirm my order.`;
                 const isStock = ['stock', 'stock status'].includes(spec.name.trim().toLowerCase());
                 const stockIn = spec.value.trim().toLowerCase() === 'in stock';
                 return (
-                  <div key={i} className={`flex items-center justify-between gap-3 flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
+                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
                     <div className='flex items-center gap-2.5 sm:gap-3 min-w-0'>
                       <span className='w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-blue-50 text-primary border border-blue-100'>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5 sm:w-4 sm:h-4'>
@@ -311,7 +311,7 @@ Please confirm my order.`;
                       <span className='text-slate-600 font-medium min-w-0 break-words'>{spec.name}</span>
                     </div>
                     {isStock ? (
-                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white shrink-0 ${stockIn ? 'bg-accent' : 'bg-red-600'}`}>
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white shrink-0 justify-self-end sm:justify-self-auto ${stockIn ? 'bg-accent' : 'bg-red-600'}`}>
                         <span className='w-1.5 h-1.5 rounded-full bg-white animate-pulse'></span>
                         {spec.value}
                       </span>
