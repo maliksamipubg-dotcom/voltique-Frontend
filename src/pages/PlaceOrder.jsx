@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import Title from '../Components/Title'
 import CartTotal from '../Components/CartTotal'
+import Seo from '../Components/Seo'
 import { ShopContext } from '../contexts/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -294,6 +295,8 @@ const PlaceOrder = () => {
 
   return (
     <form onSubmit={onSubmitHandler} noValidate className='flex flex-col lg:flex-row justify-between gap-8 pt-5 sm:pt-14 min-h-[80vh] border-t'>
+      <Seo title="Checkout | Voltique Hub" description="Secure checkout for battery chargers, stabilizers and inverters from Voltique Hub." path="/placeOrder" robots="noindex, follow" />
+      <h1 className='sr-only'>Checkout</h1>
       <div className='flex flex-col gap-5 w-full lg:max-w-[540px]'>
         {/*Left Side */}
         <div className='text-xl sm:text-2xl'>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../contexts/ShopContext'
 import Title from '../Components/Title';
+import Seo from '../Components/Seo';
 import axios from 'axios';
 
 const STEPS = ['Order Placed','Order Confirmed','Processing','Packed','Shipped','Out for Delivery','Delivered'];
@@ -120,6 +121,8 @@ const TrackOrder = () => {
 
   return (
     <div className='border-t pt-16'>
+      <Seo title="Track Order | Voltique Hub" description="Track the delivery status of your Voltique Hub order." path={`/track/${orderId}`} robots="noindex, follow" />
+      <h1 className='sr-only'>Track Order</h1>
       <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6'>
         <div className='text-2xl'>
           <Title text1={'TRACK'} text2={'ORDER'} />

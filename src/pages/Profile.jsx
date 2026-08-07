@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../contexts/ShopContext'
 import Title from '../Components/Title';
+import Seo from '../Components/Seo';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -276,6 +277,8 @@ const Profile = () => {
 
   return (
     <div className='border-t pt-14 max-w-3xl mx-auto'>
+      <Seo title="My Profile | Voltique Hub" description="Manage your Voltique Hub account and profile details." path="/profile" robots="noindex, follow" />
+      <h1 className='sr-only'>My Profile</h1>
       <div className='text-2xl mb-6'>
         <Title text1={'MY'} text2={'PROFILE'} />
       </div>

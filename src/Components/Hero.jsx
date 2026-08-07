@@ -52,7 +52,7 @@ const Hero = () => {
 
         {/* Hero Right Side */}
         <div className='w-full sm:w-1/2'>
-          <img className='w-full h-auto' src={assets.hero_img} alt='Power Solutions' />
+          <img className='w-full h-auto' src={assets.hero_img} fetchPriority="high" alt='Voltique Hub power solutions — battery chargers, stabilizers and inverters' />
         </div>
       </div>
     </section>

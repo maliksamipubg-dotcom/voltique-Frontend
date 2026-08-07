@@ -3,6 +3,7 @@ import { ShopContext } from '../contexts/ShopContext'
 import Title from '../Components/Title';
 import { assets } from '../assets/assets';
 import CartTotal from '../Components/CartTotal';
+import Seo from '../Components/Seo';
 
 const Cart = () => {
 
@@ -29,6 +30,12 @@ const Cart = () => {
   },[cartItems,products])
 return (
     <div className='border-t pt-14'>
+      <Seo
+        title="Your Cart | Voltique Hub"
+        description="Review the battery chargers, stabilizers, inverters and accessories in your Voltique Hub cart, then proceed to fast, secure checkout with cash on delivery available."
+        path="/cart"
+      />
+      <h1 className='sr-only'>Your Cart</h1>
       <div className='text-2xl mb-3'>
         <Title text1={'YOUR'} text2={'CART'} />
       </div>
@@ -49,7 +56,7 @@ return (
               <div key={index} className='py-4 border-t border-b text-gray-700'>
                 <div className='flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6'>
                   <div className='flex items-start gap-4 sm:gap-6 flex-1 min-w-0'>
-                    <img className='w-16 sm:w-20 h-auto object-contain rounded-lg border border-slate-200 bg-white flex-shrink-0' src={productData.image[0]} alt="" loading="lazy" />
+                    <img className='w-16 sm:w-20 h-auto object-contain rounded-lg border border-slate-200 bg-white flex-shrink-0' src={productData.image[0]} alt={productData.name} loading="lazy" />
                     <div className='min-w-0'>
                       <p className='text-sm sm:text-lg font-medium break-words'>{productData.name}</p>
                       <div className='flex items-center gap-4 mt-2 flex-wrap'>

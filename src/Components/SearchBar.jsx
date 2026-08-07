@@ -22,10 +22,10 @@ const SearchBar = () => {
 return showSearch && visible ? (
     <div className='border-t border-b border-slate-200 bg-white text-center'>
       <div className='inline-flex items-center justify-center border border-primary px-5 py-2 my-5 mx-3 rounded-full w-4/5 sm:w-1/2 shadow-card'>
-        <input value={search} onChange={(e)=>setSearch(e.target.value)} className='flex-1 outline-none bg-inherit text-sm' type="text" placeholder='Search chargers, stabilizers, inverters, accessories...'/>
-        <img className='w-4' src={assets.search_icon} alt="" />
+        <input value={search} onChange={(e)=>setSearch(e.target.value)} className='flex-1 outline-none bg-inherit text-sm' type="text" placeholder='Search chargers, stabilizers, inverters, accessories...' aria-label='Search products'/>
+        <img className='w-4' src={assets.search_icon} alt="Search" />
       </div>
-      <img onClick={()=>setShowSearch(false)} className='inline w-3 cursor-pointer' src={assets.cross_icon} alt="" />
+      <img onClick={()=>setShowSearch(false)} className='inline w-3 cursor-pointer' src={assets.cross_icon} alt="Close search" />
 
     </div>
   ) : null

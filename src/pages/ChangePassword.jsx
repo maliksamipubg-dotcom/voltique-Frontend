@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../contexts/ShopContext'
 import Title from '../Components/Title';
+import Seo from '../Components/Seo';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -95,6 +96,8 @@ const ChangePassword = () => {
 
   return (
     <div className='border-t pt-14 max-w-3xl mx-auto'>
+      <Seo title="Change Password | Voltique Hub" description="Update your Voltique Hub account password securely." path="/change-password" robots="noindex, follow" />
+      <h1 className='sr-only'>Change Password</h1>
       <div className='text-2xl mb-6'>
         <Title text1={'CHANGE'} text2={'PASSWORD'} />
       </div>

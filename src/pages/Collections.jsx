@@ -4,6 +4,8 @@ import { ShopContext } from '../contexts/ShopContext'
 import { assets } from '../assets/assets';
 import Title from '../Components/Title';
 import ProductItem from '../Components/ProductItem';
+import Seo from '../Components/Seo';
+import { breadcrumbSchema } from '../utils/seo';
 import { parseSpecs } from '../utils/specs';
 
 const availabilityList = ['In Stock', 'Out of Stock'];
@@ -37,6 +39,11 @@ const Collections = () => {
     cat,
     count: (Array.isArray(products) ? products : []).filter((p) => p.category && p.category.toLowerCase() === cat.toLowerCase()).length,
   }));
+
+  const categoryParam = searchParams.get('category') || '';
+  const activeCategory = categoryParam && allCategories.some((c) => c.toLowerCase() === categoryParam.toLowerCase())
+    ? allCategories.find((c) => c.toLowerCase() === categoryParam.toLowerCase())
+    : '';
 
   useEffect(() => {
     const param = searchParams.get('category');
@@ -133,6 +140,21 @@ const Collections = () => {
   },[sortType])
   return (
     <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8 border-t border-slate-200'>
+      <Seo
+        title={activeCategory ? `${activeCategory} | Voltique Hub` : 'Shop All Products | Voltique Hub'}
+        description={activeCategory
+          ? `Buy ${activeCategory} online in Pakistan at Voltique Hub. Genuine, warranty-backed ${activeCategory.toLowerCase()} from trusted brands with fast nationwide delivery.`
+          : 'Shop all battery chargers, stabilizers, power inverters and charging accessories online. Filter by category, brand, price and availability at Voltique Hub.'}
+        path={activeCategory ? `/collections?category=${encodeURIComponent(activeCategory)}` : '/collections'}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Shop', path: '/collections' },
+            ...(activeCategory ? [{ name: activeCategory, path: `/collections?category=${encodeURIComponent(activeCategory)}` }] : []),
+          ]),
+        ]}
+      />
+      <h1 className='sr-only'>Shop Battery Chargers, Stabilizers &amp; Inverters</h1>
 
       {/* Filter Options */}
       <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0'>

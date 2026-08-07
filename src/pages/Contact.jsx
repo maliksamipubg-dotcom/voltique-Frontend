@@ -1,6 +1,8 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import Title from '../Components/Title'
+import Seo from '../Components/Seo'
+import { breadcrumbSchema } from '../utils/seo'
 
 const MAP_EMBED_URL = 'https://www.google.com/maps?q=Pakistan&output=embed'
 
@@ -41,6 +43,13 @@ const contactDetails = [
 const Contact = () => {
   return (
     <div className='w-full max-w-7xl mx-auto'>
+      <Seo
+        title="Contact Us | Voltique Hub"
+        description="Contact Voltique Hub for help choosing battery chargers, stabilizers, inverters or accessories, order tracking and warranty support. WhatsApp (92) 3063720139."
+        path="/contact"
+        jsonLd={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])]}
+      />
+      <h1 className='sr-only'>Contact Voltique Hub</h1>
       <div className='text-center text-2xl pt-10 border-t border-slate-200'>
         <Title text1={'CONTACT'} text2={'US'} />
       </div>
@@ -69,7 +78,7 @@ const Contact = () => {
             Whether you need help choosing the right charger, stabilizer, or inverter, tracking an order, or a warranty question, feel free to
             reach out. We look forward to hearing from you.
           </p>
-          <img className='w-full md:max-w-[420px] rounded-2xl shadow-card hover:shadow-card-hover transition-shadow duration-300' src={assets.contact_img} alt="" />
+          <img className='w-full md:max-w-[420px] rounded-2xl shadow-card hover:shadow-card-hover transition-shadow duration-300' src={assets.contact_img} loading="lazy" alt="Contact Voltique Hub for battery chargers, stabilizers and inverters" />
         </div>
       </div>
       <div className='mb-20'>

@@ -62,16 +62,16 @@ const Navbar = () => {
           onClick={() => setShowSearch(true)}
           src={assets.search_icon}
           className='w-5 cursor-pointer'
-          alt=''
+          alt='Search products'
         />
 
         {/* Profile Dropdown */}
         <div className='relative' ref={profileRef}>
           <div onClick={()=> token ? setProfileOpen(!profileOpen) : navigate('/login')} className='flex items-center gap-2 cursor-pointer'>
             {user?.photoURL ? (
-              <img src={user.photoURL} className='w-6 h-6 rounded-full object-cover' alt='' />
+              <img src={user.photoURL} className='w-6 h-6 rounded-full object-cover' alt={`${user.name || 'User'} profile`} />
             ) : (
-              <img src={assets.profile_icon} className='w-5 cursor-pointer' alt='' />
+              <img src={assets.profile_icon} className='w-5 cursor-pointer' alt='My account' />
             )}
             {user && (
               <span className='hidden sm:inline text-xs font-semibold text-gray-700 max-w-28 truncate'>{user.name}</span>
@@ -99,7 +99,7 @@ const Navbar = () => {
 
         {/* Cart */}
         <Link to='/cart' className='relative'>
-          <img src={assets.cart_icon} className='w-5 min-w-5' alt='' />
+          <img src={assets.cart_icon} className='w-5 min-w-5' alt='Shopping cart' />
           <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-primary text-white aspect-square rounded-full text-[8px]'>
             {getCartCount()}
           </p>
@@ -110,7 +110,7 @@ const Navbar = () => {
           onClick={() => setVisible(true)}
           src={assets.menu_icon}
           className='w-5 cursor-pointer sm:hidden'
-          alt=''
+          alt='Open menu'
         />
       </div>
 
@@ -127,7 +127,7 @@ const Navbar = () => {
           onClick={() => setVisible(false)}
           className='flex items-center gap-4 p-4 cursor-pointer border-b border-slate-200'
         >
-          <img className='h-4 rotate-180' src={assets.dropdown_icon} alt='' />
+          <img className='h-4 rotate-180' src={assets.dropdown_icon} alt='Back' />
           <p className='text-sm font-medium text-gray-600'>Back</p>
         </div>
 

@@ -4,8 +4,10 @@ import { ShopContext } from '../contexts/ShopContext';
 import { assets } from '../assets/assets';
 import RelatedProducts from '../Components/RelatedProducts';
 import ReviewSection from '../Components/ReviewSection';
+import Seo from '../Components/Seo';
 import { toast } from 'react-toastify';
 import { parseSpecs } from '../utils/specs';
+import { DEFAULT_TITLE, buildProductDescription, breadcrumbSchema, extractProductId, getProductUrl, productSchema } from '../utils/seo';
 
 const specIconPaths = {
   brand: 'M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83zM7 7h.01',
@@ -52,6 +54,7 @@ const getSpecIcon = (name) => {
 
 const Product = () => {
   const {productId} = useParams();
+  const realProductId = extractProductId(productId);
   const [searchParams] = useSearchParams();
   const {products, currency ,addToCart, updateQuantity, token, navigate} = useContext(ShopContext);
   const [productData,setProductData] = useState(false);
@@ -122,21 +125,21 @@ Please confirm my order.`;
       return;
     }
     if (!token) {
-      sessionStorage.setItem('storeOrderProduct', JSON.stringify({ productId, size: effectiveSize, quantity }));
-      sessionStorage.setItem('redirectAfterLogin', '/product/' + productId);
+      sessionStorage.setItem('storeOrderProduct', JSON.stringify({ productId: realProductId, size: effectiveSize, quantity }));
+      sessionStorage.setItem('redirectAfterLogin', '/product/' + realProductId);
       navigate('/login');
       return;
     }
-    addToCart(productId, effectiveSize);
+    addToCart(realProductId, effectiveSize);
     if (quantity > 1) {
-      updateQuantity(productId, effectiveSize, quantity);
+      updateQuantity(realProductId, effectiveSize, quantity);
     }
     navigate('/placeOrder');
   }
 
   const fetchProductData = async () => {
     products.map((item)=>{
-      if (item._id === productId) {
+      if (item._id === realProductId) {
         setProductData(item)
         setImage(item.image[0])
         return null;
@@ -209,6 +212,22 @@ Please confirm my order.`;
 
   return productData ? (
     <div className='border-t-2 border-slate-200 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+      <Seo
+        title={`${productData.name} | Voltique Hub`}
+        description={buildProductDescription(productData)}
+        path={getProductUrl(productData)}
+        image={productData.image && productData.image[0] ? productData.image[0] : assets.device_charger}
+        type="product"
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Shop', path: '/collections' },
+            ...(productData.category ? [{ name: productData.category, path: `/collections?category=${encodeURIComponent(productData.category)}` }] : []),
+            { name: productData.name, path: getProductUrl(productData) },
+          ]),
+          productSchema(productData),
+        ]}
+      />
       {/*Product Data */}
 
       <div className='flex flex-col lg:flex-row gap-10 lg:gap-14'>
@@ -219,14 +238,14 @@ Please confirm my order.`;
               <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[86px] sm:shrink-0 gap-2'>
                 {
                   productData.image.map((item,index)=>(
-                    <img onClick={()=>setImage(item)} src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} key={index} className={`w-16 sm:w-[86px] h-auto object-contain bg-white flex-shrink-0 cursor-pointer border rounded-xl transition-all ${image === item ? 'border-primary ring-1 ring-primary' : 'border-slate-200 hover:border-primary/60'}`} alt="" />
+                    <img onClick={()=>setImage(item)} src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} key={index} loading="lazy" className={`w-16 sm:w-[86px] h-auto object-contain bg-white flex-shrink-0 cursor-pointer border rounded-xl transition-all ${image === item ? 'border-primary ring-1 ring-primary' : 'border-slate-200 hover:border-primary/60'}`} alt={`${productData.name} - thumbnail ${index + 1}`} />
                   ))
                 }
               </div>
             )}
             <div className='flex-1 min-w-0'>
               <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden cursor-zoom-in group relative'>
-                <img className='w-full h-auto object-contain transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt="" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
+                <img className='w-full h-auto object-contain transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt={productData.name} fetchPriority="high" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
                 <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-white/90 text-gray-700 text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-slate-200 opacity-0 group-hover:opacity-100 transition-opacity'>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5'>
                     <circle cx="11" cy="11" r="8" />
@@ -430,7 +449,7 @@ Please confirm my order.`;
 
           <div onClick={(e)=>e.stopPropagation()} className='max-w-5xl w-full flex flex-col items-center gap-4'>
             <div className='w-full flex items-center justify-center bg-slate-900/40 border border-white/10 rounded-2xl py-4 sm:py-6 px-4'>
-              <img key={image} src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='max-h-[70vh] sm:max-h-[75vh] w-auto max-w-full object-contain' alt="" />
+              <img key={image} src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='max-h-[70vh] sm:max-h-[75vh] w-auto max-w-full object-contain' alt={productData.name} />
             </div>
 
             {productData.image.length > 1 && (
@@ -438,7 +457,7 @@ Please confirm my order.`;
                 <div className='flex items-center justify-center gap-2 sm:gap-3 flex-wrap'>
                   {productData.image.map((item, index) => (
                     <button key={index} onClick={()=>setImage(item)} className={`w-14 sm:w-16 rounded-lg border-2 overflow-hidden bg-white flex items-center justify-center transition-all ${image === item ? 'border-accent ring-2 ring-accent/40' : 'border-transparent opacity-60 hover:opacity-100'}`}>
-                      <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='w-full h-auto object-contain' alt="" />
+                      <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='w-full h-auto object-contain' alt={`${productData.name} - thumbnail ${index + 1}`} />
                     </button>
                   ))}
                 </div>
@@ -449,7 +468,11 @@ Please confirm my order.`;
         </div>
       )}
     </div>
-  ) : <div className=' opacity-0'></div>
+  ) : (
+    <div className=' opacity-0'>
+      <Seo title={DEFAULT_TITLE} path={`/product/${productId}`} />
+    </div>
+  )
 }
 
 export default Product

@@ -1,15 +1,24 @@
 import React from 'react'
 import Title from '../Components/Title'
 import { assets } from '../assets/assets'
+import Seo from '../Components/Seo'
+import { breadcrumbSchema } from '../utils/seo'
 
 const About = () => {
   return (
     <div>
+      <Seo
+        title="About Us | Voltique Hub"
+        description="Voltique Hub is a specialized store for battery chargers, stabilizers, power inverters and charging accessories. Genuine products, competitive prices and dependable customer support."
+        path="/about"
+        jsonLd={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])]}
+      />
+      <h1 className='sr-only'>About Voltique Hub</h1>
       <div className='text-2xl text-center pt-8 border-t border-slate-200'>
         <Title text1={'ABOUT'} text2={'US'} />
       </div>
       <div className='my-10 flex flex-col md:flex-row gap-16 items-center'>
-        <img className='w-full md:max-w-[450px] rounded-2xl shadow-card' src={assets.about_img} alt="" />
+        <img className='w-full md:max-w-[450px] rounded-2xl shadow-card' src={assets.about_img} loading="lazy" alt="Voltique Hub — battery chargers, stabilizers and power inverters" />
         <div className='flex flex-col justify-center gap-6 md:w-2/4 text-gray-600'>
           <p>Voltique Hub is a specialized eCommerce store for Battery Chargers, Stabilizers, Power Inverters, and Charging Accessories.
               We supply reliable power equipment from trusted brands with genuine products, competitive prices, and dependable customer support.

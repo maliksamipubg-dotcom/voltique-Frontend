@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../contexts/ShopContext'
 import { Link } from 'react-router-dom'
 import { assets } from '../assets/assets'
+import { getProductUrl } from '../utils/seo'
 
 const stripSpecs = (desc) => {
   let rest = (desc || '').trim();
@@ -20,14 +21,14 @@ const ProductItem = ({id,image,name,price,category,brand,models,description,larg
     const shortDescription = description ? stripSpecs(description) : '';
 
 return (
-    <Link className='group flex flex-col h-full min-w-0 bg-white rounded-xl border border-slate-200 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden text-gray-700 cursor-pointer' to={`/product/${id}`}>
+    <Link className='group flex flex-col h-full min-w-0 bg-white rounded-xl border border-slate-200 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden text-gray-700 cursor-pointer' to={getProductUrl({ name, _id: id })}>
         <div className='relative bg-white overflow-hidden'>
             <img
                 className='w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500'
                 src={image && image[0] ? image[0] : assets.device_charger}
                 onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }}
                 loading="lazy"
-                alt=""
+                alt={name}
             />
             <span className='absolute top-2 left-2 text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-primary text-white'>
                 {category || 'Battery Chargers'}

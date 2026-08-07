@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../contexts/ShopContext'
 import Title from '../Components/Title';
+import Seo from '../Components/Seo';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -121,6 +122,8 @@ const Orders = () => {
 
   return (
     <div className='border-t pt-16'>
+      <Seo title="My Orders | Voltique Hub" description="Track and manage your Voltique Hub orders." path="/orders" robots="noindex, follow" />
+      <h1 className='sr-only'>My Orders</h1>
       <div className='text-2xl mb-6'>
         <Title text1={'MY'} text2={'ORDERS'}/>
       </div>

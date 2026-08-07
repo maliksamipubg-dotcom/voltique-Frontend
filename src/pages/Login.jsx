@@ -3,6 +3,7 @@ import { ShopContext } from '../contexts/ShopContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import GoogleButton from '../Components/GoogleButton';
+import Seo from '../Components/Seo';
 
 const Login = () => {
 
@@ -78,6 +79,12 @@ const Login = () => {
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-primary-dark to-sky-700'>
+      <Seo
+        title="Login | Voltique Hub"
+        description="Log in or create your Voltique Hub account to manage your cart, track orders and enjoy faster, secure checkout."
+        path="/login"
+      />
+      <h1 className='sr-only'>Login to Voltique Hub</h1>
       <form 
         onSubmit={onSubmitHandler} 
         className='flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-5 p-8 rounded-2xl backdrop-blur-lg bg-white/10 shadow-2xl border border-white/20'
