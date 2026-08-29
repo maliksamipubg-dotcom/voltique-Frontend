@@ -228,7 +228,7 @@ const TrackOrder = () => {
                     <p className='text-sm font-medium text-gray-800 break-words'>{item.name}</p>
                     <p className='text-xs text-gray-400 mt-0.5'>Model: {item.size} | Qty: {item.quantity}</p>
                   </div>
-                  <p className='text-sm font-semibold text-gray-800 shrink-0'>{currency}{item.price * item.quantity}</p>
+                  <p className='text-sm font-semibold text-gray-800 shrink-0'>{currency} {item.price * item.quantity}</p>
                 </div>
               ))}
             </div>

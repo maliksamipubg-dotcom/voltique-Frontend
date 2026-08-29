@@ -167,7 +167,7 @@ const Orders = () => {
                             </p>
                           )}
                         </div>
-                        <p className='text-sm font-semibold text-gray-800 shrink-0'>{currency}{item.price} <span className='text-gray-400 font-normal'>x {item.quantity}</span></p>
+                        <p className='text-sm font-semibold text-gray-800 shrink-0'>{currency} {item.price} <span className='text-gray-400 font-normal'>x {item.quantity}</span></p>
                         <div className='flex items-center gap-2 shrink-0 flex-wrap'>
                           <button onClick={() => navigate('/product/' + item._id)} className='text-xs text-gray-500 hover:text-primary transition-colors'>View</button>
                           {delivered && (

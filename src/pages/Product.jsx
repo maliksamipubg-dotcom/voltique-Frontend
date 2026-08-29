@@ -302,7 +302,7 @@ Please confirm my order.`;
               <span className='text-xs text-primary font-medium group-hover:underline'>Be the first to review</span>
             </button>
           )}
-          <p className='mt-4 text-3xl sm:text-4xl font-bold text-primary-dark'>{currency}{productData.price}</p>
+          <p className='mt-4 text-3xl sm:text-4xl font-bold text-primary-dark'>{currency} {productData.price}</p>
 
           <p className='mt-5 text-gray-500 leading-relaxed'>{descriptionText}</p>
 

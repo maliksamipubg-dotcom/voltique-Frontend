@@ -60,7 +60,7 @@ return (
                     <div className='min-w-0'>
                       <p className='text-sm sm:text-lg font-medium break-words'>{productData.name}</p>
                       <div className='flex items-center gap-4 mt-2 flex-wrap'>
-                        <p>{currency}{productData.price}</p>
+                        <p>{currency} {productData.price}</p>
                         <p className='px-2 sm:px-3 sm:py-1 border border-slate-200 bg-slate-50 text-xs'><span className='text-slate-400'>Options: </span>{item.size}</p>
                       </div>
                     </div>

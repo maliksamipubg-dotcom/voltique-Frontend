@@ -69,7 +69,7 @@ return (
             )}
 
             <div className='flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 mt-auto pt-3'>
-                <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-bold text-primary-dark min-w-0`}>{currency}{price}</p>
+                <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-bold text-primary-dark min-w-0`}>{currency} {price}</p>
                 <span className={`${large ? 'text-xs' : 'text-[11px]'} font-semibold bg-blue-50 text-primary border border-blue-200 rounded-lg px-2.5 py-1.5 group-hover:bg-primary group-hover:text-white transition-colors duration-300`}>
                     Add to Cart
                 </span>

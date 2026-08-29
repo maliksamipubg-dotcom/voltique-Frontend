@@ -62,8 +62,8 @@ const getGoogleErrorMessage = (error) => {
 
 const ShopContextProvider = (props) =>{
 
-    const currency = 'Rs';
-    const delivery_fee = 300;
+    const currency = 'Rs:';
+    const delivery_fee = 500;
     const [search,setSearch] = useState('');
     const [showSearch,setShowSearch] = useState(false);
     const [cartItems,setCartItems] = useState({});
