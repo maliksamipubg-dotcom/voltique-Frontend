@@ -5,6 +5,10 @@
       "destination": "/api/sitemap"
     },
     {
+      "source": "/product/:path*",
+      "destination": "/api/product-page?path=:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
