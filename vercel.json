@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/product-page.js": {
+      "includeFiles": "dist/index.html"
+    }
+  },
   "rewrites": [
     {
       "source": "/sitemap.xml",
