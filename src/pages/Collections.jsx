@@ -35,22 +35,61 @@ const groupByCategory = (list) => {
     .flatMap((group) => group.items);
 };
 
+const SkeletonCard = () => (
+  <div className='card overflow-hidden'>
+    <div className='skeleton w-full aspect-[4/3] rounded-none'></div>
+    <div className='p-4 flex flex-col gap-2.5'>
+      <div className='skeleton h-3 w-1/3'></div>
+      <div className='skeleton h-4 w-full'></div>
+      <div className='skeleton h-4 w-4/5'></div>
+      <div className='skeleton h-3 w-1/2 mt-1'></div>
+      <div className='flex items-center justify-between pt-3 mt-1 border-t border-slate-100'>
+        <div className='skeleton h-4 w-20'></div>
+        <div className='skeleton h-7 w-20 rounded-lg'></div>
+      </div>
+    </div>
+  </div>
+);
+
+const SkeletonFilterBlock = () => (
+  <div className='card p-5'>
+    <div className='skeleton h-3 w-20 mb-4'></div>
+    <div className='flex flex-col gap-3'>
+      <div className='skeleton h-3.5 w-full'></div>
+      <div className='skeleton h-3.5 w-4/5'></div>
+      <div className='skeleton h-3.5 w-2/3'></div>
+    </div>
+  </div>
+);
+
+// Skeleton mirror of the real catalog layout, so nothing jumps once the
+// products arrive. Announced as a busy region for screen readers.
 const CatalogLoader = () => (
   <div
-    className='w-full flex-1 flex flex-col items-center justify-center text-center py-20 min-h-[55vh] catalog-enter'
+    className='w-full flex-1 flex flex-col lg:flex-row gap-6 lg:gap-8 py-8 catalog-enter'
     role='status'
     aria-live='polite'
     aria-busy='true'
   >
-    <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
-      <span className='w-10 h-10 sm:w-12 sm:h-12 border-4 border-slate-200 border-t-primary rounded-full animate-spin'></span>
-      <span className='text-center sm:text-left'>
-        <span className='block text-base sm:text-lg font-semibold text-gray-800'>Loading products...</span>
-        <span className='block text-xs sm:text-sm text-gray-500 mt-1'>Fetching chargers, stabilizers, inverters and accessories.</span>
-      </span>
-    </div>
-    <div className='mt-6 h-1 w-40 sm:w-56 overflow-hidden rounded-full bg-slate-200'>
-      <div className='h-full w-1/3 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 animate-pulse'></div>
+    <span className='sr-only'>Loading products…</span>
+
+    <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0 hidden lg:flex flex-col gap-4' aria-hidden='true'>
+      <SkeletonFilterBlock />
+      <SkeletonFilterBlock />
+      <SkeletonFilterBlock />
+      <SkeletonFilterBlock />
+    </aside>
+
+    <div className='flex-1 min-w-0' aria-hidden='true'>
+      <div className='flex items-center justify-between gap-3 mb-6'>
+        <div className='skeleton h-5 w-40'></div>
+        <div className='skeleton h-9 w-40 rounded-lg'></div>
+      </div>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
     </div>
   </div>
 );
@@ -191,6 +230,8 @@ const Collections = () => {
   // skip it completely.
   const showCatalogLoader = productsLoading && (!Array.isArray(products) || products.length === 0);
 
+  const resultCount = Array.isArray(filterProducts) ? filterProducts.length : 0;
+
   return (
     <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8 border-t border-slate-200'>
       <Seo
@@ -213,75 +254,85 @@ const Collections = () => {
       <>
       {/* Filter Options */}
       <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0'>
-        <p
+        <button
+          type='button'
           onClick={() => setShowFilter(!showFilter)}
-          className='text-xl flex items-center cursor-pointer gap-2 font-semibold text-gray-800'
+          aria-expanded={showFilter}
+          className='card w-full flex items-center justify-between px-5 py-4 lg:shadow-none lg:border-0 lg:bg-transparent lg:p-0 font-semibold text-gray-800 transition-colors duration-300 hover:text-primary'
         >
-          FILTERS
-          <img
-            className={`h-3 lg:hidden ${showFilter ? 'rotate-90' : ''}`}
-            src={assets.dropdown_icon}
-            alt=""
-          />
-        </p>
+          <span className='text-base tracking-[0.15em]'>FILTERS</span>
+          <span className='w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center lg:hidden'>
+            <img
+              className={`h-3 transition-transform duration-500 ease-swift ${showFilter ? 'rotate-90' : ''}`}
+              src={assets.dropdown_icon}
+              alt=""
+            />
+          </span>
+        </button>
 
         <div className={`mt-4 flex flex-col gap-4 ${showFilter ? '' : 'hidden'} lg:flex`}>
           {/* Category Filter */}
-          <div className='border border-slate-200 pl-5 pr-4 py-4 rounded-lg bg-white shadow-card'>
-            <p className='mb-3 text-xs font-semibold tracking-wider text-gray-700'>CATEGORY</p>
-            <div className='flex flex-col gap-2.5 text-sm font-light text-gray-700'>
+          <div className='card p-5'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Category</p>
+            <div className='flex flex-col gap-3 text-sm font-light text-gray-700'>
               {categoryCounts.map(({ cat, count }, i) => (
-                <p className='flex gap-2.5 items-center' key={i}>
-                  <input className='w-3.5 h-3.5 accent-primary' type="checkbox" value={cat} checked={category.includes(cat.toLowerCase())} onChange={toggleCategory} /> {cat} <span className='text-xs text-gray-400'>({count})</span>
-                </p>
+                <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
+                  <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={cat} checked={category.includes(cat.toLowerCase())} onChange={toggleCategory} />
+                  <span className='group-hover:text-primary transition-colors duration-200'>{cat}</span>
+                  <span className='ml-auto text-xs text-gray-400'>({count})</span>
+                </label>
               ))}
             </div>
           </div>
 
           {/* Brand Filter */}
-          <div className='border border-slate-200 pl-5 pr-4 py-4 rounded-lg bg-white shadow-card'>
-            <p className='mb-3 text-xs font-semibold tracking-wider text-gray-700'>BRAND</p>
-            <div className='flex flex-col gap-2.5 text-sm font-light text-gray-700'>
+          <div className='card p-5'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Brand</p>
+            <div className='flex flex-col gap-3 text-sm font-light text-gray-700'>
               {brands.map((b, i) => (
-                <p className='flex gap-2.5 items-center' key={i}>
-                  <input className='w-3.5 h-3.5 accent-primary' type="checkbox" value={b} onChange={toggleBrand} /> {b}
-                </p>
+                <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
+                  <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={b} onChange={toggleBrand} />
+                  <span className='group-hover:text-primary transition-colors duration-200'>{b}</span>
+                </label>
               ))}
             </div>
           </div>
 
           {/* Price Filter */}
-          <div className='border border-slate-200 pl-5 pr-4 py-4 rounded-lg bg-white shadow-card'>
-            <p className='mb-3 text-xs font-semibold tracking-wider text-gray-700'>PRICE</p>
+          <div className='card p-5'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Price</p>
             <div className='flex items-center gap-2'>
               <input
                 value={minPrice}
                 onChange={(e)=>setMinPrice(e.target.value)}
-                className='border border-slate-300 rounded-md px-2.5 py-2 w-full text-sm outline-none focus:border-primary focus:ring-1 focus:ring-blue-500/30'
+                className='field px-3 py-2 w-full'
                 type="number"
                 min={0}
                 placeholder='Min'
+                aria-label='Minimum price'
               />
               <span className='text-slate-400'>-</span>
               <input
                 value={maxPrice}
                 onChange={(e)=>setMaxPrice(e.target.value)}
-                className='border border-slate-300 rounded-md px-2.5 py-2 w-full text-sm outline-none focus:border-primary focus:ring-1 focus:ring-blue-500/30'
+                className='field px-3 py-2 w-full'
                 type="number"
                 min={0}
                 placeholder='Max'
+                aria-label='Maximum price'
               />
             </div>
           </div>
 
           {/* Availability Filter */}
-          <div className='border border-slate-200 pl-5 pr-4 py-4 rounded-lg bg-white shadow-card'>
-            <p className='mb-3 text-xs font-semibold tracking-wider text-gray-700'>AVAILABILITY</p>
-            <div className='flex flex-col gap-2.5 text-sm font-light text-gray-700'>
+          <div className='card p-5'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Availability</p>
+            <div className='flex flex-col gap-3 text-sm font-light text-gray-700'>
               {availabilityList.map((avail, i) => (
-                <p className='flex gap-2.5 items-center' key={i}>
-                  <input className='w-3.5 h-3.5 accent-primary' type="checkbox" value={avail} onChange={toggleAvailability} /> {avail}
-                </p>
+                <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
+                  <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={avail} onChange={toggleAvailability} />
+                  <span className='group-hover:text-primary transition-colors duration-200'>{avail}</span>
+                </label>
               ))}
             </div>
           </div>
@@ -291,9 +342,16 @@ const Collections = () => {
       {/* Right Side */}
       <div className='flex-1 min-w-0'>
         <div className='flex flex-wrap items-center justify-between gap-3 mb-6'>
-          <Title text1={'ALL'} text2={'PRODUCTS'} />
+          <div>
+            <Title text1={'ALL'} text2={'PRODUCTS'} />
+            <p className='text-xs text-gray-400 -mt-1'>{resultCount} item{resultCount !== 1 ? 's' : ''} available</p>
+          </div>
           {/* Product Sort */}
-          <select onChange={(e)=>setSortType(e.target.value)} className='border border-slate-300 bg-white text-sm px-3 py-2 rounded-lg text-gray-700 outline-none focus:border-primary cursor-pointer'>
+          <select
+            onChange={(e)=>setSortType(e.target.value)}
+            aria-label='Sort products'
+            className='field w-auto cursor-pointer'
+          >
             <option value="relavent">Sort by: Relavent</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
@@ -321,7 +379,13 @@ const Collections = () => {
               />
             ))
           ) : (
-            <p className='text-gray-500 col-span-full text-center py-10'>No products found</p>
+            <div className='col-span-full card py-16 px-6 text-center'>
+              <div className='w-16 h-16 mx-auto rounded-2xl bg-primary/[0.07] flex items-center justify-center mb-4'>
+                <img src={assets.search_icon} className='w-7 opacity-50' alt='' />
+              </div>
+              <p className='text-gray-700 font-semibold'>No products found</p>
+              <p className='text-sm text-gray-400 mt-1'>Try adjusting your category, brand, or price filters.</p>
+            </div>
           )}
         </div>
       </div>

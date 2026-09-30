@@ -97,14 +97,14 @@ const MyReviews = () => {
   };
 
   if (loading) {
-    return <div className='flex items-center justify-center py-8'><div className='w-6 h-6 border-2 border-slate-200 border-t-primary rounded-full animate-spin'></div></div>;
+    return <div className='card p-5 flex flex-col gap-3' aria-busy='true' aria-live='polite'><div className='skeleton w-12 h-12 rounded-xl'></div><div className='skeleton h-4 w-2/3'></div><div className='skeleton h-3.5 w-full'></div><div className='skeleton h-3.5 w-3/4'></div><span className='sr-only'>Loading your reviews�</span></div>;
   }
 
   return (
     <div className='mt-8'>
       <p className='text-sm font-semibold text-gray-800 mb-4'>MY REVIEWS</p>
       {reviews.length === 0 ? (
-        <div className='bg-white border border-slate-200 rounded-2xl p-8 text-center'>
+        <div className='card p-8 text-center bg-gradient-to-b from-mist to-white'>
           <p className='text-3xl mb-2'>💬</p>
           <p className='text-sm text-gray-500'>You haven't written any reviews yet.</p>
           <p className='text-xs text-gray-400 mt-1'>You can review products after your order has been delivered.</p>
@@ -112,10 +112,10 @@ const MyReviews = () => {
       ) : (
         <div className='flex flex-col gap-4'>
           {reviews.map((review) => (
-            <div key={review.reviewId} className='bg-white border border-slate-200 rounded-2xl p-5'>
+            <div key={review.reviewId} className='card p-5 transition-shadow duration-500 ease-swift hover:shadow-card-hover'>
               <div className='flex items-start justify-between gap-3 flex-wrap'>
                 <div className='flex items-center gap-3 min-w-0'>
-                  {review.productImage && <img src={review.productImage} alt="" className='w-12 h-auto object-contain rounded-lg border border-slate-200 bg-white shrink-0' />}
+                  {review.productImage && <img src={review.productImage} alt="" className='w-12 h-auto object-contain rounded-xl border border-slate-200 bg-white shrink-0' />}
                   <div className='min-w-0'>
                     <p className='font-semibold text-gray-800 text-sm break-words'>{review.productName}</p>
                     <div className='flex items-center gap-2 mt-1'>
@@ -132,8 +132,8 @@ const MyReviews = () => {
                   </div>
                 </div>
                 <div className='flex gap-2 shrink-0'>
-                  <button onClick={() => startEdit(review)} className='px-3 py-1.5 text-xs font-semibold bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors'>Edit</button>
-                  <button onClick={() => deleteReview(review.reviewId)} className='px-3 py-1.5 text-xs font-semibold bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors'>Delete</button>
+                  <button onClick={() => startEdit(review)} className='chip text-xs py-1.5 px-3'>Edit</button>
+                  <button onClick={() => deleteReview(review.reviewId)} className='chip text-xs py-1.5 px-3 text-red-600 border-red-200 bg-red-50 hover:bg-red-100'>Delete</button>
                 </div>
               </div>
 
@@ -145,11 +145,11 @@ const MyReviews = () => {
                       <button key={star} type='button' onClick={() => setEditRating(star)} className={`text-2xl leading-none transition-transform hover:scale-110 ${star <= editRating ? 'text-amber-500' : 'text-slate-300'}`}>★</button>
                     ))}
                   </div>
-                  <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} maxLength={60} placeholder='Review title (optional)' className='px-3 py-2 border border-slate-300 rounded-lg text-sm outline-none focus:border-primary' />
-                  <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} maxLength={500} rows={3} placeholder='Your review...' className='px-3 py-2 border border-slate-300 rounded-lg text-sm outline-none focus:border-primary resize-none' />
+                  <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} maxLength={60} placeholder='Review title (optional)' className='field' />
+                  <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} maxLength={500} rows={3} placeholder='Your review...' className='field resize-none' />
                   <div className='flex gap-3'>
-                    <button onClick={() => saveEdit(review.reviewId)} disabled={saving} className='px-5 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-semibold rounded-lg transition-colors disabled:opacity-50'>SAVE</button>
-                    <button onClick={() => setEditingId(null)} className='px-5 py-2 border border-slate-300 text-gray-600 text-xs font-semibold rounded-lg hover:border-primary hover:text-primary transition-colors'>CANCEL</button>
+                    <button onClick={() => saveEdit(review.reviewId)} disabled={saving} className='btn-primary btn-sm disabled:opacity-50'>SAVE</button>
+                    <button onClick={() => setEditingId(null)} className='btn btn-sm border border-slate-300 text-gray-600 hover:border-primary hover:text-primary'>CANCEL</button>
                   </div>
                 </div>
               ) : (
@@ -284,38 +284,49 @@ const Profile = () => {
       </div>
 
       {loading ? (
-        <div className='min-h-[40vh] flex items-center justify-center'>
-          <div className='w-8 h-8 border-4 border-slate-200 border-t-primary rounded-full animate-spin'></div>
+        <div className='flex flex-col gap-6' aria-busy='true' aria-live='polite'>
+          <div className='skeleton w-full md:w-72 h-72 rounded-2xl self-center md:self-start'></div>
+          <div className='card p-6 flex flex-col gap-4'>
+            <div className='skeleton h-4 w-40'></div>
+            <div className='skeleton h-11 w-full'></div>
+            <div className='skeleton h-11 w-full'></div>
+            <div className='skeleton h-11 w-full'></div>
+            <div className='skeleton h-11 w-40 mt-2'></div>
+          </div>
+          <span className='sr-only'>Loading your profile…</span>
         </div>
       ) : (
         <>
         <div className='flex flex-col md:flex-row gap-6'>
           <div className='w-full md:w-72 shrink-0'>
-            <div className='bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center text-center shadow-card'>
-              {user?.photoURL ? (
-                <img src={user.photoURL} alt='Profile' className='w-24 h-24 rounded-full object-cover shadow-card-hover' />
-              ) : (
-                <div className={`w-24 h-24 rounded-full ${avatarBg} text-white flex items-center justify-center text-3xl font-bold heading-font shadow-card-hover`}>
-                  {getInitials(name)}
-                </div>
-              )}
-              <p className='mt-4 text-lg font-semibold text-gray-800 break-words'>{user?.name}</p>
-              <p className='text-sm text-gray-400 break-all'>{user?.email}</p>
-              <div className='w-full border-t border-slate-100 mt-5 pt-4 flex flex-col gap-3 text-sm'>
-                <div className='flex justify-between'>
-                  <span className='text-gray-400'>Account Created</span>
-                  <span className='font-medium text-gray-700'>{createdAt ? new Date(createdAt).toDateString() : '—'}</span>
-                </div>
-                <div className='flex justify-between'>
-                  <span className='text-gray-400'>Total Orders</span>
-                  <span className='font-medium text-gray-700'>{orderCount}</span>
+            <div className='card relative overflow-hidden p-6 flex flex-col items-center text-center'>
+              <span className='absolute -top-14 -right-14 w-40 h-40 orb orb-blue opacity-40 animate-drift'></span>
+              <div className='relative flex flex-col items-center w-full'>
+                {user?.photoURL ? (
+                  <img src={user.photoURL} alt='Profile' className='w-24 h-24 rounded-full object-cover ring-4 ring-white shadow-card-hover' />
+                ) : (
+                  <div className={`w-24 h-24 rounded-full ${avatarBg} text-white flex items-center justify-center text-3xl font-bold heading-font shadow-card-hover`}>
+                    {getInitials(name)}
+                  </div>
+                )}
+                <p className='mt-4 text-lg font-semibold text-gray-800 break-words'>{user?.name}</p>
+                <p className='text-sm text-gray-400 break-all'>{user?.email}</p>
+                <div className='w-full border-t border-slate-100 mt-5 pt-4 flex flex-col gap-3 text-sm'>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-400'>Account Created</span>
+                    <span className='font-medium text-gray-700'>{createdAt ? new Date(createdAt).toDateString() : '—'}</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-400'>Total Orders</span>
+                    <span className='font-medium text-gray-700'>{orderCount}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className='flex-1 min-w-0'>
-            <div className='bg-white border border-slate-200 rounded-2xl p-6 shadow-card'>
+            <div className='card p-6'>
               <p className='text-sm font-semibold text-gray-800 mb-5'>ACCOUNT INFORMATION</p>              <div className='flex flex-col gap-4'>
                 <div className='flex flex-col gap-1.5'>
                   <label className='text-sm font-medium text-gray-700'>Full Name</label>
@@ -325,9 +336,9 @@ const Profile = () => {
                     onBlur={()=>onBlur('name')}
                     type="text"
                     placeholder='Enter your full name'
-                    className={`w-full border rounded-lg py-2.5 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 transition ${errors.name ? 'border-red-500 focus:ring-red-500/20' : touched.name && !errors.name ? 'border-green-500 focus:ring-green-500/20' : 'border-gray-300 focus:ring-blue-500/30 focus:border-primary'}`}
+                    className={`w-full border rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:ring-4 ${errors.name ? 'border-red-500 focus:ring-red-500/15 bg-red-50/30' : touched.name && !errors.name ? 'border-green-500 focus:ring-green-500/15 bg-green-50/20' : 'border-slate-300 focus:ring-primary/10 focus:border-primary'}`}
                   />
-                  {errors.name && <p className='text-xs text-red-600'>{errors.name}</p>}
+                  {errors.name && <p className='text-xs text-red-600 animate-rise-sm'>{errors.name}</p>}
                 </div>
 
                 <div className='flex flex-col gap-1.5'>
@@ -338,9 +349,9 @@ const Profile = () => {
                     onBlur={()=>onBlur('phone')}
                     type="tel"
                     placeholder='03XX-XXXXXXX'
-                    className={`w-full border rounded-lg py-2.5 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 transition ${errors.phone ? 'border-red-500 focus:ring-red-500/20' : touched.phone && !errors.phone ? 'border-green-500 focus:ring-green-500/20' : 'border-gray-300 focus:ring-blue-500/30 focus:border-primary'}`}
+                    className={`w-full border rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:ring-4 ${errors.phone ? 'border-red-500 focus:ring-red-500/15 bg-red-50/30' : touched.phone && !errors.phone ? 'border-green-500 focus:ring-green-500/15 bg-green-50/20' : 'border-slate-300 focus:ring-primary/10 focus:border-primary'}`}
                   />
-                  {errors.phone && <p className='text-xs text-red-600'>{errors.phone}</p>}
+                  {errors.phone && <p className='text-xs text-red-600 animate-rise-sm'>{errors.phone}</p>}
                 </div>
 
                 <div className='flex flex-col gap-1.5'>
@@ -349,17 +360,17 @@ const Profile = () => {
                     value={email}
                     readOnly
                     type="email"
-                    className='w-full border border-gray-200 bg-slate-50 text-gray-500 rounded-lg py-2.5 px-4 text-sm cursor-not-allowed'
+                    className='w-full border border-slate-200 bg-mist text-gray-500 rounded-xl py-3 px-4 text-sm cursor-not-allowed'
                   />
                   <p className='text-xs text-gray-400'>Email address cannot be changed.</p>
                 </div>
               </div>
 
               <div className='flex flex-col sm:flex-row gap-3 mt-6'>
-                <button onClick={handleSave} disabled={saving} className='bg-primary hover:bg-primary-dark text-white text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
+                <button onClick={handleSave} disabled={saving} className='btn-primary disabled:opacity-50 disabled:pointer-events-none'>
                   {saving ? 'SAVING...' : 'SAVE CHANGES'}
                 </button>
-                <button onClick={resetForm} disabled={saving} className='border border-slate-300 hover:border-primary text-gray-700 hover:text-primary text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
+                <button onClick={resetForm} disabled={saving} className='btn-outline disabled:opacity-50 disabled:pointer-events-none'>
                   CANCEL
                 </button>
               </div>

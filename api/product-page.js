@@ -204,7 +204,7 @@ export default async function handler(req, res) {
   const originalHtml = async () => {
     try {
       return await readFile(distIndexPath(), 'utf8')
-    } catch (error) {
+    } catch {
       return null
     }
   }
@@ -232,7 +232,7 @@ export default async function handler(req, res) {
       signal: controller.signal,
     })
     clearTimeout(timeout)
-  } catch (error) {
+  } catch {
     return sendOriginal()
   }
 
@@ -241,7 +241,7 @@ export default async function handler(req, res) {
   let data
   try {
     data = await response.json()
-  } catch (error) {
+  } catch {
     return sendOriginal()
   }
 

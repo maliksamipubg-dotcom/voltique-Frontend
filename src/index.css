@@ -46,6 +46,293 @@ body{
   background-color: var(--bg-color);
 }
 
+/* ==========================================================
+   Voltique Hub — Layout Shell
+   Centralised responsive gutters so full-bleed surfaces
+   (navbar, footer) can escape the padded page container.
+   ========================================================== */
+.site-shell{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.site-bleed{
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+@media (min-width: 640px){
+  .site-shell{ padding-left: 5vw; padding-right: 5vw; }
+  .site-bleed{ margin-left: -5vw; margin-right: -5vw; }
+}
+@media (min-width: 768px){
+  .site-shell{ padding-left: 7vw; padding-right: 7vw; }
+  .site-bleed{ margin-left: -7vw; margin-right: -7vw; }
+}
+@media (min-width: 1024px){
+  .site-shell{ padding-left: 9vw; padding-right: 9vw; }
+  .site-bleed{ margin-left: -9vw; margin-right: -9vw; }
+}
+
+/* ==========================================================
+   Voltique Hub — Motion primitives
+   All entrance/reveal motion is transform + opacity only.
+   ========================================================== */
+
+/* Scroll reveal: hidden state is only applied once JS is running
+   (html.js), so content can never be trapped invisible. */
+.js [data-reveal]{
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.985);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js [data-reveal].is-visible{
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Staggered container: children cascade in one after another. */
+.js [data-reveal-group] > *{
+  opacity: 0;
+  transform: translate3d(0, 26px, 0) scale(0.985);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js [data-reveal-group].is-visible > *{
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+.js [data-reveal-group].is-visible > *:nth-child(1){ transition-delay: 0.04s; }
+.js [data-reveal-group].is-visible > *:nth-child(2){ transition-delay: 0.1s; }
+.js [data-reveal-group].is-visible > *:nth-child(3){ transition-delay: 0.16s; }
+.js [data-reveal-group].is-visible > *:nth-child(4){ transition-delay: 0.22s; }
+.js [data-reveal-group].is-visible > *:nth-child(5){ transition-delay: 0.28s; }
+.js [data-reveal-group].is-visible > *:nth-child(6){ transition-delay: 0.34s; }
+.js [data-reveal-group].is-visible > *:nth-child(7){ transition-delay: 0.4s; }
+.js [data-reveal-group].is-visible > *:nth-child(8){ transition-delay: 0.46s; }
+.js [data-reveal-group].is-visible > *:nth-child(n+9){ transition-delay: 0.52s; }
+
+/* Entrance delays for hero-style content that animates on mount. */
+.anim-d1{ animation-delay: 0.08s; }
+.anim-d2{ animation-delay: 0.16s; }
+.anim-d3{ animation-delay: 0.24s; }
+.anim-d4{ animation-delay: 0.32s; }
+.anim-d5{ animation-delay: 0.4s; }
+.anim-d6{ animation-delay: 0.48s; }
+.anim-d7{ animation-delay: 0.56s; }
+.anim-d8{ animation-delay: 0.64s; }
+
+/* ==========================================================
+   Voltique Hub — Surfaces & components
+   ========================================================== */
+
+/* Frosted panel — used sparingly (nav, chips, small overlays). */
+.glass{
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* Gradient hairline used to separate light sections. */
+.rule-gradient{
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(36, 86, 230, 0.25), transparent);
+}
+
+/* Hover sheen sweep for premium cards. */
+.sheen{ position: relative; overflow: hidden; }
+.sheen::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: translate3d(-120%, 0, 0);
+  opacity: 0;
+}
+.sheen:hover::after{
+  opacity: 1;
+  animation: catalog-sheen 0.95s ease-out;
+}
+@keyframes catalog-sheen{
+  from{ transform: translate3d(-120%, 0, 0); }
+  to{ transform: translate3d(240%, 0, 0); }
+}
+
+/* Skeleton loading blocks (transform-only shimmer). */
+.skeleton{
+  position: relative;
+  overflow: hidden;
+  background: #e8eef7;
+  border-radius: 0.75rem;
+}
+.skeleton::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate3d(-100%, 0, 0);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: catalog-sheen 1.45s ease-in-out infinite;
+}
+
+/* Buttons */
+.btn{
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold tracking-wide
+         transition-all duration-300 ease-swift select-none whitespace-nowrap;
+}
+.btn-primary{
+  @apply btn bg-primary text-white shadow-[0_10px_28px_-12px_rgba(36,86,230,0.75)]
+         hover:bg-primary-dark hover:shadow-[0_16px_34px_-12px_rgba(36,86,230,0.85)] hover:-translate-y-0.5;
+}
+.btn-dark{
+  @apply btn bg-dark text-white shadow-[0_10px_28px_-14px_rgba(10,22,40,0.9)]
+         hover:bg-navy-soft hover:-translate-y-0.5;
+}
+.btn-whatsapp{
+  @apply btn bg-[#25D366] text-white shadow-[0_10px_28px_-14px_rgba(37,211,102,0.9)] hover:bg-[#1DA851] hover:-translate-y-0.5;
+}
+.btn-outline{
+  @apply btn border border-slate-300 bg-white text-gray-700 hover:border-primary hover:text-primary hover:-translate-y-0.5 hover:shadow-card;
+}
+.btn-ghost-light{
+  @apply btn border border-white/25 bg-white/5 text-white backdrop-blur-sm hover:bg-white/15 hover:border-white/50 hover:-translate-y-0.5;
+}
+.btn-white{
+  @apply btn bg-white text-dark shadow-[0_12px_30px_-14px_rgba(0,0,0,0.6)] hover:-translate-y-0.5 hover:bg-white;
+}
+.btn-sm{
+  @apply px-4 py-2 text-xs rounded-lg;
+}
+
+/* Cards */
+.card{
+  @apply bg-white border border-slate-200 rounded-2xl shadow-card;
+}
+.card-interactive{
+  @apply card transition-[transform,box-shadow,border-color] duration-500 ease-swift
+         hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/30;
+}
+
+/* Form controls */
+.field{
+  @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-gray-800
+         placeholder:text-slate-400 outline-none transition-all duration-200
+         focus:border-primary focus:ring-4 focus:ring-primary/10;
+}
+.field-dark{
+  @apply w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white
+         placeholder:text-white/50 outline-none transition-all duration-200
+         focus:border-white/60 focus:bg-white/15 focus:ring-4 focus:ring-white/10;
+}
+
+/* Badges & chips */
+.badge{
+  @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide;
+}
+.chip{
+  @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-gray-700
+         transition-all duration-300 ease-swift hover:border-primary hover:text-primary hover:-translate-y-0.5 hover:shadow-soft;
+}
+
+/* Section eyebrow label */
+.eyebrow{
+  @apply inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.07] px-3.5 py-1.5
+         text-[11px] font-semibold uppercase tracking-[0.18em] text-primary;
+}
+
+/* Animated gradient text */
+.text-gradient{
+  background-image: linear-gradient(100deg, #4b7bf5 0%, #22d3ee 45%, #4b7bf5 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: catalog-pan 9s ease-in-out infinite;
+}
+@keyframes catalog-pan{
+  0%, 100%{ background-position: 0% 50%; }
+  50%{ background-position: 100% 50%; }
+}
+
+/* Soft gradient orbs — no filter, transform-only animation. */
+.orb{
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform;
+}
+.orb-blue{
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.16) 46%, rgba(59, 130, 246, 0) 72%);
+}
+.orb-cyan{
+  background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.42) 0%, rgba(34, 211, 238, 0.14) 46%, rgba(34, 211, 238, 0) 72%);
+}
+.orb-violet{
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0.12) 46%, rgba(99, 102, 241, 0) 72%);
+}
+
+/* Underline link with animated indicator */
+.link-underline{
+  position: relative;
+}
+.link-underline::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after{
+  transform: scaleX(1);
+}
+
+/* Keyboard focus ring (inputs keep their own field styling) */
+:where(a, button, select, summary, [role="button"]):focus-visible{
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* === Reduced Motion ===
+   Visitors who prefer reduced motion get the same layout with no
+   travelling/scrolling movement. Nothing is hidden. */
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reveal content is always shown, never left invisible. */
+  .js [data-reveal],
+  .js [data-reveal].is-visible,
+  .js [data-reveal-group],
+  .js [data-reveal-group].is-visible > *{
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Sheen sweeps would otherwise still show a moving highlight. */
+  .sheen::after,
+  .skeleton::after{
+    display: none !important;
+  }
+}
+
 /* === Mobile Responsiveness / Overflow Safety ===
    These rules only stop overflow and force text/images to wrap or shrink.
    They do not change layout, spacing, colors, or any desktop appearance. */

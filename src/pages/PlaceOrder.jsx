@@ -6,7 +6,7 @@ import { ShopContext } from '../contexts/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const baseInputClass = 'w-full border rounded-lg py-2.5 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 transition'
+const baseInputClass = 'w-full border rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:ring-4'
 
 const isValidName = (value) => {
   const v = value.trim();
@@ -158,10 +158,10 @@ const PlaceOrder = () => {
   const inputClass = (field) => {
     const isError = errors[field];
     const isValid = touched[field] && !isError;
-    return `${baseInputClass} ${isError ? 'border-red-500 focus:ring-red-500/20' : isValid ? 'border-green-500 focus:ring-green-500/20' : 'border-gray-300 focus:ring-blue-500/30 focus:border-primary'}`
+    return `${baseInputClass} ${isError ? 'border-red-500 focus:ring-red-500/15 bg-red-50/30' : isValid ? 'border-green-500 focus:ring-green-500/15 bg-green-50/20' : 'border-slate-300 focus:ring-primary/10 focus:border-primary'}`
   }
 
-  const renderFieldError = (field) => errors[field] ? <p className='text-xs text-red-600'>{errors[field]}</p> : null;
+  const renderFieldError = (field) => errors[field] ? <p className='text-xs text-red-600 animate-rise-sm'>{errors[field]}</p> : null;
 
   const hasCartItems = () => {
     for (const items in cartItems) {
@@ -332,7 +332,7 @@ const PlaceOrder = () => {
           </div>
           <div className='flex flex-col gap-2'>
             <label className='text-sm font-medium text-gray-700'>State <span className='text-gray-400 font-normal'>(Optional)</span></label>
-            <input onChange={onChangeHandler} name='state' value={formData.state} className={baseInputClass + ' border-gray-300 focus:ring-blue-500/30 focus:border-primary'} type="text" placeholder='Province / State' />
+            <input onChange={onChangeHandler} name='state' value={formData.state} className={baseInputClass + ' border-slate-300 focus:ring-primary/10 focus:border-primary'} type="text" placeholder='Province / State' />
           </div>
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
@@ -349,7 +349,7 @@ const PlaceOrder = () => {
         </div>
         <div className='flex flex-col gap-2'>
           <label className='text-sm font-medium text-gray-700'>Order Notes <span className='text-gray-400 font-normal'>(Optional)</span></label>
-          <textarea onChange={onChangeHandler} name='notes' value={formData.notes} rows={3} className={baseInputClass + ' border-gray-300 focus:ring-blue-500/30 focus:border-primary resize-none'} placeholder='Any special instructions for your order'></textarea>
+          <textarea onChange={onChangeHandler} name='notes' value={formData.notes} rows={3} className={baseInputClass + ' border-slate-300 focus:ring-primary/10 focus:border-primary resize-none'} placeholder='Any special instructions for your order'></textarea>
         </div>
       </div>
       {/*Right Side */}
@@ -361,17 +361,17 @@ const PlaceOrder = () => {
           <Title text1={'PAYMENT'} text2={'METHOD'}/>
           {/*Payment Method Selection */}
           <div className='flex gap-3 flex-col lg:flex-row'>
-            <div onClick={()=>setMethod('COD')} className='flex items-center gap-3 border-2 border-green-500 bg-green-50 p-3 px-4 rounded-lg cursor-pointer flex-wrap'>
+            <div onClick={()=>setMethod('COD')} className={`flex items-center gap-3 border-2 p-3 px-4 rounded-xl cursor-pointer flex-wrap transition-all duration-300 ease-swift ${method === 'COD' ? 'border-green-500 bg-green-50 shadow-soft' : 'border-slate-200 bg-white hover:border-green-300'}`}>
               <p className={`min-w-3.5 h-3.5 border-2 border-green-500 rounded-full ${method === 'COD' ? 'bg-green-500' : ''}`}></p>
               <p className='text-gray-700 text-sm font-semibold mx-2 sm:mx-4'>CASH ON DELIVERY</p>
-              <span className='text-[10px] font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full uppercase tracking-wide'>Only Method</span>
+              <span className='text-[10px] font-medium text-green-700 bg-green-100 border border-green-200 px-2 py-0.5 rounded-full uppercase tracking-wide'>Only Method</span>
             </div>
           </div>
           <div className='w-full text-end mt-8'>
             <button
               type='submit'
               disabled={!cartHasItems || !isFormValid() || placing}
-              className='bg-primary hover:bg-primary-dark disabled:bg-slate-300 disabled:cursor-not-allowed text-white px-8 sm:px-16 py-3 text-sm rounded-lg transition-colors w-full sm:w-auto'
+              className='btn-primary disabled:bg-slate-300 disabled:shadow-none disabled:pointer-events-none w-full sm:w-auto'
             >
               {placing ? 'PLACING ORDER...' : 'PLACE ORDER'}
             </button>

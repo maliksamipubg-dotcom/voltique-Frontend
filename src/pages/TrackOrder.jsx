@@ -87,7 +87,14 @@ const TrackOrder = () => {
 
   if (loading) {
     return (
-      <div className='border-t pt-16 min-h-[50vh] flex items-center justify-center'>
+      <div className='border-t pt-16 min-h-[50vh] flex flex-col gap-4' aria-busy='true' aria-live='polite'>
+        <div className='card p-5 sm:p-6 flex flex-col gap-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+            <div className='skeleton h-10'></div><div className='skeleton h-10'></div><div className='skeleton h-10'></div>
+          </div>
+          <div className='skeleton h-2.5 w-full'></div>
+          <div className='skeleton h-24 w-full'></div>
+        </div>
         <p className='text-gray-400 text-sm'>Loading order details...</p>
       </div>
     );
@@ -95,10 +102,10 @@ const TrackOrder = () => {
 
   if (!order) {
     return (
-      <div className='border-t pt-16 min-h-[50vh] flex flex-col items-center justify-center gap-4 text-center'>
-        <p className='text-lg font-medium text-gray-700'>Order not found</p>
-        <p className='text-sm text-gray-400'>We couldn't find an order with ID <b>{orderId}</b>.</p>
-        <button onClick={() => navigate('/orders')} className='mt-2 bg-primary hover:bg-primary-dark text-white text-sm px-8 py-3 rounded-lg transition-colors'>VIEW MY ORDERS</button>
+      <div className='border-t pt-16 min-h-[50vh] card flex flex-col items-center justify-center gap-4 text-center px-6'>
+        <p className='text-lg font-semibold text-gray-800'>Order not found</p>
+        <p className='text-sm text-gray-400'>We couldn't find an order with ID <b className='text-gray-600'>{orderId}</b>.</p>
+        <button onClick={() => navigate('/orders')} className='btn-primary mt-2'>VIEW MY ORDERS</button>
       </div>
     );
   }
@@ -141,7 +148,7 @@ const TrackOrder = () => {
 
       <div className='flex flex-col lg:flex-row gap-6'>
         <div className='flex-1 min-w-0'>
-          <div className='border border-slate-200 bg-white rounded-xl p-5 sm:p-6'>
+          <div className='card p-5 sm:p-6'>
             <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm mb-6'>
               <div>
                 <p className='text-gray-400'>Order Date</p>
@@ -175,13 +182,13 @@ const TrackOrder = () => {
                 <span>{cancelled ? 'Order Cancelled' : 'Order Progress'}</span>
                 {!cancelled && <span>{Math.round(progress)}%</span>}
               </div>
-              <div className='h-2 bg-slate-100 rounded-full overflow-hidden'>
-                <div className={`h-full rounded-full transition-all duration-500 ${cancelled ? 'bg-red-500' : 'bg-green-500'}`} style={{ width: progress + '%' }}></div>
+              <div className='h-2.5 bg-slate-100 rounded-full overflow-hidden'>
+                <div className={`h-full rounded-full transition-all duration-700 ease-swift ${cancelled ? 'bg-red-500' : 'bg-gradient-to-r from-green-400 to-green-600'}`} style={{ width: progress + '%' }}></div>
               </div>
             </div>
 
             {cancelled ? (
-              <div className='bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-700'>
+              <div className='bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700'>
                 <p>This order has been cancelled. Please contact support for further assistance.</p>
                 {order.cancelledAt && (
                   <p className='mt-1.5 text-red-600'>Cancelled by {order.cancelledBy || 'Customer'} on {new Date(order.cancelledAt).toLocaleString()}</p>
@@ -196,7 +203,7 @@ const TrackOrder = () => {
                     <div key={step} className={`relative flex-1 pb-6 md:pb-0 ${index < STEPS.length - 1 ? 'md:pb-0' : ''}`}>
                       <div className='flex items-start gap-3 md:flex-col md:items-center md:gap-2 md:text-center'>
                         <div className='flex flex-col items-center'>
-                          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${reached ? 'bg-green-500 border-green-500' : 'bg-white border-slate-300'}`}></div>
+                          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 transition-colors duration-500 ${reached ? 'bg-green-500 border-green-500 shadow-soft' : 'bg-white border-slate-300'}`}></div>
                           {index < STEPS.length - 1 && (
                             <div className={`w-0.5 h-full min-h-8 md:hidden ${reached ? 'bg-green-500' : 'bg-slate-200'}`}></div>
                           )}
@@ -218,12 +225,12 @@ const TrackOrder = () => {
         </div>
 
         <div className='w-full lg:w-80 shrink-0'>
-          <div className='border border-slate-200 bg-white rounded-xl p-5'>
+          <div className='card p-5'>
             <p className='text-sm font-semibold text-gray-800 mb-4'>ITEMS IN ORDER</p>
             <div className='flex flex-col gap-4'>
               {order.items.map((item, index) => (
                 <div key={index} className='flex items-center gap-3'>
-                  <img className='w-14 h-auto object-contain rounded-lg border border-slate-200 bg-white flex-shrink-0' src={item.image?.[0]} alt="" loading="lazy" />
+                  <div className='w-14 shrink-0 rounded-xl border border-slate-200 bg-gradient-to-b from-mist to-white p-1'><img className='w-full h-auto object-contain' src={item.image?.[0]} alt="" loading="lazy" /></div>
                   <div className='min-w-0 flex-1'>
                     <p className='text-sm font-medium text-gray-800 break-words'>{item.name}</p>
                     <p className='text-xs text-gray-400 mt-0.5'>Model: {item.size} | Qty: {item.quantity}</p>
@@ -232,12 +239,12 @@ const TrackOrder = () => {
                 </div>
               ))}
             </div>
-            <hr className='my-4' />
+            <hr className='my-4 border-slate-100' />
             <div className='flex justify-between text-sm'>
               <span className='text-gray-500'>Total Amount</span>
               <span className='font-semibold text-gray-800'>{currency} {order.amount}</span>
             </div>
-            <button onClick={() => navigate('/orders')} className='mt-5 w-full border border-slate-300 hover:border-primary text-gray-700 hover:text-primary text-sm px-4 py-2.5 rounded-lg transition-colors'>
+            <button onClick={() => navigate('/orders')} className='btn-outline btn-sm mt-5 w-full'>
               VIEW ALL ORDERS
             </button>
           </div>

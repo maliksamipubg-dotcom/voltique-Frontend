@@ -20,13 +20,31 @@ const SearchBar = () => {
   },[location])
 
 return showSearch && visible ? (
-    <div className='border-t border-b border-slate-200 bg-white text-center'>
-      <div className='inline-flex items-center justify-center border border-primary px-5 py-2 my-5 mx-3 rounded-full w-4/5 sm:w-1/2 shadow-card'>
-        <input value={search} onChange={(e)=>setSearch(e.target.value)} className='flex-1 outline-none bg-inherit text-sm' type="text" placeholder='Search chargers, stabilizers, inverters, accessories...' aria-label='Search products'/>
-        <img className='w-4' src={assets.search_icon} alt="Search" />
+    <div className='site-bleed border-b border-slate-200 bg-white/90 backdrop-blur-md catalog-enter'>
+      <div className='site-shell py-5 flex items-center justify-center gap-3'>
+        <div className='relative inline-flex items-center bg-white border border-slate-200 hover:border-primary/50 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-300 shadow-soft focus-within:shadow-card rounded-full w-full max-w-xl px-5 py-3'>
+          <img className='w-4 opacity-50 shrink-0' src={assets.search_icon} alt="Search" />
+          <input
+            value={search}
+            onChange={(e)=>setSearch(e.target.value)}
+            className='flex-1 min-w-0 outline-none bg-transparent text-sm text-gray-800 placeholder:text-gray-400 ml-2.5'
+            type="text"
+            placeholder='Search chargers, stabilizers, inverters, accessories...'
+            aria-label='Search products'
+          />
+          {search && (
+            <span className='text-[11px] font-semibold text-primary tabular-nums shrink-0'>{search.trim().length}</span>
+          )}
+        </div>
+        <button
+          type='button'
+          onClick={()=>setShowSearch(false)}
+          aria-label='Close search'
+          className='w-10 h-10 shrink-0 rounded-xl bg-slate-50 flex items-center justify-center text-gray-500 hover:bg-red-50 hover:text-red-600 active:scale-95 transition-all duration-300'
+        >
+          <img className='w-3' src={assets.cross_icon} alt="" />
+        </button>
       </div>
-      <img onClick={()=>setShowSearch(false)} className='inline w-3 cursor-pointer' src={assets.cross_icon} alt="Close search" />
-
     </div>
   ) : null
 }

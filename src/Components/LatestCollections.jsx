@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../contexts/ShopContext'
 import Title from './Title';
 import ProductItem from './ProductItem';
+import { Reveal, RevealGroup } from './Reveal';
 
 const LatestCollections = () => {
 
@@ -12,23 +13,24 @@ const LatestCollections = () => {
       setLatestProducts(products.slice(0,10));
     },[products])
   return (
-    <div className='mt-10 mb-8'>
-      <div className='text-center py-8 text-3xl'>
+    <section className='py-10 sm:py-14'>
+      <Reveal className='text-center py-4 sm:py-6 mb-6'>
         <Title text1={'LATEST'} text2={'ARRIVALS'} />
-        <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-        Newly arrived chargers, stabilizers, inverters, and charging accessories.
+        <h2 className='text-3xl sm:text-4xl font-semibold text-gray-800 heading-font tracking-tight'>Fresh on the shelves</h2>
+        <p className='w-full sm:w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-500 mt-3 leading-relaxed'>
+          Newly arrived chargers, stabilizers, inverters, and charging accessories.
         </p>
-      </div>
+      </Reveal>
+
       {/* Rendering Products*/}
-      <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
+      <RevealGroup className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
         {
           latestProducts.map((item,index)=>(
             <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} category={item.category} brand={item.subCategory} models={item.sizes} description={item.description} rating={item.avgRating} reviewCount={item.reviewCount} stock={item.stock}/>
                     ))
         }
-
-      </div>
-    </div>
+      </RevealGroup>
+    </section>
   )
 }
 export default LatestCollections

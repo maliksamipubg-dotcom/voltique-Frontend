@@ -29,7 +29,7 @@ const GoogleButton = ({ onClick, loading = false, text = 'Continue with Google' 
       onClick={onClick}
       disabled={loading}
       aria-busy={loading}
-      className='w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-gray-700 font-semibold px-6 py-3 mt-4 rounded-lg shadow-md border border-white/30 hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-not-allowed'
+      className='w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-gray-700 font-semibold px-6 py-3 mt-4 rounded-xl shadow-soft hover:shadow-lift active:scale-[0.99] transition-all duration-300 ease-swift disabled:opacity-60 disabled:cursor-not-allowed'
     >
       {loading ? (
         <span className='w-5 h-5 shrink-0 border-2 border-slate-300 border-t-primary rounded-full animate-spin' />

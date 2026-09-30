@@ -16,7 +16,9 @@ const Home = () => {
         path="/"
         jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }])]}
       />
-      <Hero/>
+      <div className='pt-5 sm:pt-7'>
+        <Hero/>
+      </div>
       <CategoryStrip/>
       <LatestCollections/>
       <BestSeller/>

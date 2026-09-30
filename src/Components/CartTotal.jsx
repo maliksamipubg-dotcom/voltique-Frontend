@@ -7,24 +7,24 @@ const CartTotal = () => {
     const subtotal = getCartAmount();
     const shipping = subtotal === 0 ? 0 : delivery_fee;
 return (
-    <div className='w-full'>
+    <div className='w-full card p-5 sm:p-6'>
         <div className='text-2xl'>
             <Title text1={'CART'} text2={'TOTALS'} />
         </div>
-        <div className='flex flex-col gap-2 mt-2 text-sm'>
-            <div className='flex justify-between'>
+        <div className='flex flex-col gap-2 mt-3 text-sm'>
+            <div className='flex justify-between text-gray-600'>
                 <p>SubTotal</p>
-                <p>{currency} {subtotal}.00</p>
+                <p className='font-medium text-gray-800'>{currency} {subtotal}.00</p>
             </div>
-            <hr />
-            <div className='flex justify-between'>
+            <hr className='border-slate-100' />
+            <div className='flex justify-between text-gray-600'>
                 <p>Shipping Fee</p>
-                <p>{currency} {shipping}.00</p>
+                <p className='font-medium text-gray-800'>{currency} {shipping}.00</p>
             </div>
-            <hr />
-            <div className='flex justify-between'>
+            <hr className='border-slate-100' />
+            <div className='flex justify-between items-baseline'>
                 <b>Total</b>
-                <b>{currency} {subtotal + shipping}.00</b>
+                <b className='text-lg text-primary-dark'>{currency} {subtotal + shipping}.00</b>
 
             </div>
         </div>

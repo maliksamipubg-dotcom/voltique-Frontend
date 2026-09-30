@@ -29,7 +29,7 @@ const ScrollToTop = () => {
 
 const App = () => {
   return (
-    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+    <div className='site-shell min-h-screen flex flex-col'>
       <ToastContainer
         position="top-right"
         autoClose={4000}
@@ -47,20 +47,22 @@ const App = () => {
       <ScrollToTop />
       <Navbar/>
       <SearchBar />
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='collections' element={<Collections/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/product/:productId' element={<Product/>}/>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/placeOrder' element={<PlaceOrder/>}/>
-        <Route path='/orders' element={<Orders/>}/>
-        <Route path='/track/:orderId' element={<TrackOrder/>}/>
-        <Route path='/profile' element={<Profile/>}/>
-        <Route path='/change-password' element={<ChangePassword/>}/>
-      </Routes>
+      <main className='flex-1'>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='collections' element={<Collections/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/contact' element={<Contact/>}/>
+          <Route path='/product/:productId' element={<Product/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/placeOrder' element={<PlaceOrder/>}/>
+          <Route path='/orders' element={<Orders/>}/>
+          <Route path='/track/:orderId' element={<TrackOrder/>}/>
+          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/change-password' element={<ChangePassword/>}/>
+        </Routes>
+      </main>
       <Footer/>
       <WhatsAppButton />
     </div>

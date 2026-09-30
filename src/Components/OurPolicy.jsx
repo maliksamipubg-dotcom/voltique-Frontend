@@ -1,26 +1,32 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { Reveal, RevealGroup } from './Reveal'
+
+const POLICIES = [
+  { icon: assets.quality_icon, title: 'Genuine Warranty', copy: 'Warranty-Backed Power Solutions' },
+  { icon: assets.exchange_icon, title: 'Easy Exchange Policy', copy: 'Hassle-Free Exchange Within 7 Days' },
+  { icon: assets.support_img, title: 'Expert Technical Support', copy: 'Guidance For Every Power Setup' },
+]
 
 const OurPolicy = () => {
   return (
-    <div className='flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-10 text-xs sm:text-sm md:text-base text-gray-700'>
-
-      <div>
-        <img src={assets.quality_icon} className='w-12 m-auto mb-5' alt="Genuine warranty" />
-        <p className=' font-semibold'>Genuine Warranty</p>
-        <p className=' text-gray-400'>Warranty-Backed Power Solutions</p>
-      </div>
-            <div>
-        <img src={assets.exchange_icon} className='w-12 m-auto mb-5' alt="Easy exchange policy" />
-        <p className=' font-semibold'>Easy Exchange Policy</p>
-        <p className=' text-gray-400'>Hassle-Free Exchange Within 7 Days</p>
-      </div>
-            <div>
-        <img src={assets.support_img} className='w-12 m-auto mb-5' alt="Expert technical support" />
-        <p className=' font-semibold'>Expert Technical Support</p>
-        <p className=' text-gray-400'>Guidance For Every Power Setup</p>
-      </div>
-    </div>
+    <section className='py-12 sm:py-16'>
+      <RevealGroup className='grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6'>
+        {POLICIES.map((item) => (
+          <div
+            key={item.title}
+            className='group card-interactive relative overflow-hidden p-6 sm:p-7 text-center flex flex-col items-center'
+          >
+            <span className='absolute -top-12 -right-12 w-32 h-32 orb orb-cyan opacity-0 group-hover:opacity-50 transition-opacity duration-500'></span>
+            <div className='relative w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/[0.08] to-accent/[0.1] flex items-center justify-center mb-4 group-hover:shadow-glow transition-shadow duration-500'>
+              <img src={item.icon} className='w-9 h-9 object-contain group-hover:scale-110 transition-transform duration-500 ease-swift' alt={item.title} />
+            </div>
+            <p className='font-semibold text-gray-800 text-base group-hover:text-primary transition-colors duration-300'>{item.title}</p>
+            <p className='text-gray-400 mt-1.5 text-sm'>{item.copy}</p>
+          </div>
+        ))}
+      </RevealGroup>
+    </section>
   )
 }
 

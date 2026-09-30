@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { Link } from 'react-router-dom'
 import { ShopContext } from '../contexts/ShopContext'
+import { Reveal, RevealGroup } from './Reveal'
 
 const getCategoryIcon = (name) => {
     const key = (name || '').toLowerCase()
@@ -22,12 +23,19 @@ const CategoryStrip = () => {
         : [...new Set(list.map((p) => p.category).filter(Boolean))].map((name) => ({ name }))
 
     return (
-        <div className='my-12'>
-            <div className='text-center text-3xl mb-8'>
-                <h3 className='heading-font font-semibold text-gray-800'>SHOP BY CATEGORY</h3>
-                <p className='mt-2 text-sm text-gray-500'>Everything you need for reliable power — chargers, stabilizers, inverters, and charging accessories.</p>
-            </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-3xl mx-auto'>
+        <section className='py-12 sm:py-16'>
+            <Reveal className='text-center max-w-2xl mx-auto mb-9 sm:mb-12'>
+                <p className='eyebrow mb-4'>
+                    <span className='w-1.5 h-1.5 rounded-full bg-primary'></span>
+                    Browse Catalog
+                </p>
+                <h2 className='heading-font font-semibold text-3xl sm:text-4xl text-gray-800 tracking-tight'>SHOP BY CATEGORY</h2>
+                <p className='mt-3 text-sm text-gray-500 leading-relaxed'>
+                    Everything you need for reliable power — chargers, stabilizers, inverters, and charging accessories.
+                </p>
+            </Reveal>
+
+            <RevealGroup className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto'>
                 {categoriesList.map((cat, index) => {
                     const name = cat.name
                     const count = list.filter((p) => p.category && p.category.toLowerCase() === name.toLowerCase()).length
@@ -35,27 +43,43 @@ const CategoryStrip = () => {
                         <Link
                             key={cat._id || index}
                             to={`/collections?category=${encodeURIComponent(name)}`}
-                            className='group bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-card hover:shadow-card-hover hover:-translate-y-1 hover:border-primary transition-all duration-300'
+                            className='group card-interactive sheen relative overflow-hidden p-6 text-center'
                         >
-                            <img src={getCategoryIcon(name)} className='w-24 h-24 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300' alt={name} />
-                            <p className='font-semibold text-base text-gray-800'>{name}</p>
-                            <p className='text-xs text-slate-500 mt-1'>Products available in this category</p>
-                            <p className='text-xs font-semibold text-primary mt-2'>{count} product{count !== 1 ? 's' : ''}</p>
+                            <span className='absolute -top-10 -right-10 w-28 h-28 orb orb-blue opacity-0 group-hover:opacity-60 transition-opacity duration-500'></span>
+                            <div className='relative'>
+                                <div className='w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/[0.08] to-accent/[0.08] flex items-center justify-center group-hover:shadow-glow transition-shadow duration-500'>
+                                    <img
+                                        src={getCategoryIcon(name)}
+                                        className='w-16 h-16 object-contain group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 ease-swift'
+                                        alt={name}
+                                    />
+                                </div>
+                                <p className='font-semibold text-lg text-gray-800 group-hover:text-primary transition-colors duration-300'>{name}</p>
+                                <p className='text-xs text-slate-500 mt-1.5'>Products available in this category</p>
+                                <p className='text-xs font-semibold text-primary mt-3'>{count} product{count !== 1 ? 's' : ''}</p>
+                            </div>
                         </Link>
                     )
                 })}
-            </div>
-            <div className='mt-10 bg-dark rounded-2xl px-6 py-6'>
-                <p className='text-center text-xs tracking-widest text-slate-400 uppercase mb-4'>Trusted Brands</p>
-                <div className='flex flex-wrap justify-center gap-3'>
-                    {brands.map((brand, index) => (
-                        <span key={index} className='bg-white/5 border border-white/10 text-slate-200 text-sm font-semibold px-5 py-2 rounded-lg'>
-                            {brand}
-                        </span>
-                    ))}
+            </RevealGroup>
+
+            <Reveal delay={80} className='mt-10 sm:mt-14 rounded-3xl bg-dark px-6 py-8 sm:py-10 relative overflow-hidden shadow-lift'>
+                <div className='absolute -top-16 left-1/4 w-72 h-72 orb orb-violet opacity-50 animate-drift' style={{ animationDelay: '-3s' }}></div>
+                <div className='relative'>
+                    <p className='text-center text-[11px] tracking-[0.25em] text-slate-400 uppercase mb-5'>Trusted Brands</p>
+                    <div className='flex flex-wrap justify-center gap-2.5 sm:gap-3'>
+                        {brands.map((brand, index) => (
+                            <span
+                                key={index}
+                                className='bg-white/5 border border-white/10 text-slate-200 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-500 ease-swift hover:border-accent-light/50 hover:bg-white/10 hover:-translate-y-0.5'
+                            >
+                                {brand}
+                            </span>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </div>
+            </Reveal>
+        </section>
     )
 }
 

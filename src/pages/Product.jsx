@@ -211,7 +211,7 @@ Please confirm my order.`;
   }, [lightboxOpen]);
 
   return productData ? (
-    <div className='border-t-2 border-slate-200 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+    <div className='border-t border-slate-200 pt-8 sm:pt-10 transition-opacity ease-in duration-500 opacity-100'>
       <Seo
         title={`${productData.name} | Voltique Hub`}
         description={buildProductDescription(productData)}
@@ -238,14 +238,21 @@ Please confirm my order.`;
               <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[86px] sm:shrink-0 gap-2'>
                 {
                   productData.image.map((item,index)=>(
-                    <img onClick={()=>setImage(item)} src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} key={index} loading="lazy" className={`w-16 sm:w-[86px] h-auto object-contain bg-white flex-shrink-0 cursor-pointer border rounded-xl transition-all ${image === item ? 'border-primary ring-1 ring-primary' : 'border-slate-200 hover:border-primary/60'}`} alt={`${productData.name} - thumbnail ${index + 1}`} />
+                    <button type='button' onClick={()=>setImage(item)} key={index} className={`w-16 sm:w-[86px] bg-white flex-shrink-0 cursor-pointer rounded-xl overflow-hidden transition-all duration-300 ease-swift hover:-translate-y-0.5 ${image === item ? 'border-2 border-primary shadow-glow' : 'border border-slate-200 hover:border-primary/60 opacity-75 hover:opacity-100'}`}>
+                      <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} loading="lazy" className='w-full h-auto object-contain' alt={`${productData.name} - thumbnail ${index + 1}`} />
+                    </button>
                   ))
                 }
               </div>
             )}
             <div className='flex-1 min-w-0'>
-              <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden cursor-zoom-in group relative'>
-                <img className='w-full h-auto object-contain transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt={productData.name} fetchPriority="high" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
+              <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-slate-200 bg-gradient-to-b from-mist to-white flex items-center justify-center overflow-hidden cursor-zoom-in group relative shadow-card hover:shadow-card-hover transition-shadow duration-500'>
+                <span className='absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent'></span>
+                <img className='w-full h-auto object-contain p-2 transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt={productData.name} fetchPriority="high" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
+                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-white/85 text-gray-700 text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-soft border border-slate-200 backdrop-blur-sm'>
+                  <span className='w-1.5 h-1.5 rounded-full bg-primary animate-pulse'></span>
+                  {productData.image.length} view{productData.image.length !== 1 ? 's' : ''}
+                </span>
                 <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-white/90 text-gray-700 text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-slate-200 opacity-0 group-hover:opacity-100 transition-opacity'>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5'>
                     <circle cx="11" cy="11" r="8" />
@@ -255,10 +262,10 @@ Please confirm my order.`;
                 </span>
                 {productData.image.length > 1 && (
                   <>
-                    <button onClick={(e)=>{ e.stopPropagation(); showPrev(); }} aria-label='Previous image' className='absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white'>
+                    <button onClick={(e)=>{ e.stopPropagation(); showPrev(); }} aria-label='Previous image' className='absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white'>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'><path d="m15 18-6-6 6-6" /></svg>
                     </button>
-                    <button onClick={(e)=>{ e.stopPropagation(); showNext(); }} aria-label='Next image' className='absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white'>
+                    <button onClick={(e)=>{ e.stopPropagation(); showNext(); }} aria-label='Next image' className='absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white'>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'><path d="m9 18 6-6-6-6" /></svg>
                     </button>
                   </>
@@ -270,18 +277,20 @@ Please confirm my order.`;
         {/*Product info */}
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mt-2 flex-wrap'>
-            <span className='text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-blue-50 text-primary border border-blue-200'>{productData.category}</span>
-            {brand && (
-              <span className='text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200'>{brand}</span>
+            {productData.category && (
+              <span className='badge bg-blue-50 text-primary border border-blue-200'>{productData.category}</span>
             )}
-            <span className={`flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full text-white ${inStock ? 'bg-accent' : 'bg-gray-500'}`}>
+            {brand && (
+              <span className='badge bg-sky-50 text-sky-700 border border-sky-200'>{brand}</span>
+            )}
+            <span className={`badge text-white shadow-soft ${inStock ? 'bg-accent' : 'bg-gray-500'}`}>
               <span className='w-1.5 h-1.5 rounded-full bg-white animate-pulse'></span>
               {stockStatus}
             </span>
           </div>
-          <h1 className='font-semibold text-2xl sm:text-3xl mt-3 text-gray-900 leading-snug'>{productData.name}</h1>
+          <h1 className='font-semibold text-2xl sm:text-3xl mt-3.5 text-gray-900 leading-snug tracking-tight'>{productData.name}</h1>
           {productData.avgRating > 0 ? (
-            <button onClick={scrollToReviews} className='mt-2 flex items-center gap-2 group w-fit'>
+            <button onClick={scrollToReviews} className='mt-2.5 flex items-center gap-2 group w-fit'>
               <span className='flex items-center gap-0.5'>
                 {[1,2,3,4,5].map((star) => (
                   <span key={star} className={`text-sm leading-none ${star <= Math.round(productData.avgRating) ? 'text-amber-500' : 'text-slate-300'}`}>★</span>
@@ -289,20 +298,23 @@ Please confirm my order.`;
               </span>
               <span className='text-sm font-semibold text-gray-700'>{productData.avgRating.toFixed(1)}</span>
               <span className='text-sm text-gray-400'>({productData.reviewCount} review{productData.reviewCount !== 1 ? 's' : ''})</span>
-              <span className='text-xs text-primary font-medium group-hover:underline'>View all reviews</span>
+              <span className='text-xs text-primary font-medium link-underline'>View all reviews</span>
             </button>
           ) : (
-            <button onClick={scrollToReviews} className='mt-2 flex items-center gap-2 w-fit'>
+            <button onClick={scrollToReviews} className='mt-2.5 flex items-center gap-2 w-fit'>
               <span className='flex items-center gap-0.5'>
                 {[1,2,3,4,5].map((star) => (
                   <span key={star} className='text-sm leading-none text-slate-300'>★</span>
                 ))}
               </span>
               <span className='text-sm text-gray-400'>No reviews yet</span>
-              <span className='text-xs text-primary font-medium group-hover:underline'>Be the first to review</span>
+              <span className='text-xs text-primary font-medium link-underline'>Be the first to review</span>
             </button>
           )}
-          <p className='mt-4 text-3xl sm:text-4xl font-bold text-primary-dark'>{currency} {productData.price}</p>
+          <div className='mt-5 inline-flex items-baseline gap-2.5 rounded-2xl border border-primary/15 bg-gradient-to-r from-primary/[0.06] to-accent/[0.05] px-5 py-3'>
+            <p className='text-3xl sm:text-4xl font-bold text-primary-dark'>{currency} {productData.price}</p>
+            <span className='text-xs font-semibold text-accent'>incl. warranty</span>
+          </div>
 
           <p className='mt-5 text-gray-500 leading-relaxed'>{descriptionText}</p>
 
@@ -320,7 +332,7 @@ Please confirm my order.`;
                 const isStock = ['stock', 'stock status'].includes(spec.name.trim().toLowerCase());
                 const stockIn = spec.value.trim().toLowerCase() === 'in stock';
                 return (
-                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
+                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 transition-colors duration-300 hover:bg-primary/[0.03] ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
                     <div className='flex items-center gap-2.5 sm:gap-3 min-w-0'>
                       <span className='w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-blue-50 text-primary border border-blue-100'>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5 sm:w-4 sm:h-4'>
@@ -354,7 +366,7 @@ Please confirm my order.`;
                         <p className='font-medium text-gray-800'>Select {field.name}</p>
                         <div className='flex gap-2 flex-wrap mt-2'>
                           {field.values.map((val, vi) => (
-                            <button onClick={()=>setSelected(prev => ({ ...prev, [field.name]: val }))} className={`border py-2.5 px-5 rounded-lg text-sm font-medium transition-all ${selected[field.name] === val ? 'bg-primary border-primary text-white shadow-card-hover' : 'bg-slate-50 border-slate-300 text-gray-700 hover:border-primary'}`} key={vi}>{val}</button>
+                            <button key={vi} onClick={()=>setSelected(prev => ({ ...prev, [field.name]: val }))} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${selected[field.name] === val ? 'bg-primary border-primary text-white shadow-glow' : 'bg-white border-slate-300 text-gray-700 hover:border-primary hover:bg-primary/[0.04]'}`}>{val}</button>
                           ))}
                         </div>
                       </div>
@@ -365,7 +377,7 @@ Please confirm my order.`;
                     <p className='font-medium text-gray-800'>Select Ampere</p>
                     <div className='flex gap-2 flex-wrap'>
                       {productData.sizes.map((item,index)=>(
-                        <button onClick={()=>setSize(item)} className={`border py-2.5 px-5 rounded-lg text-sm font-medium transition-all ${item === size ? 'bg-primary border-primary text-white shadow-card-hover' : 'bg-slate-50 border-slate-300 text-gray-700 hover:border-primary'}`} key={index}>{item}</button>
+                        <button key={index} onClick={()=>setSize(item)} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${item === size ? 'bg-primary border-primary text-white shadow-glow' : 'bg-white border-slate-300 text-gray-700 hover:border-primary hover:bg-primary/[0.04]'}`}>{item}</button>
                       ))}
                     </div>
                   </>
@@ -374,16 +386,16 @@ Please confirm my order.`;
             )}
             <div className='flex flex-col gap-2'>
               <p className='font-medium text-gray-800'>Quantity</p>
-              <div className='flex items-center gap-3'>
-                <button onClick={()=>setQuantity(q => Math.max(1, q - 1))} className='w-10 h-10 border border-slate-300 rounded-lg bg-slate-50 text-gray-700 text-lg font-medium hover:border-primary transition-colors'>-</button>
+              <div className='flex items-center gap-3 w-fit'>
+                <button onClick={()=>setQuantity(q => Math.max(1, q - 1))} aria-label='Decrease quantity' className='w-10 h-10 border border-slate-300 rounded-xl bg-white text-gray-700 text-lg font-medium hover:border-primary hover:text-primary active:scale-95 transition-all duration-300'>-</button>
                 <span className='w-12 text-center font-semibold text-lg'>{quantity}</span>
-                <button onClick={()=>setQuantity(q => q + 1)} className='w-10 h-10 border border-slate-300 rounded-lg bg-slate-50 text-gray-700 text-lg font-medium hover:border-primary transition-colors'>+</button>
+                <button onClick={()=>setQuantity(q => q + 1)} aria-label='Increase quantity' className='w-10 h-10 border border-slate-300 rounded-xl bg-white text-gray-700 text-lg font-medium hover:border-primary hover:text-primary active:scale-95 transition-all duration-300'>+</button>
               </div>
             </div>
           </div>
           <div className='flex flex-col sm:flex-row flex-wrap gap-3'>
-            <button onClick={()=>addToCart(productData._id,effectiveSize)} className='bg-primary hover:bg-primary-dark text-white px-8 py-3.5 text-sm rounded-lg transition-colors active:bg-primary-dark w-full sm:w-auto'>ADD TO CART</button>
-            <button onClick={orderViaStore} className='bg-dark hover:bg-[#10203e] text-white px-8 py-3.5 text-sm rounded-lg transition-colors inline-flex items-center justify-center gap-2 active:bg-[#10203e] w-full sm:w-auto'>
+            <button onClick={()=>addToCart(productData._id,effectiveSize)} className='btn-primary w-full sm:w-auto'>ADD TO CART</button>
+            <button onClick={orderViaStore} className='btn-dark w-full sm:w-auto'>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'>
                 <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
                 <path d="M3.27 6.96 12 12.01l8.73-5.05" />
@@ -391,29 +403,40 @@ Please confirm my order.`;
               </svg>
               ORDER VIA STORE
             </button>
-            <button onClick={orderViaWhatsApp} className='bg-[#25D366] hover:bg-[#1DA851] text-white px-8 py-3.5 text-sm rounded-lg transition-colors inline-flex items-center justify-center gap-2 active:bg-[#1DA851] w-full sm:w-auto'>
+            <button onClick={orderViaWhatsApp} className='btn-whatsapp w-full sm:w-auto'>
               <svg viewBox="0 0 448 512" className='w-4 h-4' fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
               </svg>
               ORDER VIA WHATSAPP
             </button>
           </div>
-          <hr className='mt-8 sm:w-4/5 border-slate-200' />
-          <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
-            <p>100% Genuine & Warranty-Backed Power Solutions.</p>
-            <p>Cash On Delivery is available on this Product.</p>
-            <p>Easy Exchange Policy within 7 days + technical support.</p>
+          <div className='mt-8 card p-5'>
+            <ul className='text-sm text-gray-500 flex flex-col gap-2.5'>
+              {[
+                '100% Genuine & Warranty-Backed Power Solutions.',
+                'Cash On Delivery is available on this Product.',
+                'Easy Exchange Policy within 7 days + technical support.',
+              ].map((line) => (
+                <li key={line} className='flex items-start gap-2.5'>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4 mt-0.5 shrink-0 text-accent'>
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
       {/**Description and Review Section */}
       <div className='mt-20'>
         <div className='flex flex-wrap'>
-          <b className='border border-slate-200 px-5 py-3 text-sm rounded-t-lg bg-white text-primary'>Description</b>
-          <p className='border border-slate-200 px-5 py-3 text-sm rounded-t-lg bg-white text-gray-600'>Specifications & Care</p>
+          <b className='border border-slate-200 px-5 py-3 text-sm rounded-t-xl bg-gradient-to-b from-primary to-primary-dark text-white border-b-transparent shadow-card'>Description</b>
+          <p className='border border-slate-200 px-5 py-3 text-sm rounded-t-xl bg-white text-gray-500'>Specifications &amp; Care</p>
         </div>
-        <div className='flex flex-col gap-4 border border-slate-200 px-6 py-6 text-sm text-gray-500 bg-white rounded-b-lg'>
+        <div className='flex flex-col gap-4 border border-slate-200 border-t-0 px-6 py-6 text-sm text-gray-500 bg-white rounded-b-2xl shadow-card'>
           <p>{productData.description}</p>
+          <p className='rule-gradient my-1'></p>
           <p>Every Voltique Hub product is engineered for reliable, safe, and dependable performance. Whether you are charging a battery, stabilizing your power supply, or running your home on an inverter, we make sure it works simply and safely.</p>
         </div>
       </div>
@@ -425,7 +448,7 @@ Please confirm my order.`;
 
       {/*Product Image Lightbox */}
       {lightboxOpen && (
-        <div onClick={()=>setLightboxOpen(false)} className='fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6'>
+        <div onClick={()=>setLightboxOpen(false)} className='fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-pop-in'>
           <button onClick={()=>setLightboxOpen(false)} aria-label='Close preview' className='absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors'>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-5 h-5'>
               <path d="M18 6 6 18M6 6l12 12" />
