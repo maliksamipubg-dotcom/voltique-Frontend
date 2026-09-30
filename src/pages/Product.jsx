@@ -211,7 +211,7 @@ Please confirm my order.`;
   }, [lightboxOpen]);
 
   return productData ? (
-    <div className='border-t border-slate-200 pt-8 sm:pt-10 transition-opacity ease-in duration-500 opacity-100'>
+    <div className='border-t border-line pt-8 sm:pt-10 transition-opacity ease-in duration-500 opacity-100'>
       <Seo
         title={`${productData.name} | Voltique Hub`}
         description={buildProductDescription(productData)}
@@ -238,7 +238,7 @@ Please confirm my order.`;
               <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[86px] sm:shrink-0 gap-2'>
                 {
                   productData.image.map((item,index)=>(
-                    <button type='button' onClick={()=>setImage(item)} key={index} className={`w-16 sm:w-[86px] bg-white flex-shrink-0 cursor-pointer rounded-xl overflow-hidden transition-all duration-300 ease-swift hover:-translate-y-0.5 ${image === item ? 'border-2 border-primary shadow-glow' : 'border border-slate-200 hover:border-primary/60 opacity-75 hover:opacity-100'}`}>
+                    <button type='button' onClick={()=>setImage(item)} key={index} className={`w-16 sm:w-[86px] bg-gradient-to-b from-surface-2 to-surface-3 flex-shrink-0 cursor-pointer rounded-xl overflow-hidden transition-all duration-300 ease-swift hover:-translate-y-0.5 ${image === item ? 'border-2 border-primary shadow-glow' : 'border border-line hover:border-primary/60 opacity-75 hover:opacity-100'}`}>
                       <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} loading="lazy" className='w-full h-auto object-contain' alt={`${productData.name} - thumbnail ${index + 1}`} />
                     </button>
                   ))
@@ -246,14 +246,14 @@ Please confirm my order.`;
               </div>
             )}
             <div className='flex-1 min-w-0'>
-              <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-slate-200 bg-gradient-to-b from-mist to-white flex items-center justify-center overflow-hidden cursor-zoom-in group relative shadow-card hover:shadow-card-hover transition-shadow duration-500'>
+              <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-line bg-gradient-to-b from-surface-2 to-surface-3 flex items-center justify-center overflow-hidden cursor-zoom-in group relative shadow-card hover:shadow-card-hover transition-shadow duration-500'>
                 <span className='absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent'></span>
                 <img className='w-full h-auto object-contain p-2 transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt={productData.name} fetchPriority="high" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
-                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-white/85 text-gray-700 text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-soft border border-slate-200 backdrop-blur-sm'>
+                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-card border border-line-strong backdrop-blur-sm'>
                   <span className='w-1.5 h-1.5 rounded-full bg-primary animate-pulse'></span>
                   {productData.image.length} view{productData.image.length !== 1 ? 's' : ''}
                 </span>
-                <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-white/90 text-gray-700 text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-slate-200 opacity-0 group-hover:opacity-100 transition-opacity'>
+                <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-line-strong opacity-0 group-hover:opacity-100 transition-opacity'>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5'>
                     <circle cx="11" cy="11" r="8" />
                     <path d="m21 21-4.3-4.3" />
@@ -262,10 +262,10 @@ Please confirm my order.`;
                 </span>
                 {productData.image.length > 1 && (
                   <>
-                    <button onClick={(e)=>{ e.stopPropagation(); showPrev(); }} aria-label='Previous image' className='absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white'>
+                    <button onClick={(e)=>{ e.stopPropagation(); showPrev(); }} aria-label='Previous image' className='absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-navy/90 text-white border border-line-strong flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary'>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'><path d="m15 18-6-6 6-6" /></svg>
                     </button>
-                    <button onClick={(e)=>{ e.stopPropagation(); showNext(); }} aria-label='Next image' className='absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-gray-700 flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white'>
+                    <button onClick={(e)=>{ e.stopPropagation(); showNext(); }} aria-label='Next image' className='absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-navy/90 text-white border border-line-strong flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary'>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'><path d="m9 18 6-6-6-6" /></svg>
                     </button>
                   </>
@@ -278,76 +278,76 @@ Please confirm my order.`;
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mt-2 flex-wrap'>
             {productData.category && (
-              <span className='badge bg-blue-50 text-primary border border-blue-200'>{productData.category}</span>
+              <span className='badge bg-primary/15 text-primary border border-primary/40'>{productData.category}</span>
             )}
             {brand && (
-              <span className='badge bg-sky-50 text-sky-700 border border-sky-200'>{brand}</span>
+              <span className='badge bg-accent/15 text-accent border border-accent/40'>{brand}</span>
             )}
-            <span className={`badge text-white shadow-soft ${inStock ? 'bg-accent' : 'bg-gray-500'}`}>
-              <span className='w-1.5 h-1.5 rounded-full bg-white animate-pulse'></span>
+            <span className={`badge shadow-soft ${inStock ? 'bg-accent text-navy' : 'bg-danger text-white'}`}>
+              <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${inStock ? 'bg-navy' : 'bg-white'}`}></span>
               {stockStatus}
             </span>
           </div>
-          <h1 className='font-semibold text-2xl sm:text-3xl mt-3.5 text-gray-900 leading-snug tracking-tight'>{productData.name}</h1>
+          <h1 className='font-semibold text-2xl sm:text-3xl mt-3.5 text-white leading-snug tracking-tight'>{productData.name}</h1>
           {productData.avgRating > 0 ? (
             <button onClick={scrollToReviews} className='mt-2.5 flex items-center gap-2 group w-fit'>
               <span className='flex items-center gap-0.5'>
                 {[1,2,3,4,5].map((star) => (
-                  <span key={star} className={`text-sm leading-none ${star <= Math.round(productData.avgRating) ? 'text-amber-500' : 'text-slate-300'}`}>★</span>
+                  <span key={star} className={`text-sm leading-none ${star <= Math.round(productData.avgRating) ? 'text-amber-400' : 'text-ink-4'}`}>★</span>
                 ))}
               </span>
-              <span className='text-sm font-semibold text-gray-700'>{productData.avgRating.toFixed(1)}</span>
-              <span className='text-sm text-gray-400'>({productData.reviewCount} review{productData.reviewCount !== 1 ? 's' : ''})</span>
+              <span className='text-sm font-semibold text-ink-2'>{productData.avgRating.toFixed(1)}</span>
+              <span className='text-sm text-ink-3'>({productData.reviewCount} review{productData.reviewCount !== 1 ? 's' : ''})</span>
               <span className='text-xs text-primary font-medium link-underline'>View all reviews</span>
             </button>
           ) : (
             <button onClick={scrollToReviews} className='mt-2.5 flex items-center gap-2 w-fit'>
               <span className='flex items-center gap-0.5'>
                 {[1,2,3,4,5].map((star) => (
-                  <span key={star} className='text-sm leading-none text-slate-300'>★</span>
+                  <span key={star} className='text-sm leading-none text-ink-4'>★</span>
                 ))}
               </span>
-              <span className='text-sm text-gray-400'>No reviews yet</span>
+              <span className='text-sm text-ink-3'>No reviews yet</span>
               <span className='text-xs text-primary font-medium link-underline'>Be the first to review</span>
             </button>
           )}
-          <div className='mt-5 inline-flex items-baseline gap-2.5 rounded-2xl border border-primary/15 bg-gradient-to-r from-primary/[0.06] to-accent/[0.05] px-5 py-3'>
-            <p className='text-3xl sm:text-4xl font-bold text-primary-dark'>{currency} {productData.price}</p>
+          <div className='mt-5 inline-flex items-baseline gap-2.5 rounded-2xl border border-primary/15 bg-gradient-to-r from-primary/20 to-accent/10 px-5 py-3'>
+            <p className='text-3xl sm:text-4xl font-bold text-primary-bright'>{currency} {productData.price}</p>
             <span className='text-xs font-semibold text-accent'>incl. warranty</span>
           </div>
 
-          <p className='mt-5 text-gray-500 leading-relaxed'>{descriptionText}</p>
+          <p className='mt-5 text-ink-3 leading-relaxed'>{descriptionText}</p>
 
           {/*Specifications */}
           {specs.length > 0 && (
-          <div className='mt-6 rounded-2xl border border-slate-200 bg-white shadow-card overflow-hidden'>
+          <div className='mt-6 rounded-2xl border border-line bg-surface shadow-card overflow-hidden'>
             <div className='flex items-center gap-2.5 px-5 py-3.5 bg-gradient-to-r from-primary to-primary-dark'>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4 text-white shrink-0'>
                 <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
               </svg>
               <p className='text-sm font-semibold text-white'>Specifications</p>
             </div>
-            <div className='divide-y divide-slate-100 text-sm'>
+            <div className='divide-y divide-line text-sm'>
               {specs.map((spec, i) => {
                 const isStock = ['stock', 'stock status'].includes(spec.name.trim().toLowerCase());
                 const stockIn = spec.value.trim().toLowerCase() === 'in stock';
                 return (
-                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 transition-colors duration-300 hover:bg-primary/[0.03] ${i % 2 === 1 ? 'bg-slate-50/80' : 'bg-white'}`}>
+                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 transition-colors duration-300 hover:bg-primary/10 ${i % 2 === 1 ? 'bg-surface-2/80' : 'bg-surface'}`}>
                     <div className='flex items-center gap-2.5 sm:gap-3 min-w-0'>
-                      <span className='w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-blue-50 text-primary border border-blue-100'>
+                      <span className='w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-primary/15 text-primary border border-primary/30'>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5 sm:w-4 sm:h-4'>
                           <path d={getSpecIcon(spec.name)} />
                         </svg>
                       </span>
-                      <span className='text-slate-600 font-medium min-w-0 break-words'>{spec.name}</span>
+                      <span className='text-ink-2 font-medium min-w-0 break-words'>{spec.name}</span>
                     </div>
                     {isStock ? (
-                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white shrink-0 justify-self-end sm:justify-self-auto ${stockIn ? 'bg-accent' : 'bg-red-600'}`}>
-                        <span className='w-1.5 h-1.5 rounded-full bg-white animate-pulse'></span>
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 justify-self-end sm:justify-self-auto ${stockIn ? 'bg-accent text-navy' : 'bg-danger text-white'}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${stockIn ? 'bg-navy' : 'bg-white'}`}></span>
                         {spec.value}
                       </span>
                     ) : (
-                      <span className='font-semibold text-gray-900 text-right break-words min-w-0'>{spec.value}</span>
+                      <span className='font-semibold text-white text-right break-words min-w-0'>{spec.value}</span>
                     )}
                   </div>
                 );
@@ -363,10 +363,10 @@ Please confirm my order.`;
                   <div className='flex flex-col gap-4'>
                     {optionFields.map((field, fi) => (
                       <div key={fi}>
-                        <p className='font-medium text-gray-800'>Select {field.name}</p>
+                        <p className='font-medium text-white'>Select {field.name}</p>
                         <div className='flex gap-2 flex-wrap mt-2'>
                           {field.values.map((val, vi) => (
-                            <button key={vi} onClick={()=>setSelected(prev => ({ ...prev, [field.name]: val }))} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${selected[field.name] === val ? 'bg-primary border-primary text-white shadow-glow' : 'bg-white border-slate-300 text-gray-700 hover:border-primary hover:bg-primary/[0.04]'}`}>{val}</button>
+                            <button key={vi} onClick={()=>setSelected(prev => ({ ...prev, [field.name]: val }))} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${selected[field.name] === val ? 'bg-primary border-primary text-white shadow-glow' : 'bg-surface-2 border-line-strong text-ink-2 hover:border-primary hover:bg-primary/15 hover:text-white'}`}>{val}</button>
                           ))}
                         </div>
                       </div>
@@ -374,10 +374,10 @@ Please confirm my order.`;
                   </div>
                 ) : (
                   <>
-                    <p className='font-medium text-gray-800'>Select Ampere</p>
+                    <p className='font-medium text-white'>Select Ampere</p>
                     <div className='flex gap-2 flex-wrap'>
                       {productData.sizes.map((item,index)=>(
-                        <button key={index} onClick={()=>setSize(item)} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${item === size ? 'bg-primary border-primary text-white shadow-glow' : 'bg-white border-slate-300 text-gray-700 hover:border-primary hover:bg-primary/[0.04]'}`}>{item}</button>
+                        <button key={index} onClick={()=>setSize(item)} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${item === size ? 'bg-primary border-primary text-white shadow-glow' : 'bg-surface-2 border-line-strong text-ink-2 hover:border-primary hover:bg-primary/15 hover:text-white'}`}>{item}</button>
                       ))}
                     </div>
                   </>
@@ -385,11 +385,11 @@ Please confirm my order.`;
               </>
             )}
             <div className='flex flex-col gap-2'>
-              <p className='font-medium text-gray-800'>Quantity</p>
+              <p className='font-medium text-white'>Quantity</p>
               <div className='flex items-center gap-3 w-fit'>
-                <button onClick={()=>setQuantity(q => Math.max(1, q - 1))} aria-label='Decrease quantity' className='w-10 h-10 border border-slate-300 rounded-xl bg-white text-gray-700 text-lg font-medium hover:border-primary hover:text-primary active:scale-95 transition-all duration-300'>-</button>
+                <button onClick={()=>setQuantity(q => Math.max(1, q - 1))} aria-label='Decrease quantity' className='w-10 h-10 border border-line-strong rounded-xl bg-surface-2 text-white text-lg font-medium hover:border-primary hover:bg-primary/20 active:scale-95 transition-all duration-300'>-</button>
                 <span className='w-12 text-center font-semibold text-lg'>{quantity}</span>
-                <button onClick={()=>setQuantity(q => q + 1)} aria-label='Increase quantity' className='w-10 h-10 border border-slate-300 rounded-xl bg-white text-gray-700 text-lg font-medium hover:border-primary hover:text-primary active:scale-95 transition-all duration-300'>+</button>
+                <button onClick={()=>setQuantity(q => q + 1)} aria-label='Increase quantity' className='w-10 h-10 border border-line-strong rounded-xl bg-surface-2 text-white text-lg font-medium hover:border-primary hover:bg-primary/20 active:scale-95 transition-all duration-300'>+</button>
               </div>
             </div>
           </div>
@@ -411,7 +411,7 @@ Please confirm my order.`;
             </button>
           </div>
           <div className='mt-8 card p-5'>
-            <ul className='text-sm text-gray-500 flex flex-col gap-2.5'>
+            <ul className='text-sm text-ink-3 flex flex-col gap-2.5'>
               {[
                 '100% Genuine & Warranty-Backed Power Solutions.',
                 'Cash On Delivery is available on this Product.',
@@ -431,10 +431,10 @@ Please confirm my order.`;
       {/**Description and Review Section */}
       <div className='mt-20'>
         <div className='flex flex-wrap'>
-          <b className='border border-slate-200 px-5 py-3 text-sm rounded-t-xl bg-gradient-to-b from-primary to-primary-dark text-white border-b-transparent shadow-card'>Description</b>
-          <p className='border border-slate-200 px-5 py-3 text-sm rounded-t-xl bg-white text-gray-500'>Specifications &amp; Care</p>
+          <b className='border border-line px-5 py-3 text-sm rounded-t-xl bg-gradient-to-b from-primary to-primary-dark text-white border-b-transparent shadow-card'>Description</b>
+          <p className='border border-line px-5 py-3 text-sm rounded-t-xl bg-surface-2 text-ink-2'>Specifications &amp; Care</p>
         </div>
-        <div className='flex flex-col gap-4 border border-slate-200 border-t-0 px-6 py-6 text-sm text-gray-500 bg-white rounded-b-2xl shadow-card'>
+        <div className='flex flex-col gap-4 border border-line border-t-0 px-6 py-6 text-sm text-ink-3 bg-surface rounded-b-2xl shadow-card'>
           <p>{productData.description}</p>
           <p className='rule-gradient my-1'></p>
           <p>Every Voltique Hub product is engineered for reliable, safe, and dependable performance. Whether you are charging a battery, stabilizing your power supply, or running your home on an inverter, we make sure it works simply and safely.</p>
@@ -471,7 +471,7 @@ Please confirm my order.`;
           )}
 
           <div onClick={(e)=>e.stopPropagation()} className='max-w-5xl w-full flex flex-col items-center gap-4'>
-            <div className='w-full flex items-center justify-center bg-slate-900/40 border border-white/10 rounded-2xl py-4 sm:py-6 px-4'>
+            <div className='w-full flex items-center justify-center bg-black/50 border border-white/10 rounded-2xl py-4 sm:py-6 px-4'>
               <img key={image} src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='max-h-[70vh] sm:max-h-[75vh] w-auto max-w-full object-contain' alt={productData.name} />
             </div>
 
@@ -479,12 +479,12 @@ Please confirm my order.`;
               <>
                 <div className='flex items-center justify-center gap-2 sm:gap-3 flex-wrap'>
                   {productData.image.map((item, index) => (
-                    <button key={index} onClick={()=>setImage(item)} className={`w-14 sm:w-16 rounded-lg border-2 overflow-hidden bg-white flex items-center justify-center transition-all ${image === item ? 'border-accent ring-2 ring-accent/40' : 'border-transparent opacity-60 hover:opacity-100'}`}>
+                    <button key={index} onClick={()=>setImage(item)} className={`w-14 sm:w-16 rounded-lg border-2 overflow-hidden bg-surface-2 flex items-center justify-center transition-all ${image === item ? 'border-accent ring-2 ring-accent/40' : 'border-line opacity-60 hover:opacity-100'}`}>
                       <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='w-full h-auto object-contain' alt={`${productData.name} - thumbnail ${index + 1}`} />
                     </button>
                   ))}
                 </div>
-                <p className='text-white/60 text-xs sm:text-sm tracking-wide'>{currentIndex === -1 ? 1 : currentIndex + 1} / {productData.image.length}</p>
+                <p className='text-ink-2 text-xs sm:text-sm tracking-wide'>{currentIndex === -1 ? 1 : currentIndex + 1} / {productData.image.length}</p>
               </>
             )}
           </div>

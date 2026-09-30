@@ -7,21 +7,45 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#2456e6",
-        "primary-dark": "#1a3fae",
-        "primary-light": "#4b7bf5",
-        accent: "#0e7490",
-        "accent-light": "#0ea5b7",
-        dark: "#0a1628",
-        navy: "#101f3d",
-        "navy-soft": "#16294b",
-        background: "#f4f6fa",
-        mist: "#f8fafc",
-        surface: "#ffffff",
-        textPrimary: "#0b1424",
-        textSecondary: "#52607a",
-        border: "#e2e8f0",
-        gold: "#f59e0b",
+        /* Electric accents */
+        primary: "#2563eb",
+        "primary-dark": "#1d4ed8",
+        "primary-light": "#3b82f6",
+        "primary-bright": "#60a5fa",
+        accent: "#22d3ee",
+        "accent-light": "#67e8f9",
+
+        /* Dark navy surfaces */
+        dark: "#07111f",
+        navy: "#0b1830",
+        "navy-soft": "#101d32",
+        surface: "#12213a",
+        "surface-2": "#17263d",
+        "surface-3": "#1e2f4a",
+        background: "#07111f",
+        mist: "#0b1830",
+
+        /* Hairline borders */
+        line: "#24344f",
+        "line-soft": "#1b2a43",
+        "line-strong": "#3a4d6d",
+
+        /* Text */
+        textPrimary: "#f8fafc",
+        textSecondary: "#cbd5e1",
+        ink: "#f8fafc",
+        "ink-2": "#cbd5e1",
+        "ink-3": "#94a3b8",
+        "ink-4": "#7c8ca4",
+
+        /* Status */
+        success: "#16a34a",
+        "success-light": "#4ade80",
+        "success-deep": "#15803d",
+        danger: "#ef4444",
+        "danger-light": "#f87171",
+        warning: "#f59e0b",
+        gold: "#fbbf24",
       },
       fontFamily: {
         poppins: ["Inter", "sans-serif"],
@@ -31,13 +55,14 @@ module.exports = {
         mono: ["ui-monospace", "SFMono-Regular", "monospace"],
       },
       boxShadow: {
-        card: "0 6px 22px rgba(8, 22, 45, 0.07)",
-        "card-hover": "0 16px 38px rgba(36, 86, 230, 0.18)",
-        soft: "0 2px 10px rgba(8, 22, 45, 0.05)",
-        lift: "0 22px 50px -18px rgba(8, 22, 45, 0.28)",
-        nav: "0 10px 30px -18px rgba(8, 22, 45, 0.35)",
-        glow: "0 10px 40px -12px rgba(36, 86, 230, 0.55)",
-        inset: "inset 0 1px 0 rgba(255, 255, 255, 0.6)",
+        card: "0 8px 26px -16px rgba(2, 8, 23, 0.95)",
+        "card-hover": "0 24px 48px -22px rgba(37, 99, 235, 0.45)",
+        soft: "0 2px 12px -8px rgba(2, 8, 23, 0.9)",
+        lift: "0 30px 64px -28px rgba(2, 8, 23, 1)",
+        nav: "0 14px 38px -24px rgba(2, 8, 23, 1)",
+        glow: "0 10px 32px -12px rgba(37, 99, 235, 0.65)",
+        inset: "inset 0 1px 0 rgba(255, 255, 255, 0.07)",
+        panel: "inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(2, 8, 23, 0.6)",
       },
       borderRadius: {
         "4xl": "2rem",

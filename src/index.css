@@ -4,15 +4,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================
+   Voltique Hub — Dark Electric Design Tokens
+   Single source of truth for the navy / electric-blue identity.
+   ========================================================== */
 :root {
-  --primary-color: #2456e6;
-  --primary-dark: #1a3fae;
-  --accent-color: #0e7490;
-  --dark-color: #0a1628;
-  --bg-color: #f4f6fa;
-  --card-color: #ffffff;
-  --border-color: #e2e8f0;
-  --muted-color: #52607a;
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg-color: #07111f;
+  --bg-navy: #0b1830;
+  --card-color: #12213a;
+  --surface-2: #17263d;
+  --surface-3: #1e2f4a;
+
+  /* Hairlines */
+  --border-color: rgba(148, 163, 184, 0.20);
+  --border-strong: rgba(148, 163, 184, 0.34);
+
+  /* Electric accents */
+  --primary-color: #2563eb;
+  --primary-bright: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --accent-color: #22d3ee;
+
+  /* Text */
+  --text-main: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* Status */
+  --success: #4ade80;
+  --success-deep: #16a34a;
+  --danger: #f87171;
+  --danger-deep: #ef4444;
+  --warning: #fbbf24;
 }
 
 a.active hr{
@@ -44,6 +70,12 @@ html, body{
 
 body{
   background-color: var(--bg-color);
+  color: var(--text-main);
+}
+
+::selection{
+  background: rgba(37, 99, 235, 0.45);
+  color: #ffffff;
 }
 
 /* ==========================================================
@@ -127,17 +159,17 @@ body{
    Voltique Hub — Surfaces & components
    ========================================================== */
 
-/* Frosted panel — used sparingly (nav, chips, small overlays). */
+/* Frosted dark panel — used sparingly (nav, chips, small overlays). */
 .glass{
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(18, 33, 58, 0.72);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
 
-/* Gradient hairline used to separate light sections. */
+/* Gradient hairline used to separate sections. */
 .rule-gradient{
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(36, 86, 230, 0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.45), rgba(34, 211, 238, 0.28), transparent);
 }
 
 /* Hover sheen sweep for premium cards. */
@@ -150,7 +182,7 @@ body{
   left: 0;
   width: 45%;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  background: linear-gradient(100deg, transparent, rgba(147, 197, 253, 0.10), transparent);
   transform: translate3d(-120%, 0, 0);
   opacity: 0;
 }
@@ -167,7 +199,7 @@ body{
 .skeleton{
   position: relative;
   overflow: hidden;
-  background: #e8eef7;
+  background: #1b2a43;
   border-radius: 0.75rem;
 }
 .skeleton::after{
@@ -175,78 +207,145 @@ body{
   position: absolute;
   inset: 0;
   transform: translate3d(-100%, 0, 0);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0) 0%, rgba(148, 163, 184, 0.14) 50%, rgba(148, 163, 184, 0) 100%);
   animation: catalog-sheen 1.45s ease-in-out infinite;
 }
 
-/* Buttons */
+/* ==========================================================
+   Buttons — every variant keeps a strong background/text contrast
+   ========================================================== */
 .btn{
   @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold tracking-wide
          transition-all duration-300 ease-swift select-none whitespace-nowrap;
 }
 .btn-primary{
-  @apply btn bg-primary text-white shadow-[0_10px_28px_-12px_rgba(36,86,230,0.75)]
-         hover:bg-primary-dark hover:shadow-[0_16px_34px_-12px_rgba(36,86,230,0.85)] hover:-translate-y-0.5;
+  @apply btn bg-primary text-white shadow-[0_10px_28px_-12px_rgba(37,99,235,0.8)]
+         hover:bg-primary-light hover:shadow-[0_16px_36px_-12px_rgba(37,99,235,0.9)] hover:-translate-y-0.5;
 }
 .btn-dark{
-  @apply btn bg-dark text-white shadow-[0_10px_28px_-14px_rgba(10,22,40,0.9)]
-         hover:bg-navy-soft hover:-translate-y-0.5;
+  @apply btn bg-surface-3 text-white border border-line-strong
+         shadow-[0_10px_28px_-16px_rgba(2,8,23,1)]
+         hover:bg-[#24395c] hover:border-primary-light hover:-translate-y-0.5;
 }
 .btn-whatsapp{
   @apply btn bg-[#25D366] text-white shadow-[0_10px_28px_-14px_rgba(37,211,102,0.9)] hover:bg-[#1DA851] hover:-translate-y-0.5;
 }
 .btn-outline{
-  @apply btn border border-slate-300 bg-white text-gray-700 hover:border-primary hover:text-primary hover:-translate-y-0.5 hover:shadow-card;
+  @apply btn border border-line-strong bg-surface-2 text-ink
+         hover:border-primary-light hover:text-primary-light hover:-translate-y-0.5 hover:shadow-glow;
 }
 .btn-ghost-light{
-  @apply btn border border-white/25 bg-white/5 text-white backdrop-blur-sm hover:bg-white/15 hover:border-white/50 hover:-translate-y-0.5;
+  @apply btn border border-white/25 bg-white/[0.06] text-white backdrop-blur-sm hover:bg-white/15 hover:border-white/50 hover:-translate-y-0.5;
 }
 .btn-white{
-  @apply btn bg-white text-dark shadow-[0_12px_30px_-14px_rgba(0,0,0,0.6)] hover:-translate-y-0.5 hover:bg-white;
+  @apply btn bg-white text-dark shadow-[0_12px_30px_-14px_rgba(0,0,0,0.75)] hover:-translate-y-0.5 hover:bg-white;
 }
 .btn-sm{
   @apply px-4 py-2 text-xs rounded-lg;
 }
 
-/* Cards */
+/* Disabled buttons: unmistakably disabled, text still readable. */
+.btn:disabled,
+.btn[disabled]{
+  background-color: #26374f !important;
+  color: #c3d0e0 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  box-shadow: none !important;
+  opacity: 1;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ==========================================================
+   Cards / panels — one consistent dark design language
+   ========================================================== */
 .card{
-  @apply bg-white border border-slate-200 rounded-2xl shadow-card;
+  @apply bg-surface border border-line rounded-2xl shadow-card;
 }
 .card-interactive{
   @apply card transition-[transform,box-shadow,border-color] duration-500 ease-swift
-         hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/30;
+         hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/50;
 }
 
-/* Form controls */
+/* ==========================================================
+   Form controls
+   ========================================================== */
 .field{
-  @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-gray-800
-         placeholder:text-slate-400 outline-none transition-all duration-200
-         focus:border-primary focus:ring-4 focus:ring-primary/10;
+  @apply w-full rounded-xl border border-line-strong bg-navy px-4 py-3 text-sm text-ink
+         placeholder:text-ink-4 outline-none transition-all duration-200
+         focus:border-primary focus:bg-surface-2 focus:ring-4 focus:ring-primary/25;
 }
 .field-dark{
-  @apply w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white
-         placeholder:text-white/50 outline-none transition-all duration-200
-         focus:border-white/60 focus:bg-white/15 focus:ring-4 focus:ring-white/10;
+  @apply w-full rounded-xl border border-white/20 bg-white/[0.07] px-4 py-3 text-sm text-white
+         placeholder:text-ink-3 outline-none transition-all duration-200
+         focus:border-accent focus:bg-white/[0.12] focus:ring-4 focus:ring-accent/20;
 }
 
-/* Badges & chips */
+/* Native select option lists must not fall back to a white canvas. */
+select option,
+select optgroup{
+  background-color: #12213a;
+  color: #f8fafc;
+}
+
+/* Keep native checkboxes / radios on-brand and high contrast. */
+input[type="checkbox"],
+input[type="radio"]{
+  accent-color: #2563eb;
+}
+
+/* Number inputs: visible spinners, light glyphs. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+  opacity: 0.85;
+  filter: invert(1);
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+/* Autofill must not paint a white field on a dark form. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill{
+  -webkit-text-fill-color: #f8fafc;
+  -webkit-box-shadow: 0 0 0 1000px #0b1830 inset;
+  caret-color: #f8fafc;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ==========================================================
+   Badges & chips
+   ========================================================== */
 .badge{
   @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide;
 }
 .chip{
-  @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-gray-700
-         transition-all duration-300 ease-swift hover:border-primary hover:text-primary hover:-translate-y-0.5 hover:shadow-soft;
+  @apply inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface-2 px-4 py-2 text-sm font-medium text-ink-2
+         transition-all duration-300 ease-swift hover:border-primary-light hover:bg-surface-3 hover:text-primary-light hover:-translate-y-0.5;
 }
+
+/* Monochrome UI glyphs (PNG) recoloured for the dark theme.
+   Keeps the original shapes — only remaps luminance/hue. */
+.icon-on-dark{ filter: brightness(0) invert(1); }
+.icon-on-dark-dim{ filter: brightness(0) invert(1) opacity(0.72); }
+.icon-on-dark-blue{ filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(1780%) hue-rotate(196deg) brightness(102%) contrast(93%); }
+.icon-on-dark-cyan{ filter: brightness(0) saturate(100%) invert(83%) sepia(58%) saturate(1600%) hue-rotate(160deg) brightness(98%) contrast(92%); }
+.icon-on-dark-green{ filter: brightness(0) saturate(100%) invert(64%) sepia(51%) saturate(1400%) hue-rotate(87deg) brightness(97%) contrast(92%); }
+.icon-on-dark-red{ filter: brightness(0) saturate(100%) invert(45%) sepia(89%) saturate(2400%) hue-rotate(348deg) brightness(101%) contrast(94%); }
+.icon-on-dark-amber{ filter: brightness(0) saturate(100%) invert(84%) sepia(90%) saturate(1900%) hue-rotate(3deg) brightness(103%) contrast(96%); }
 
 /* Section eyebrow label */
 .eyebrow{
-  @apply inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.07] px-3.5 py-1.5
-         text-[11px] font-semibold uppercase tracking-[0.18em] text-primary;
+  @apply inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3.5 py-1.5
+         text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-light;
 }
 
 /* Animated gradient text */
 .text-gradient{
-  background-image: linear-gradient(100deg, #4b7bf5 0%, #22d3ee 45%, #4b7bf5 100%);
+  background-image: linear-gradient(100deg, #60a5fa 0%, #22d3ee 48%, #60a5fa 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -266,13 +365,13 @@ body{
   will-change: transform;
 }
 .orb-blue{
-  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.16) 46%, rgba(59, 130, 246, 0) 72%);
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.42) 0%, rgba(59, 130, 246, 0.14) 46%, rgba(59, 130, 246, 0) 72%);
 }
 .orb-cyan{
-  background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.42) 0%, rgba(34, 211, 238, 0.14) 46%, rgba(34, 211, 238, 0) 72%);
+  background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.34) 0%, rgba(34, 211, 238, 0.11) 46%, rgba(34, 211, 238, 0) 72%);
 }
 .orb-violet{
-  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0.12) 46%, rgba(99, 102, 241, 0) 72%);
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.34) 0%, rgba(99, 102, 241, 0.10) 46%, rgba(99, 102, 241, 0) 72%);
 }
 
 /* Underline link with animated indicator */
@@ -287,7 +386,7 @@ body{
   bottom: -3px;
   height: 2px;
   border-radius: 9999px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  background: linear-gradient(90deg, var(--primary-bright), var(--accent-color));
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -299,12 +398,13 @@ body{
 
 /* Keyboard focus ring (inputs keep their own field styling) */
 :where(a, button, select, summary, [role="button"]):focus-visible{
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--accent-color);
   outline-offset: 3px;
   border-radius: 8px;
 }
 
-/* === Mobile Responsiveness / Overflow Safety ===
+/* ============================================================
+   Mobile Responsiveness / Overflow Safety
    These rules only stop overflow and force text/images to wrap or shrink.
    They do not change layout, spacing, colors, or any desktop appearance. */
 img{
@@ -346,7 +446,7 @@ button:active{
 /* Modern Toast Styling */
 .Toastify__toast.modern-toast{
   border-radius: 12px;
-  box-shadow: 0 10px 30px -8px rgba(2, 6, 23, 0.25);
+  box-shadow: 0 10px 30px -8px rgba(2, 6, 23, 0.55);
   padding: 12px 16px;
   font-family: "Inter", sans-serif;
 }
@@ -384,7 +484,7 @@ button:active{
 }
 
 .Toastify__toast.modern-toast.Toastify__toast--info{
-  background: linear-gradient(135deg, #2456e6, #1a3fae);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
 }
 
 .Toastify__toast.modern-toast .Toastify__progress-bar{
@@ -416,6 +516,10 @@ button:active{
   max-width: 100%;
   flex-shrink: 0;
   object-fit: contain;
+}
+
+.brand-logo-light{
+  filter: none;
 }
 
 @media (min-width: 768px){

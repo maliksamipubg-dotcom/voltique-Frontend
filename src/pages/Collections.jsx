@@ -43,7 +43,7 @@ const SkeletonCard = () => (
       <div className='skeleton h-4 w-full'></div>
       <div className='skeleton h-4 w-4/5'></div>
       <div className='skeleton h-3 w-1/2 mt-1'></div>
-      <div className='flex items-center justify-between pt-3 mt-1 border-t border-slate-100'>
+      <div className='flex items-center justify-between pt-3 mt-1 border-t border-line'>
         <div className='skeleton h-4 w-20'></div>
         <div className='skeleton h-7 w-20 rounded-lg'></div>
       </div>
@@ -233,7 +233,7 @@ const Collections = () => {
   const resultCount = Array.isArray(filterProducts) ? filterProducts.length : 0;
 
   return (
-    <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8 border-t border-slate-200'>
+    <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8 border-t border-line'>
       <Seo
         title={activeCategory ? `${activeCategory} | Voltique Hub` : 'Shop All Products | Voltique Hub'}
         description={activeCategory
@@ -258,10 +258,10 @@ const Collections = () => {
           type='button'
           onClick={() => setShowFilter(!showFilter)}
           aria-expanded={showFilter}
-          className='card w-full flex items-center justify-between px-5 py-4 lg:shadow-none lg:border-0 lg:bg-transparent lg:p-0 font-semibold text-gray-800 transition-colors duration-300 hover:text-primary'
+          className='card w-full flex items-center justify-between px-5 py-4 lg:shadow-none lg:border-0 lg:bg-transparent lg:p-0 font-semibold text-white transition-colors duration-300 hover:text-primary-bright'
         >
           <span className='text-base tracking-[0.15em]'>FILTERS</span>
-          <span className='w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center lg:hidden'>
+          <span className='w-8 h-8 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center lg:hidden'>
             <img
               className={`h-3 transition-transform duration-500 ease-swift ${showFilter ? 'rotate-90' : ''}`}
               src={assets.dropdown_icon}
@@ -273,13 +273,13 @@ const Collections = () => {
         <div className={`mt-4 flex flex-col gap-4 ${showFilter ? '' : 'hidden'} lg:flex`}>
           {/* Category Filter */}
           <div className='card p-5'>
-            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Category</p>
-            <div className='flex flex-col gap-3 text-sm font-light text-gray-700'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-ink-3 uppercase'>Category</p>
+            <div className='flex flex-col gap-3 text-sm font-light text-ink-2'>
               {categoryCounts.map(({ cat, count }, i) => (
                 <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
                   <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={cat} checked={category.includes(cat.toLowerCase())} onChange={toggleCategory} />
-                  <span className='group-hover:text-primary transition-colors duration-200'>{cat}</span>
-                  <span className='ml-auto text-xs text-gray-400'>({count})</span>
+                  <span className='group-hover:text-primary-bright transition-colors duration-200'>{cat}</span>
+                  <span className='ml-auto text-xs text-ink-3'>({count})</span>
                 </label>
               ))}
             </div>
@@ -287,12 +287,12 @@ const Collections = () => {
 
           {/* Brand Filter */}
           <div className='card p-5'>
-            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Brand</p>
-            <div className='flex flex-col gap-3 text-sm font-light text-gray-700'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-ink-3 uppercase'>Brand</p>
+            <div className='flex flex-col gap-3 text-sm font-light text-ink-2'>
               {brands.map((b, i) => (
                 <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
                   <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={b} onChange={toggleBrand} />
-                  <span className='group-hover:text-primary transition-colors duration-200'>{b}</span>
+                  <span className='group-hover:text-primary-bright transition-colors duration-200'>{b}</span>
                 </label>
               ))}
             </div>
@@ -300,7 +300,7 @@ const Collections = () => {
 
           {/* Price Filter */}
           <div className='card p-5'>
-            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Price</p>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-ink-3 uppercase'>Price</p>
             <div className='flex items-center gap-2'>
               <input
                 value={minPrice}
@@ -311,7 +311,7 @@ const Collections = () => {
                 placeholder='Min'
                 aria-label='Minimum price'
               />
-              <span className='text-slate-400'>-</span>
+              <span className='text-ink-3'>-</span>
               <input
                 value={maxPrice}
                 onChange={(e)=>setMaxPrice(e.target.value)}
@@ -326,12 +326,12 @@ const Collections = () => {
 
           {/* Availability Filter */}
           <div className='card p-5'>
-            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-gray-500 uppercase'>Availability</p>
-            <div className='flex flex-col gap-3 text-sm font-light text-gray-700'>
+            <p className='mb-3.5 text-[11px] font-semibold tracking-[0.15em] text-ink-3 uppercase'>Availability</p>
+            <div className='flex flex-col gap-3 text-sm font-light text-ink-2'>
               {availabilityList.map((avail, i) => (
                 <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
                   <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={avail} onChange={toggleAvailability} />
-                  <span className='group-hover:text-primary transition-colors duration-200'>{avail}</span>
+                  <span className='group-hover:text-primary-bright transition-colors duration-200'>{avail}</span>
                 </label>
               ))}
             </div>
@@ -344,7 +344,7 @@ const Collections = () => {
         <div className='flex flex-wrap items-center justify-between gap-3 mb-6'>
           <div>
             <Title text1={'ALL'} text2={'PRODUCTS'} />
-            <p className='text-xs text-gray-400 -mt-1'>{resultCount} item{resultCount !== 1 ? 's' : ''} available</p>
+            <p className='text-xs text-ink-3 -mt-1'>{resultCount} item{resultCount !== 1 ? 's' : ''} available</p>
           </div>
           {/* Product Sort */}
           <select
@@ -380,11 +380,11 @@ const Collections = () => {
             ))
           ) : (
             <div className='col-span-full card py-16 px-6 text-center'>
-              <div className='w-16 h-16 mx-auto rounded-2xl bg-primary/[0.07] flex items-center justify-center mb-4'>
-                <img src={assets.search_icon} className='w-7 opacity-50' alt='' />
+              <div className='w-16 h-16 mx-auto rounded-2xl bg-primary/15 border border-line flex items-center justify-center mb-4'>
+                <img src={assets.search_icon} className='w-7 icon-on-dark-dim' alt='' />
               </div>
-              <p className='text-gray-700 font-semibold'>No products found</p>
-              <p className='text-sm text-gray-400 mt-1'>Try adjusting your category, brand, or price filters.</p>
+              <p className='text-ink-2 font-semibold'>No products found</p>
+              <p className='text-sm text-ink-3 mt-1'>Try adjusting your category, brand, or price filters.</p>
             </div>
           )}
         </div>

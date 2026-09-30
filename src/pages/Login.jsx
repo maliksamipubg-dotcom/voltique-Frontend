@@ -78,7 +78,7 @@ const Login = () => {
   },[token])
 
   return (
-    <div className='site-bleed min-h-screen relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-dark via-primary-dark to-sky-700 py-14'>
+    <div className='site-bleed min-h-screen relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-navy via-navy-soft to-[#123a6b] py-14'>
       <div className='absolute -top-24 -left-24 w-96 h-96 orb orb-blue opacity-50 animate-drift'></div>
       <div className='absolute -bottom-32 -right-20 w-[30rem] h-[30rem] orb orb-cyan opacity-40 animate-drift' style={{ animationDelay: '-7s' }}></div>
       <Seo
@@ -89,7 +89,7 @@ const Login = () => {
       <h1 className='sr-only'>Login to Voltique Hub</h1>
       <form 
         onSubmit={onSubmitHandler} 
-        className='relative flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-5 p-7 sm:p-8 rounded-3xl glass shadow-lift border border-white/20 animate-rise'
+        className='relative flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-5 p-7 sm:p-8 rounded-3xl glass shadow-lift border border-line-strong animate-rise'
       >
         <div className='inline-flex flex-col items-center gap-2 mb-4'>
           <p className='text-3xl font-extrabold text-white drop-shadow-lg heading-font'>{currentState}</p>
@@ -122,26 +122,26 @@ const Login = () => {
           required   
           className='field-dark'
         />
-        <div className='w-full flex justify-between gap-x-2 gap-y-1 flex-wrap text-sm text-white/90 mt-[-6px]'>
-          <p className='cursor-pointer hover:text-sky-300 transition-colors duration-300'>Forgot your password?</p>
+        <div className='w-full flex justify-between gap-x-2 gap-y-1 flex-wrap text-sm text-ink-2 mt-[-6px]'>
+          <p className='cursor-pointer hover:text-accent transition-colors duration-300'>Forgot your password?</p>
           {
             currentState === 'Login' 
-            ? <p onClick={()=>setCurrentState('Sign Up')} className='cursor-pointer hover:text-sky-300 transition-colors duration-300'>Create account</p>
-            : <p onClick={()=>setCurrentState('Login')} className='cursor-pointer hover:text-sky-300 transition-colors duration-300'>Login Here</p>
+            ? <p onClick={()=>setCurrentState('Sign Up')} className='cursor-pointer hover:text-accent transition-colors duration-300'>Create account</p>
+            : <p onClick={()=>setCurrentState('Login')} className='cursor-pointer hover:text-accent transition-colors duration-300'>Login Here</p>
           }
         </div>
         <button 
-          className='btn-white w-full mt-4'
+          className='btn-primary w-full mt-4'
         >
           {currentState === 'Login' ? 'Sign In' : 'Sign Up'}
         </button>
         <div className='flex items-center gap-3 w-full mt-4'>
-          <hr className='flex-1 border-white/20' />
-          <p className='text-xs text-white/70'>OR</p>
-          <hr className='flex-1 border-white/20' />
+          <hr className='flex-1 border-line-strong' />
+          <p className='text-xs text-ink-3'>OR</p>
+          <hr className='flex-1 border-line-strong' />
         </div>
         <GoogleButton onClick={onGoogleSignIn} loading={googleLoading} />
-        <p className='text-xs text-white/80 mt-4'>© {new Date().getFullYear()} Voltique Hub - All rights reserved.</p>
+        <p className='text-xs text-ink-3 mt-4'>© {new Date().getFullYear()} Voltique Hub - All rights reserved.</p>
       </form>
     </div>
   )

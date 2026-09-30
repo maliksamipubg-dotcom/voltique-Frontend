@@ -16,8 +16,8 @@ const LatestCollections = () => {
     <section className='py-10 sm:py-14'>
       <Reveal className='text-center py-4 sm:py-6 mb-6'>
         <Title text1={'LATEST'} text2={'ARRIVALS'} />
-        <h2 className='text-3xl sm:text-4xl font-semibold text-gray-800 heading-font tracking-tight'>Fresh on the shelves</h2>
-        <p className='w-full sm:w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-500 mt-3 leading-relaxed'>
+        <h2 className='text-3xl sm:text-4xl font-semibold text-white heading-font tracking-tight'>Fresh on the shelves</h2>
+        <p className='w-full sm:w-3/4 m-auto text-xs sm:text-sm md:text-base text-ink-3 mt-3 leading-relaxed'>
           Newly arrived chargers, stabilizers, inverters, and charging accessories.
         </p>
       </Reveal>

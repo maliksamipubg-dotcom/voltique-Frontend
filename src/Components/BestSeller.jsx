@@ -15,8 +15,8 @@ return (
     <section className='py-10 sm:py-14'>
         <Reveal className='text-center py-4 sm:py-6 mb-6'>
             <Title text1={'TOP'} text2={'SELLERS'} />
-            <h2 className='text-3xl sm:text-4xl font-semibold text-gray-800 heading-font tracking-tight'>Customer favourites</h2>
-            <p className='w-full sm:w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-500 mt-3 leading-relaxed'>
+            <h2 className='text-3xl sm:text-4xl font-semibold text-white heading-font tracking-tight'>Customer favourites</h2>
+            <p className='w-full sm:w-3/4 m-auto text-xs sm:text-sm md:text-base text-ink-3 mt-3 leading-relaxed'>
                 The most trusted power solutions our customers rely on.
             </p>
         </Reveal>

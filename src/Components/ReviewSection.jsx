@@ -15,7 +15,7 @@ const Stars = ({ rating, size = 'text-base' }) => {
   return (
     <span className={`inline-flex gap-0.5 ${size}`}>
       {[1, 2, 3, 4, 5].map((star) => (
-        <span key={star} className={star <= Math.round(rating) ? 'text-amber-500' : 'text-slate-300'}>★</span>
+        <span key={star} className={star <= Math.round(rating) ? 'text-amber-400' : 'text-ink-4'}>★</span>
       ))}
     </span>
   )
@@ -178,8 +178,8 @@ const ReviewForm = ({ productId, onSaved }) => {
 
   if (!token) {
     return (
-      <div className='text-center py-10 px-6 bg-gradient-to-b from-mist to-white rounded-2xl border border-dashed border-slate-300'>
-        <p className='text-gray-600 text-sm'>Share your experience with this product.</p>
+      <div className='text-center py-10 px-6 bg-gradient-to-b from-surface-2 to-surface-3 rounded-2xl border border-dashed border-line-strong'>
+        <p className='text-ink-2 text-sm'>Share your experience with this product.</p>
         <button onClick={() => { sessionStorage.setItem('redirectAfterLogin', window.location.pathname + window.location.search); navigate('/login') }} className='btn-primary btn-sm mt-4'>Login to Write a Review</button>
       </div>
     )
@@ -187,25 +187,25 @@ const ReviewForm = ({ productId, onSaved }) => {
 
   if (!eligible) {
     return (
-      <div className='text-center py-10 px-6 bg-gradient-to-b from-mist to-white rounded-2xl border border-dashed border-slate-300'>
-        <p className='text-gray-600 text-sm'>You can review this product after your order has been delivered.</p>
+      <div className='text-center py-10 px-6 bg-gradient-to-b from-surface-2 to-surface-3 rounded-2xl border border-dashed border-line-strong'>
+        <p className='text-ink-2 text-sm'>You can review this product after your order has been delivered.</p>
       </div>
     )
   }
 
   return (
     <div className='card p-5 sm:p-6'>
-      <h4 className='font-semibold text-gray-800 mb-4'>{existingReview ? 'Edit Your Review' : 'Write a Review'}</h4>
+      <h4 className='font-semibold text-white mb-4'>{existingReview ? 'Edit Your Review' : 'Write a Review'}</h4>
       <div className='flex items-center gap-1 mb-4'>
-        <span className='text-sm text-gray-500 mr-2'>Your rating:</span>
+        <span className='text-sm text-ink-3 mr-2'>Your rating:</span>
         {[1, 2, 3, 4, 5].map((star) => (
-          <button key={star} type='button' data-review-star={star} onClick={() => setRating(star)} aria-label={`${star} star${star !== 1 ? 's' : ''}`} className={`text-2xl leading-none transition-all duration-200 hover:scale-110 ${star <= rating ? 'text-amber-500' : 'text-slate-300'}`}>★</button>
+          <button key={star} type='button' data-review-star={star} onClick={() => setRating(star)} aria-label={`${star} star${star !== 1 ? 's' : ''}`} className={`text-2xl leading-none transition-all duration-200 hover:scale-110 ${star <= rating ? 'text-amber-400' : 'text-ink-4'}`}>★</button>
         ))}
       </div>
 
       {!existingReview && deliveredOrders.length > 1 && (
         <div className='mb-4'>
-          <p className='text-sm text-gray-500 mb-1.5'>Order:</p>
+          <p className='text-sm text-ink-3 mb-1.5'>Order:</p>
           <select value={orderId} onChange={(e) => setOrderId(e.target.value)} className='field w-full max-w-sm'>
             {deliveredOrders.map((o) => <option key={o._id} value={o.orderId}>Order {o.orderId} — {formatDate(o.date)}</option>)}
           </select>
@@ -214,13 +214,13 @@ const ReviewForm = ({ productId, onSaved }) => {
 
       <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={60} placeholder='Review title (optional)' className='field w-full max-w-sm mb-3' />
       <textarea value={description} onChange={(e) => setDescription(e.target.value)} maxLength={500} rows={4} placeholder='Share your experience with this product...' className='field resize-none' />
-      <p className='text-xs text-gray-400 mt-1.5'>{description.length}/500</p>
+      <p className='text-xs text-ink-3 mt-1.5'>{description.length}/500</p>
       <div className='flex gap-3 mt-4 flex-wrap'>
         <button onClick={existingReview ? updateReview : submit} disabled={submitting} className='btn-primary btn-sm disabled:opacity-50 disabled:pointer-events-none'>
           {submitting ? 'SUBMITTING...' : existingReview ? 'UPDATE REVIEW' : 'SUBMIT REVIEW'}
         </button>
         {existingReview && (
-          <button onClick={deleteReview} disabled={submitting} className='btn btn-sm border border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 hover:text-red-700 disabled:opacity-50'>
+          <button onClick={deleteReview} disabled={submitting} className='btn btn-sm border border-danger/40 text-danger-light hover:bg-danger/10 hover:border-danger/60 hover:text-danger-light disabled:opacity-50'>
             DELETE
           </button>
         )}
@@ -369,8 +369,8 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
     <div id='reviews-section' className='mt-16 scroll-mt-24'>
       <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6'>
         <div>
-          <h3 className='text-xl font-bold text-gray-900'>Customer Reviews</h3>
-          <p className='text-sm text-gray-500 mt-1'>See what our customers say about this product.</p>
+          <h3 className='text-xl font-bold text-white'>Customer Reviews</h3>
+          <p className='text-sm text-ink-3 mt-1'>See what our customers say about this product.</p>
         </div>
         {canReview ? (
           <button onClick={() => setShowForm(prev => !prev)} className='btn-primary btn-sm w-fit'>
@@ -380,32 +380,32 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
           <div className='w-full sm:w-auto card px-4 py-3'>
             <p className='text-[11px] font-semibold uppercase tracking-wide text-primary mb-1'>Your Review</p>
             <Stars rating={myReview.rating} size='text-sm' />
-            {myReview.title && <p className='text-sm font-semibold text-gray-800 mt-1'>“{myReview.title}”</p>}
-            <p className='text-xs text-gray-600 mt-1 leading-relaxed max-w-xs whitespace-pre-wrap'>{myReview.description}</p>
+            {myReview.title && <p className='text-sm font-semibold text-white mt-1'>“{myReview.title}”</p>}
+            <p className='text-xs text-ink-2 mt-1 leading-relaxed max-w-xs whitespace-pre-wrap'>{myReview.description}</p>
           </div>
         ) : null}
       </div>
 
       {totalReviews > 0 && (
-        <div className='grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 bg-gradient-to-br from-primary/[0.05] to-accent/[0.04] border border-slate-200 rounded-2xl p-6 mb-8'>
+        <div className='grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 bg-gradient-to-br from-primary/15 to-accent/10 border border-line rounded-2xl p-6 mb-8'>
           <div className='flex md:flex-col items-center md:items-start gap-4 md:gap-2'>
-            <p className='text-5xl font-bold text-gray-900 tracking-tight'>{avgRating.toFixed(1)}</p>
+            <p className='text-5xl font-bold text-white tracking-tight'>{avgRating.toFixed(1)}</p>
             <div>
               <div className='flex items-center gap-2'>
                 <Stars rating={avgRating} />
-                <span className='text-sm text-gray-500'>{totalReviews} review{totalReviews !== 1 ? 's' : ''}</span>
+                <span className='text-sm text-ink-3'>{totalReviews} review{totalReviews !== 1 ? 's' : ''}</span>
               </div>
-              <p className='text-xs text-gray-400 mt-1'>based on verified customer reviews</p>
+              <p className='text-xs text-ink-3 mt-1'>based on verified customer reviews</p>
             </div>
           </div>
           <div className='flex flex-col gap-1.5'>
             {[5, 4, 3, 2, 1].map((star) => (
               <div key={star} className='flex items-center gap-3'>
-                <span className='text-xs text-gray-600 w-8 text-right'>{star} ★</span>
-                <div className='flex-1 h-2.5 bg-white rounded-full overflow-hidden border border-slate-200/70'>
+                <span className='text-xs text-ink-2 w-8 text-right'>{star} ★</span>
+                <div className='flex-1 h-2.5 bg-surface-3 rounded-full overflow-hidden border border-line-soft'>
                   <div className='h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-full transition-[width] duration-700 ease-swift' style={{ width: `${(distribution[star] || 0) / maxCount * 100}%` }}></div>
                 </div>
-                <span className='text-xs text-gray-500 w-8'>{distribution[star] || 0}</span>
+                <span className='text-xs text-ink-3 w-8'>{distribution[star] || 0}</span>
               </div>
             ))}
           </div>
@@ -416,7 +416,7 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
 
       {totalReviews > 0 && (
         <div className='flex items-center justify-between gap-3 flex-wrap mb-4'>
-          <p className='text-sm font-semibold text-gray-700'>{totalReviews} review{totalReviews !== 1 ? 's' : ''}</p>
+          <p className='text-sm font-semibold text-ink-2'>{totalReviews} review{totalReviews !== 1 ? 's' : ''}</p>
           <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label='Sort reviews' className='field w-auto py-2'>
             <option value="recent">Most Recent</option>
             <option value="highest">Highest Rating</option>
@@ -444,9 +444,9 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
           <span className='sr-only'>Loading reviews…</span>
         </div>
       ) : reviews.length === 0 ? (
-        <div className='text-center py-12 bg-gradient-to-b from-mist to-white border border-slate-200 rounded-2xl'>
+        <div className='text-center py-12 bg-gradient-to-b from-surface-2 to-surface-3 border border-line rounded-2xl'>
           <p className='text-4xl mb-3'>💬</p>
-          <p className='text-gray-600 text-sm'>No reviews yet. Be the first to review this product!</p>
+          <p className='text-ink-2 text-sm'>No reviews yet. Be the first to review this product!</p>
         </div>
       ) : (
         <div className='flex flex-col gap-4'>
@@ -459,30 +459,30 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
                   </div>
                   <div className='min-w-0'>
                     <div className='flex items-center gap-2 flex-wrap'>
-                      <p className='font-semibold text-gray-800 text-sm'>{review.customerName || 'Customer'}</p>
+                      <p className='font-semibold text-white text-sm'>{review.customerName || 'Customer'}</p>
                       {review.verified && (
-                        <span className='flex items-center gap-1 text-[10px] font-semibold bg-green-50 text-green-700 border border-green-200 px-1.5 py-0.5 rounded-full'>
+                        <span className='flex items-center gap-1 text-[10px] font-semibold bg-success/10 text-success-light border border-success/40 px-1.5 py-0.5 rounded-full'>
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8L12 2z"/></svg>
                           Verified Purchase
                         </span>
                       )}
                     </div>
-                    <p className='text-xs text-gray-400 mt-0.5'>{maskEmail(review.customerEmail)} · {formatDate(review.date)}</p>
+                    <p className='text-xs text-ink-3 mt-0.5'>{maskEmail(review.customerEmail)} · {formatDate(review.date)}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-2'>
                   <Stars rating={review.rating} size='text-sm' />
-                  {review.updatedDate && <span className='text-[10px] text-gray-400'>· Edited</span>}
+                  {review.updatedDate && <span className='text-[10px] text-ink-3'>· Edited</span>}
                 </div>
               </div>
-              {review.title && <p className='font-semibold text-gray-800 mt-3'>“{review.title}”</p>}
-              <p className='text-gray-600 text-sm leading-relaxed mt-1.5 whitespace-pre-wrap'>{review.description}</p>
-              <div className='mt-3 pt-3 border-t border-slate-100 flex items-center justify-between gap-3'>
+              {review.title && <p className='font-semibold text-white mt-3'>“{review.title}”</p>}
+              <p className='text-ink-2 text-sm leading-relaxed mt-1.5 whitespace-pre-wrap'>{review.description}</p>
+              <div className='mt-3 pt-3 border-t border-line flex items-center justify-between gap-3'>
                 <button onClick={() => markHelpful(review)} className='chip text-xs py-1.5 px-3'>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/></svg>
                   Helpful ({review.helpful || 0})
                 </button>
-                <p className='text-xs text-gray-400'>Order {review.orderId}</p>
+                <p className='text-xs text-ink-3'>Order {review.orderId}</p>
               </div>
             </div>
           ))}

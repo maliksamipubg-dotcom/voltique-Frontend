@@ -50,10 +50,10 @@ const Contact = () => {
         jsonLd={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])]}
       />
       <h1 className='sr-only'>Contact Voltique Hub</h1>
-      <div className='text-center text-2xl pt-10 border-t border-slate-200'>
+      <div className='text-center text-2xl pt-10 border-t border-line'>
         <Title text1={'CONTACT'} text2={'US'} />
       </div>
-      <p className='text-center text-gray-500 mt-4 mb-10 max-w-xl mx-auto px-4'>
+      <p className='text-center text-ink-3 mt-4 mb-10 max-w-xl mx-auto px-4'>
         Have a question about a charger, stabilizer, or inverter — or an order? Our team is here to help you find the perfect power solution.
       </p>
       <div className='flex flex-col md:flex-row gap-8 md:gap-10 mb-16 items-center md:items-stretch'>
@@ -61,31 +61,31 @@ const Contact = () => {
           {contactDetails.map((item) => (
             <div
               key={item.label}
-              className='group flex flex-col h-full min-w-0 bg-white border border-slate-200 rounded-2xl shadow-card p-6 hover:shadow-card-hover hover:border-primary/30 transition-all duration-300'
+              className='group flex flex-col h-full min-w-0 bg-surface border border-line rounded-2xl shadow-card p-6 hover:shadow-card-hover hover:border-primary/50 transition-all duration-300'
             >
-              <div className='w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300'>
+              <div className='w-12 h-12 flex items-center justify-center rounded-xl bg-primary/15 text-primary-bright border border-primary/30 group-hover:bg-primary group-hover:text-white transition-colors duration-300'>
                 {item.icon}
               </div>
-              <p className='font-semibold text-textPrimary mt-4'>{item.label}</p>
-              <p className='text-gray-600 text-sm mt-1 leading-snug break-words'>{item.value}</p>
-              <p className='text-gray-400 text-xs mt-1'>{item.subValue}</p>
+              <p className='font-semibold text-ink mt-4'>{item.label}</p>
+              <p className='text-ink-2 text-sm mt-1 leading-snug break-words'>{item.value}</p>
+              <p className='text-ink-3 text-xs mt-1'>{item.subValue}</p>
             </div>
           ))}
         </div>
         <div className='w-full md:w-2/5 flex flex-col justify-center items-center gap-6 text-center md:text-left md:items-start'>
-          <p className='font-semibold text-2xl text-gray-600'>Get in Touch</p>
-          <p className='text-gray-500 max-w-md leading-relaxed'>
+          <p className='font-semibold text-2xl text-ink-2'>Get in Touch</p>
+          <p className='text-ink-3 max-w-md leading-relaxed'>
             Whether you need help choosing the right charger, stabilizer, or inverter, tracking an order, or a warranty question, feel free to
             reach out. We look forward to hearing from you.
           </p>
-          <img className='w-full md:max-w-[420px] rounded-2xl shadow-card hover:shadow-card-hover transition-shadow duration-300' src={assets.contact_img} loading="lazy" alt="Contact Voltique Hub for battery chargers, stabilizers and inverters" />
+          <img className='w-full md:max-w-[420px] rounded-2xl border border-line shadow-card hover:shadow-card-hover transition-shadow duration-300' src={assets.contact_img} loading="lazy" alt="Contact Voltique Hub for battery chargers, stabilizers and inverters" />
         </div>
       </div>
       <div className='mb-20'>
         <iframe
           title='Voltique Hub Location'
           src={MAP_EMBED_URL}
-          className='w-full h-[320px] sm:h-[420px] rounded-2xl shadow-card border border-slate-200'
+          className='w-full h-[320px] sm:h-[420px] rounded-2xl shadow-card border border-line'
           loading='lazy'
           allowFullScreen
           referrerPolicy='no-referrer-when-downgrade'

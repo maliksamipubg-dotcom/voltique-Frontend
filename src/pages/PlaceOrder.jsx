@@ -6,7 +6,7 @@ import { ShopContext } from '../contexts/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const baseInputClass = 'w-full border rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:ring-4'
+const baseInputClass = 'w-full border rounded-xl py-3 px-4 text-sm text-white placeholder-ink-4 outline-none transition-all duration-200 focus:ring-4'
 
 const isValidName = (value) => {
   const v = value.trim();
@@ -158,10 +158,10 @@ const PlaceOrder = () => {
   const inputClass = (field) => {
     const isError = errors[field];
     const isValid = touched[field] && !isError;
-    return `${baseInputClass} ${isError ? 'border-red-500 focus:ring-red-500/15 bg-red-50/30' : isValid ? 'border-green-500 focus:ring-green-500/15 bg-green-50/20' : 'border-slate-300 focus:ring-primary/10 focus:border-primary'}`
+    return `${baseInputClass} ${isError ? 'border-danger focus:ring-red-500/15 bg-danger/10' : isValid ? 'border-success focus:ring-green-500/15 bg-success/10' : 'border-line-strong focus:ring-primary/25 focus:border-primary'}`
   }
 
-  const renderFieldError = (field) => errors[field] ? <p className='text-xs text-red-600 animate-rise-sm'>{errors[field]}</p> : null;
+  const renderFieldError = (field) => errors[field] ? <p className='text-xs text-danger-light animate-rise-sm'>{errors[field]}</p> : null;
 
   const hasCartItems = () => {
     for (const items in cartItems) {
@@ -303,53 +303,53 @@ const PlaceOrder = () => {
           <Title text1={'DELIVERY'} text2={'INFORMATION'} />
         </div>
         <div className='flex flex-col gap-2'>
-          <label className='text-sm font-medium text-gray-700'>Full Name</label>
+          <label className='text-sm font-medium text-ink-2'>Full Name</label>
           <input required onChange={onChangeHandler} onBlur={onBlurHandler} id='field-fullName' name='fullName' value={formData.fullName} className={inputClass('fullName')} type="text" placeholder='Enter your full name' />
           {renderFieldError('fullName')}
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='flex flex-col gap-2'>
-            <label className='text-sm font-medium text-gray-700'>Phone Number</label>
+            <label className='text-sm font-medium text-ink-2'>Phone Number</label>
             <input required onChange={onChangeHandler} onBlur={onBlurHandler} id='field-phone' name='phone' value={formData.phone} className={inputClass('phone')} type="tel" placeholder='03XX-XXXXXXX' />
             {renderFieldError('phone')}
           </div>
           <div className='flex flex-col gap-2'>
-            <label className='text-sm font-medium text-gray-700'>Email Address</label>
+            <label className='text-sm font-medium text-ink-2'>Email Address</label>
             <input required onChange={onChangeHandler} onBlur={onBlurHandler} id='field-email' name='email' value={formData.email} className={inputClass('email')} type="email" placeholder='your@email.com' />
             {renderFieldError('email')}
           </div>
         </div>
         <div className='flex flex-col gap-2'>
-          <label className='text-sm font-medium text-gray-700'>Complete Address</label>
+          <label className='text-sm font-medium text-ink-2'>Complete Address</label>
           <input required onChange={onChangeHandler} onBlur={onBlurHandler} id='field-street' name='street' value={formData.street} className={inputClass('street')} type="text" placeholder='House #, Street, Area' />
           {renderFieldError('street')}
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='flex flex-col gap-2'>
-            <label className='text-sm font-medium text-gray-700'>City</label>
+            <label className='text-sm font-medium text-ink-2'>City</label>
             <input required onChange={onChangeHandler} onBlur={onBlurHandler} id='field-city' name='city' value={formData.city} className={inputClass('city')} type="text" placeholder='City' />
             {renderFieldError('city')}
           </div>
           <div className='flex flex-col gap-2'>
-            <label className='text-sm font-medium text-gray-700'>State <span className='text-gray-400 font-normal'>(Optional)</span></label>
-            <input onChange={onChangeHandler} name='state' value={formData.state} className={baseInputClass + ' border-slate-300 focus:ring-primary/10 focus:border-primary'} type="text" placeholder='Province / State' />
+            <label className='text-sm font-medium text-ink-2'>State <span className='text-ink-3 font-normal'>(Optional)</span></label>
+            <input onChange={onChangeHandler} name='state' value={formData.state} className={baseInputClass + ' border-line-strong focus:ring-primary/25 focus:border-primary'} type="text" placeholder='Province / State' />
           </div>
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='flex flex-col gap-2'>
-            <label className='text-sm font-medium text-gray-700'>Postal Code <span className='text-gray-400 font-normal'>(Optional)</span></label>
+            <label className='text-sm font-medium text-ink-2'>Postal Code <span className='text-ink-3 font-normal'>(Optional)</span></label>
             <input onChange={onChangeHandler} onBlur={onBlurHandler} id='field-zipcode' name='zipcode' value={formData.zipcode} className={inputClass('zipcode')} type="text" placeholder='Postal Code' />
             {renderFieldError('zipcode')}
           </div>
           <div className='flex flex-col gap-2'>
-            <label className='text-sm font-medium text-gray-700'>Country</label>
+            <label className='text-sm font-medium text-ink-2'>Country</label>
             <input required onChange={onChangeHandler} onBlur={onBlurHandler} id='field-country' name='country' value={formData.country} className={inputClass('country')} type="text" placeholder='Country' />
             {renderFieldError('country')}
           </div>
         </div>
         <div className='flex flex-col gap-2'>
-          <label className='text-sm font-medium text-gray-700'>Order Notes <span className='text-gray-400 font-normal'>(Optional)</span></label>
-          <textarea onChange={onChangeHandler} name='notes' value={formData.notes} rows={3} className={baseInputClass + ' border-slate-300 focus:ring-primary/10 focus:border-primary resize-none'} placeholder='Any special instructions for your order'></textarea>
+          <label className='text-sm font-medium text-ink-2'>Order Notes <span className='text-ink-3 font-normal'>(Optional)</span></label>
+          <textarea onChange={onChangeHandler} name='notes' value={formData.notes} rows={3} className={baseInputClass + ' border-line-strong focus:ring-primary/25 focus:border-primary resize-none'} placeholder='Any special instructions for your order'></textarea>
         </div>
       </div>
       {/*Right Side */}
@@ -361,10 +361,10 @@ const PlaceOrder = () => {
           <Title text1={'PAYMENT'} text2={'METHOD'}/>
           {/*Payment Method Selection */}
           <div className='flex gap-3 flex-col lg:flex-row'>
-            <div onClick={()=>setMethod('COD')} className={`flex items-center gap-3 border-2 p-3 px-4 rounded-xl cursor-pointer flex-wrap transition-all duration-300 ease-swift ${method === 'COD' ? 'border-green-500 bg-green-50 shadow-soft' : 'border-slate-200 bg-white hover:border-green-300'}`}>
-              <p className={`min-w-3.5 h-3.5 border-2 border-green-500 rounded-full ${method === 'COD' ? 'bg-green-500' : ''}`}></p>
-              <p className='text-gray-700 text-sm font-semibold mx-2 sm:mx-4'>CASH ON DELIVERY</p>
-              <span className='text-[10px] font-medium text-green-700 bg-green-100 border border-green-200 px-2 py-0.5 rounded-full uppercase tracking-wide'>Only Method</span>
+            <div onClick={()=>setMethod('COD')} className={`flex items-center gap-3 border-2 p-3 px-4 rounded-xl cursor-pointer flex-wrap transition-all duration-300 ease-swift ${method === 'COD' ? 'border-success bg-success/10 shadow-soft' : 'border-line bg-surface-2 hover:border-success/60'}`}>
+              <p className={`min-w-3.5 h-3.5 border-2 border-success rounded-full ${method === 'COD' ? 'bg-success' : ''}`}></p>
+              <p className='text-ink-2 text-sm font-semibold mx-2 sm:mx-4'>CASH ON DELIVERY</p>
+              <span className='text-[10px] font-medium text-success-light bg-success/20 border border-success/40 px-2 py-0.5 rounded-full uppercase tracking-wide'>Only Method</span>
             </div>
           </div>
           <div className='w-full text-end mt-8'>

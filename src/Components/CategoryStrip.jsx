@@ -29,8 +29,8 @@ const CategoryStrip = () => {
                     <span className='w-1.5 h-1.5 rounded-full bg-primary'></span>
                     Browse Catalog
                 </p>
-                <h2 className='heading-font font-semibold text-3xl sm:text-4xl text-gray-800 tracking-tight'>SHOP BY CATEGORY</h2>
-                <p className='mt-3 text-sm text-gray-500 leading-relaxed'>
+                <h2 className='heading-font font-semibold text-3xl sm:text-4xl text-white tracking-tight'>SHOP BY CATEGORY</h2>
+                <p className='mt-3 text-sm text-ink-3 leading-relaxed'>
                     Everything you need for reliable power — chargers, stabilizers, inverters, and charging accessories.
                 </p>
             </Reveal>
@@ -47,31 +47,31 @@ const CategoryStrip = () => {
                         >
                             <span className='absolute -top-10 -right-10 w-28 h-28 orb orb-blue opacity-0 group-hover:opacity-60 transition-opacity duration-500'></span>
                             <div className='relative'>
-                                <div className='w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/[0.08] to-accent/[0.08] flex items-center justify-center group-hover:shadow-glow transition-shadow duration-500'>
+                                <div className='w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/15 border border-line-strong flex items-center justify-center group-hover:border-accent/60 group-hover:shadow-glow transition-all duration-500'>
                                     <img
                                         src={getCategoryIcon(name)}
                                         className='w-16 h-16 object-contain group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 ease-swift'
                                         alt={name}
                                     />
                                 </div>
-                                <p className='font-semibold text-lg text-gray-800 group-hover:text-primary transition-colors duration-300'>{name}</p>
-                                <p className='text-xs text-slate-500 mt-1.5'>Products available in this category</p>
-                                <p className='text-xs font-semibold text-primary mt-3'>{count} product{count !== 1 ? 's' : ''}</p>
+                                <p className='font-semibold text-lg text-white group-hover:text-primary-bright transition-colors duration-300'>{name}</p>
+                                <p className='text-xs text-ink-3 mt-1.5'>Products available in this category</p>
+                                <p className='text-xs font-semibold text-accent mt-3'>{count} product{count !== 1 ? 's' : ''}</p>
                             </div>
                         </Link>
                     )
                 })}
             </RevealGroup>
 
-            <Reveal delay={80} className='mt-10 sm:mt-14 rounded-3xl bg-dark px-6 py-8 sm:py-10 relative overflow-hidden shadow-lift'>
+            <Reveal delay={80} className='mt-10 sm:mt-14 rounded-3xl bg-surface border border-line px-6 py-8 sm:py-10 relative overflow-hidden shadow-card'>
                 <div className='absolute -top-16 left-1/4 w-72 h-72 orb orb-violet opacity-50 animate-drift' style={{ animationDelay: '-3s' }}></div>
                 <div className='relative'>
-                    <p className='text-center text-[11px] tracking-[0.25em] text-slate-400 uppercase mb-5'>Trusted Brands</p>
+                    <p className='text-center text-[11px] tracking-[0.25em] text-ink-3 uppercase mb-5'>Trusted Brands</p>
                     <div className='flex flex-wrap justify-center gap-2.5 sm:gap-3'>
                         {brands.map((brand, index) => (
                             <span
                                 key={index}
-                                className='bg-white/5 border border-white/10 text-slate-200 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-500 ease-swift hover:border-accent-light/50 hover:bg-white/10 hover:-translate-y-0.5'
+                                className='bg-surface-2 border border-line text-ink text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-500 ease-swift hover:border-accent/60 hover:bg-surface-3 hover:text-white hover:-translate-y-0.5'
                             >
                                 {brand}
                             </span>

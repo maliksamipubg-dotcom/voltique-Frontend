@@ -62,7 +62,7 @@ const ChangePassword = () => {
     }
   };
 
-  const inputClass = (field) => `w-full border rounded-lg py-2.5 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 transition ${errors[field] ? 'border-red-500 focus:ring-red-500/20' : touched[field] && !errors[field] ? 'border-green-500 focus:ring-green-500/20' : 'border-gray-300 focus:ring-blue-500/30 focus:border-primary'}`;
+  const inputClass = (field) => `w-full border rounded-lg py-2.5 px-4 text-sm text-white placeholder-ink-4 focus:outline-none focus:ring-2 transition ${errors[field] ? 'border-danger focus:ring-red-500/20' : touched[field] && !errors[field] ? 'border-success focus:ring-green-500/20' : 'border-line-strong focus:ring-primary/25 focus:border-primary'}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,10 +102,10 @@ const ChangePassword = () => {
         <Title text1={'CHANGE'} text2={'PASSWORD'} />
       </div>
 
-      <div className='bg-white border border-slate-200 rounded-2xl p-6 shadow-card'>
+      <div className='bg-surface border border-line rounded-2xl p-6 shadow-card'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <div className='flex flex-col gap-1.5'>
-            <label className='text-sm font-medium text-gray-700'>Old Password</label>
+            <label className='text-sm font-medium text-ink-2'>Old Password</label>
             <input
               value={oldPassword}
               onChange={(e)=>onChange('oldPassword', e.target.value)}
@@ -114,11 +114,11 @@ const ChangePassword = () => {
               placeholder='Enter your current password'
               className={inputClass('oldPassword')}
             />
-            {errors.oldPassword && <p className='text-xs text-red-600'>{errors.oldPassword}</p>}
+            {errors.oldPassword && <p className='text-xs text-danger-light'>{errors.oldPassword}</p>}
           </div>
 
           <div className='flex flex-col gap-1.5'>
-            <label className='text-sm font-medium text-gray-700'>New Password</label>
+            <label className='text-sm font-medium text-ink-2'>New Password</label>
             <input
               value={newPassword}
               onChange={(e)=>onChange('newPassword', e.target.value)}
@@ -127,20 +127,20 @@ const ChangePassword = () => {
               placeholder='Enter a new password'
               className={inputClass('newPassword')}
             />
-            {errors.newPassword && <p className='text-xs text-red-600'>{errors.newPassword}</p>}
+            {errors.newPassword && <p className='text-xs text-danger-light'>{errors.newPassword}</p>}
             {!errors.newPassword && (
-              <ul className='text-xs text-gray-400 flex flex-wrap gap-x-4 gap-y-1 mt-0.5'>
-                <li className={newPassword.length >= 8 ? 'text-green-600' : ''}>At least 8 characters</li>
-                <li className={hasUppercase(newPassword) ? 'text-green-600' : ''}>Uppercase letter</li>
-                <li className={hasLowercase(newPassword) ? 'text-green-600' : ''}>Lowercase letter</li>
-                <li className={hasNumber(newPassword) ? 'text-green-600' : ''}>Number</li>
-                <li className={hasSpecial(newPassword) ? 'text-green-600' : ''}>Special character</li>
+              <ul className='text-xs text-ink-3 flex flex-wrap gap-x-4 gap-y-1 mt-0.5'>
+                <li className={newPassword.length >= 8 ? 'text-success-light' : ''}>At least 8 characters</li>
+                <li className={hasUppercase(newPassword) ? 'text-success-light' : ''}>Uppercase letter</li>
+                <li className={hasLowercase(newPassword) ? 'text-success-light' : ''}>Lowercase letter</li>
+                <li className={hasNumber(newPassword) ? 'text-success-light' : ''}>Number</li>
+                <li className={hasSpecial(newPassword) ? 'text-success-light' : ''}>Special character</li>
               </ul>
             )}
           </div>
 
           <div className='flex flex-col gap-1.5'>
-            <label className='text-sm font-medium text-gray-700'>Confirm New Password</label>
+            <label className='text-sm font-medium text-ink-2'>Confirm New Password</label>
             <input
               value={confirmPassword}
               onChange={(e)=>onChange('confirmPassword', e.target.value)}
@@ -149,14 +149,14 @@ const ChangePassword = () => {
               placeholder='Re-enter your new password'
               className={inputClass('confirmPassword')}
             />
-            {errors.confirmPassword && <p className='text-xs text-red-600'>{errors.confirmPassword}</p>}
+            {errors.confirmPassword && <p className='text-xs text-danger-light'>{errors.confirmPassword}</p>}
           </div>
 
           <div className='flex flex-col sm:flex-row gap-3 mt-4'>
-            <button type='submit' disabled={submitting} className='bg-primary hover:bg-primary-dark text-white text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
+            <button type='submit' disabled={submitting} className='btn-primary text-sm px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed'>
               {submitting ? 'UPDATING...' : 'UPDATE PASSWORD'}
             </button>
-            <button type='button' onClick={()=>navigate('/profile')} disabled={submitting} className='border border-slate-300 hover:border-primary text-gray-700 hover:text-primary text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
+            <button type='button' onClick={()=>navigate('/profile')} disabled={submitting} className='border border-line-strong bg-surface-2 hover:border-primary hover:bg-primary/15 text-ink-2 hover:text-white text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
               CANCEL
             </button>
           </div>

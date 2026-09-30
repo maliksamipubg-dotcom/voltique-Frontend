@@ -1,4 +1,5 @@
 import logo from './logo.svg'
+import logo_light from './logo_light.svg'
 import hero_img from './hero.svg'
 import circuit_bg from './circuit_bg.svg'
 import about_img from './about.svg'
@@ -28,6 +29,7 @@ import cross_icon from './cross_icon.png'
 
 export const assets = {
     logo,
+    logo_light,
     hero_img,
     circuit_bg,
     about_img,
