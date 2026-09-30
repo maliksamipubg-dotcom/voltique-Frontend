@@ -102,8 +102,8 @@ const TrackOrder = () => {
 
   if (!order) {
     return (
-      <div className='border-t pt-16 min-h-[50vh] card flex flex-col items-center justify-center gap-4 text-center px-6'>
-        <p className='text-lg font-semibold text-white'>Order not found</p>
+      <div className='pt-16 min-h-[50vh] card flex flex-col items-center justify-center gap-4 text-center px-6'>
+        <p className='text-lg font-semibold text-ink'>Order not found</p>
         <p className='text-sm text-ink-3'>We couldn't find an order with ID <b className='text-ink-2'>{orderId}</b>.</p>
         <button onClick={() => navigate('/orders')} className='btn-primary mt-2'>VIEW MY ORDERS</button>
       </div>
@@ -127,7 +127,7 @@ const TrackOrder = () => {
     : order.date;
 
   return (
-    <div className='border-t pt-16'>
+    <div className='pt-16'>
       <Seo title="Track Order | Voltique Hub" description="Track the delivery status of your Voltique Hub order." path={`/track/${orderId}`} robots="noindex, follow" />
       <h1 className='sr-only'>Track Order</h1>
       <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6'>
@@ -142,7 +142,7 @@ const TrackOrder = () => {
               {lastRefresh && <span>· updated {new Date(lastRefresh).toLocaleTimeString()}</span>}
             </span>
           )}
-          <span>Order ID: <span className='font-semibold text-white'>{order.orderId}</span></span>
+          <span>Order ID: <span className='font-semibold text-ink'>{order.orderId}</span></span>
         </div>
       </div>
 
@@ -152,15 +152,15 @@ const TrackOrder = () => {
             <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm mb-6'>
               <div>
                 <p className='text-ink-3'>Order Date</p>
-                <p className='font-medium text-white mt-0.5'>{new Date(order.date).toDateString()}</p>
+                <p className='font-medium text-ink mt-0.5'>{new Date(order.date).toDateString()}</p>
               </div>
               <div>
                 <p className='text-ink-3'>Estimated Delivery</p>
-                <p className='font-medium text-white mt-0.5'>{new Date(order.estimatedDelivery).toDateString()}</p>
+                <p className='font-medium text-ink mt-0.5'>{new Date(order.estimatedDelivery).toDateString()}</p>
               </div>
               <div>
                 <p className='text-ink-3'>Last Updated</p>
-                <p className='font-medium text-white mt-0.5'>{new Date(lastUpdated).toDateString()}</p>
+                <p className='font-medium text-ink mt-0.5'>{new Date(lastUpdated).toDateString()}</p>
               </div>
               {cancelled && order.cancelledAt && (
                 <div>
@@ -172,7 +172,7 @@ const TrackOrder = () => {
 
             <div className='flex flex-col sm:flex-row sm:items-center gap-3 mb-8'>
               <p className='text-sm text-ink-3 shrink-0'>Current Status:</p>
-              <span className={`px-3 py-1 text-xs font-semibold rounded-full ${cancelled ? 'bg-danger/20 text-danger-light' : 'bg-success/20 text-success-light'}`}>
+              <span className={`px-3 py-1 text-xs font-semibold rounded-full ${cancelled ? 'bg-danger/15 text-danger-light' : 'bg-[#EAFBF1] text-success-deep'}`}>
                 {order.status}
               </span>
             </div>
@@ -182,7 +182,7 @@ const TrackOrder = () => {
                 <span>{cancelled ? 'Order Cancelled' : 'Order Progress'}</span>
                 {!cancelled && <span>{Math.round(progress)}%</span>}
               </div>
-              <div className='h-2.5 bg-surface-2 rounded-full overflow-hidden'>
+              <div className='h-2.5 bg-[#E9F1FC] rounded-full overflow-hidden'>
                 <div className={`h-full rounded-full transition-all duration-700 ease-swift             ${cancelled ? 'bg-danger' : 'bg-gradient-to-r from-success to-success-deep'}`} style={{ width: progress + '%' }}></div>
               </div>
             </div>
@@ -203,18 +203,18 @@ const TrackOrder = () => {
                     <div key={step} className={`relative flex-1 pb-6 md:pb-0 ${index < STEPS.length - 1 ? 'md:pb-0' : ''}`}>
                       <div className='flex items-start gap-3 md:flex-col md:items-center md:gap-2 md:text-center'>
                         <div className='flex flex-col items-center'>
-                          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${reached ? 'bg-success border-success' : 'bg-navy border-line-strong'}`}></div>
+                          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${reached ? 'bg-success border-success' : 'bg-white border-line-strong'}`}></div>
                           {index < STEPS.length - 1 && (
-                            <div className={`w-0.5 h-full min-h-8 md:hidden ${reached ? 'bg-success' : 'bg-surface-3'}`}></div>
+                            <div className={`w-0.5 h-full min-h-8 md:hidden ${reached ? 'bg-success' : 'bg-[#E9F1FC]'}`}></div>
                           )}
                         </div>
                         <div className='min-w-0 md:px-2'>
-                          <p className={`text-xs font-medium ${reached ? 'text-white' : 'text-ink-3'}`}>{step}</p>
+                          <p className={`text-xs font-medium ${reached ? 'text-ink' : 'text-ink-3'}`}>{step}</p>
                           <p className='text-[10px] text-ink-3 mt-0.5'>{reached && date ? new Date(date).toLocaleDateString() : ''}</p>
                         </div>
                       </div>
                       {index < STEPS.length - 1 && (
-                        <div className={`hidden md:block absolute top-2 left-[calc(50%+8px)] right-[calc(-50%+8px)] h-0.5 ${reached ? 'bg-success' : 'bg-surface-3'}`}></div>
+                        <div className={`hidden md:block absolute top-2 left-[calc(50%+8px)] right-[calc(-50%+8px)] h-0.5 ${reached ? 'bg-success' : 'bg-[#E9F1FC]'}`}></div>
                       )}
                     </div>
                   );
@@ -226,25 +226,25 @@ const TrackOrder = () => {
 
         <div className='w-full lg:w-80 shrink-0'>
           <div className='card p-5'>
-            <p className='text-sm font-semibold text-white mb-4'>ITEMS IN ORDER</p>
+            <p className='text-sm font-semibold text-ink mb-4'>ITEMS IN ORDER</p>
             <div className='flex flex-col gap-4'>
               {order.items.map((item, index) => (
                 <div key={index} className='flex items-center gap-3'>
-                  <div className='w-14 shrink-0 rounded-xl border border-line bg-gradient-to-b from-surface-2 to-surface-3 p-1'><img className='w-full h-auto object-contain' src={item.image?.[0]} alt="" loading="lazy" /></div>
+                  <div className='w-14 shrink-0 rounded-xl border border-line bg-gradient-to-b from-[#F7FBFF] to-[#EEF6FF] p-1'><img className='w-full h-auto object-contain' src={item.image?.[0]} alt="" loading="lazy" /></div>
                   <div className='min-w-0 flex-1'>
-                    <p className='text-sm font-medium text-white break-words'>{item.name}</p>
+                    <p className='text-sm font-medium text-ink break-words'>{item.name}</p>
                     <p className='text-xs text-ink-3 mt-0.5'>Model: {item.size} | Qty: {item.quantity}</p>
                   </div>
-                  <p className='text-sm font-semibold text-white shrink-0'>{currency} {item.price * item.quantity}</p>
+                  <p className='text-sm font-semibold text-ink shrink-0'>{currency} {item.price * item.quantity}</p>
                 </div>
               ))}
             </div>
             <hr className='my-4 border-line' />
             <div className='flex justify-between text-sm'>
               <span className='text-ink-3'>Total Amount</span>
-              <span className='font-semibold text-white'>{currency} {order.amount}</span>
+              <span className='font-semibold text-ink'>{currency} {order.amount}</span>
             </div>
-            <button onClick={() => navigate('/orders')} className='mt-5 w-full border border-line-strong hover:border-primary text-ink-2 hover:text-primary text-sm px-4 py-2.5 rounded-lg transition-colors'>
+            <button onClick={() => navigate('/orders')} className='mt-5 w-full btn-ghost-light btn-sm'>
               VIEW ALL ORDERS
             </button>
           </div>

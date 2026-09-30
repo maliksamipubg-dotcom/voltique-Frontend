@@ -50,7 +50,7 @@ const Contact = () => {
         jsonLd={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])]}
       />
       <h1 className='sr-only'>Contact Voltique Hub</h1>
-      <div className='text-center text-2xl pt-10 border-t border-line'>
+      <div className='text-center text-2xl pt-10'>
         <Title text1={'CONTACT'} text2={'US'} />
       </div>
       <p className='text-center text-ink-3 mt-4 mb-10 max-w-xl mx-auto px-4'>
@@ -61,9 +61,9 @@ const Contact = () => {
           {contactDetails.map((item) => (
             <div
               key={item.label}
-              className='group flex flex-col h-full min-w-0 bg-surface border border-line rounded-2xl shadow-card p-6 hover:shadow-card-hover hover:border-primary/50 transition-all duration-300'
+              className='group flex flex-col h-full min-w-0 bg-white border border-line rounded-2xl shadow-card p-6 hover:shadow-card-hover hover:border-primary/50 transition-all duration-300'
             >
-              <div className='w-12 h-12 flex items-center justify-center rounded-xl bg-primary/15 text-primary-bright border border-primary/30 group-hover:bg-primary group-hover:text-white transition-colors duration-300'>
+              <div className='w-12 h-12 flex items-center justify-center rounded-xl bg-primary/12 text-primary border border-primary/30 group-hover:bg-primary group-hover:text-white transition-colors duration-300'>
                 {item.icon}
               </div>
               <p className='font-semibold text-ink mt-4'>{item.label}</p>

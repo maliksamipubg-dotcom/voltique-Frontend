@@ -211,7 +211,7 @@ Please confirm my order.`;
   }, [lightboxOpen]);
 
   return productData ? (
-    <div className='border-t border-line pt-8 sm:pt-10 transition-opacity ease-in duration-500 opacity-100'>
+    <div className='pt-8 sm:pt-10 transition-opacity ease-in duration-500 opacity-100'>
       <Seo
         title={`${productData.name} | Voltique Hub`}
         description={buildProductDescription(productData)}
@@ -238,7 +238,7 @@ Please confirm my order.`;
               <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[86px] sm:shrink-0 gap-2'>
                 {
                   productData.image.map((item,index)=>(
-                    <button type='button' onClick={()=>setImage(item)} key={index} className={`w-16 sm:w-[86px] bg-gradient-to-b from-surface-2 to-surface-3 flex-shrink-0 cursor-pointer rounded-xl overflow-hidden transition-all duration-300 ease-swift hover:-translate-y-0.5 ${image === item ? 'border-2 border-primary shadow-glow' : 'border border-line hover:border-primary/60 opacity-75 hover:opacity-100'}`}>
+                    <button type='button' onClick={()=>setImage(item)} key={index} className={`w-16 sm:w-[86px] bg-gradient-to-b from-[#F7FBFF] to-[#EEF6FF] flex-shrink-0 cursor-pointer rounded-xl overflow-hidden transition-all duration-300 ease-swift hover:-translate-y-0.5 ${image === item ? 'border-2 border-primary shadow-glow' : 'border border-line hover:border-primary/60 opacity-75 hover:opacity-100'}`}>
                       <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} loading="lazy" className='w-full h-auto object-contain' alt={`${productData.name} - thumbnail ${index + 1}`} />
                     </button>
                   ))
@@ -246,14 +246,14 @@ Please confirm my order.`;
               </div>
             )}
             <div className='flex-1 min-w-0'>
-              <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-line bg-gradient-to-b from-surface-2 to-surface-3 flex items-center justify-center overflow-hidden cursor-zoom-in group relative shadow-card hover:shadow-card-hover transition-shadow duration-500'>
+              <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-line bg-gradient-to-b from-[#F7FBFF] to-[#EAF3FF] flex items-center justify-center overflow-hidden cursor-zoom-in group relative shadow-card hover:shadow-card-hover transition-shadow duration-500'>
                 <span className='absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent'></span>
                 <img className='w-full h-auto object-contain p-2 transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt={productData.name} fetchPriority="high" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
-                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-card border border-line-strong backdrop-blur-sm hidden sm:inline-flex'>
+                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-white/92 text-ink text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-card border border-line backdrop-blur-sm hidden sm:inline-flex'>
                   <span className='w-1.5 h-1.5 rounded-full bg-primary animate-pulse'></span>
                   Zoom to inspect
                 </span>
-                <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-line-strong opacity-0 group-hover:opacity-100 transition-opacity'>
+                <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-white/92 text-ink text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-line opacity-0 group-hover:opacity-100 transition-opacity'>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5'>
                     <circle cx="11" cy="11" r="8" />
                     <path d="m21 21-4.3-4.3" />
@@ -262,10 +262,10 @@ Please confirm my order.`;
                 </span>
                 {productData.image.length > 1 && (
                   <>
-                    <button onClick={(e)=>{ e.stopPropagation(); showPrev(); }} aria-label='Previous image' className='absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-navy/90 text-white border border-line-strong flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary'>
+                    <button onClick={(e)=>{ e.stopPropagation(); showPrev(); }} aria-label='Previous image' className='absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-ink border border-line flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-white hover:border-primary'>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'><path d="m15 18-6-6 6-6" /></svg>
                     </button>
-                    <button onClick={(e)=>{ e.stopPropagation(); showNext(); }} aria-label='Next image' className='absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-navy/90 text-white border border-line-strong flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary'>
+                    <button onClick={(e)=>{ e.stopPropagation(); showNext(); }} aria-label='Next image' className='absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-ink border border-line flex items-center justify-center shadow-card opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-white hover:border-primary'>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4'><path d="m9 18 6-6-6-6" /></svg>
                     </button>
                   </>
@@ -281,19 +281,19 @@ Please confirm my order.`;
               <span className='badge bg-primary/15 text-primary border border-primary/40'>{productData.category}</span>
             )}
             {brand && (
-              <span className='badge bg-accent/15 text-accent border border-accent/40'>{brand}</span>
+              <span className='badge bg-accent/15 text-accent-ink border border-accent/45'>{brand}</span>
             )}
-            <span className={`badge shadow-soft ${inStock ? 'bg-accent text-navy' : 'bg-danger text-white'}`}>
-              <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${inStock ? 'bg-navy' : 'bg-white'}`}></span>
+            <span className={`badge shadow-soft ${inStock ? 'bg-[#EAFBF1] text-success-deep border-success/45' : 'bg-[#FEF2F2] text-danger-light border-danger/45'}`}>
+              <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${inStock ? 'bg-success' : 'bg-danger'}`}></span>
               {stockStatus}
             </span>
           </div>
-          <h1 className='font-semibold text-2xl sm:text-3xl mt-3.5 text-white leading-snug tracking-tight'>{productData.name}</h1>
+          <h1 className='font-semibold text-2xl sm:text-3xl mt-3.5 text-ink leading-snug tracking-tight'>{productData.name}</h1>
           {productData.avgRating > 0 ? (
             <button onClick={scrollToReviews} className='mt-2.5 flex items-center gap-2 group w-fit'>
               <span className='flex items-center gap-0.5'>
                 {[1,2,3,4,5].map((star) => (
-                  <span key={star} className={`text-sm leading-none ${star <= Math.round(productData.avgRating) ? 'text-amber-400' : 'text-ink-4'}`}>★</span>
+                  <span key={star} className={`text-sm leading-none ${star <= Math.round(productData.avgRating) ? 'text-amber-400' : 'text-line-strong'}`}>★</span>
                 ))}
               </span>
               <span className='text-sm font-semibold text-ink-2'>{productData.avgRating.toFixed(1)}</span>
@@ -304,23 +304,23 @@ Please confirm my order.`;
             <button onClick={scrollToReviews} className='mt-2.5 flex items-center gap-2 w-fit'>
               <span className='flex items-center gap-0.5'>
                 {[1,2,3,4,5].map((star) => (
-                  <span key={star} className='text-sm leading-none text-ink-4'>★</span>
+                  <span key={star} className='text-sm leading-none text-line-strong'>★</span>
                 ))}
               </span>
               <span className='text-sm text-ink-3'>No reviews yet</span>
               <span className='text-xs text-primary font-medium link-underline'>Be the first to review</span>
             </button>
           )}
-          <div className='mt-5 inline-flex items-baseline gap-2.5 rounded-2xl border border-primary/15 bg-gradient-to-r from-primary/20 to-accent/10 px-5 py-3'>
-            <p className='text-3xl sm:text-4xl font-bold text-primary-bright'>{currency} {productData.price}</p>
-            <span className='text-xs font-semibold text-accent'>incl. warranty</span>
+          <div className='mt-5 inline-flex items-baseline gap-2.5 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/12 to-accent/10 px-5 py-3'>
+            <p className='text-3xl sm:text-4xl font-bold text-primary'>{currency} {productData.price}</p>
+            <span className='text-xs font-semibold text-accent-ink'>incl. warranty</span>
           </div>
 
           <p className='mt-5 text-ink-3 leading-relaxed'>{descriptionText}</p>
 
           {/*Specifications */}
           {specs.length > 0 && (
-          <div className='mt-6 rounded-2xl border border-line bg-surface shadow-card overflow-hidden'>
+          <div className='mt-6 rounded-2xl border border-line bg-white shadow-card overflow-hidden'>
             <div className='flex items-center gap-2.5 px-5 py-3.5 bg-gradient-to-r from-primary to-primary-dark'>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4 text-white shrink-0'>
                 <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -332,7 +332,7 @@ Please confirm my order.`;
                 const isStock = ['stock', 'stock status'].includes(spec.name.trim().toLowerCase());
                 const stockIn = spec.value.trim().toLowerCase() === 'in stock';
                 return (
-                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 transition-colors duration-300 hover:bg-primary/10 ${i % 2 === 1 ? 'bg-surface-2/80' : 'bg-surface'}`}>
+                  <div key={i} className={`grid grid-cols-[minmax(0,45%)_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-between sm:flex-wrap px-4 sm:px-5 py-3 sm:py-3.5 transition-colors duration-300 hover:bg-[#F5F9FF] ${i % 2 === 1 ? 'bg-[#F8FBFF]' : 'bg-white'}`}>
                     <div className='flex items-center gap-2.5 sm:gap-3 min-w-0'>
                       <span className='w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-primary/15 text-primary border border-primary/30'>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5 sm:w-4 sm:h-4'>
@@ -342,12 +342,12 @@ Please confirm my order.`;
                       <span className='text-ink-2 font-medium min-w-0 break-words'>{spec.name}</span>
                     </div>
                     {isStock ? (
-                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 justify-self-end sm:justify-self-auto ${stockIn ? 'bg-accent text-navy' : 'bg-danger text-white'}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${stockIn ? 'bg-navy' : 'bg-white'}`}></span>
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 justify-self-end sm:justify-self-auto ${stockIn ? 'bg-[#EAFBF1] text-success-deep border border-success/40' : 'bg-[#FEF2F2] text-danger-light border border-danger/40'}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${stockIn ? 'bg-success' : 'bg-danger'}`}></span>
                         {spec.value}
                       </span>
                     ) : (
-                      <span className='font-semibold text-white text-right break-words min-w-0'>{spec.value}</span>
+                      <span className='font-semibold text-ink text-right break-words min-w-0'>{spec.value}</span>
                     )}
                   </div>
                 );
@@ -363,10 +363,10 @@ Please confirm my order.`;
                   <div className='flex flex-col gap-4'>
                     {optionFields.map((field, fi) => (
                       <div key={fi}>
-                        <p className='font-medium text-white'>Select {field.name}</p>
+                        <p className='font-medium text-ink'>Select {field.name}</p>
                         <div className='flex gap-2 flex-wrap mt-2'>
                           {field.values.map((val, vi) => (
-                            <button key={vi} onClick={()=>setSelected(prev => ({ ...prev, [field.name]: val }))} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${selected[field.name] === val ? 'bg-primary border-primary text-white shadow-glow' : 'bg-surface-2 border-line-strong text-ink-2 hover:border-primary hover:bg-primary/15 hover:text-white'}`}>{val}</button>
+                            <button key={vi} onClick={()=>setSelected(prev => ({ ...prev, [field.name]: val }))} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${selected[field.name] === val ? 'bg-primary border-primary text-white shadow-glow' : 'bg-white border-line-strong text-ink-2 hover:border-primary hover:bg-[#F5F9FF] hover:text-primary'}`}>{val}</button>
                           ))}
                         </div>
                       </div>
@@ -374,10 +374,10 @@ Please confirm my order.`;
                   </div>
                 ) : (
                   <>
-                    <p className='font-medium text-white'>Select Ampere</p>
+                    <p className='font-medium text-ink'>Select Ampere</p>
                     <div className='flex gap-2 flex-wrap'>
                       {productData.sizes.map((item,index)=>(
-                        <button key={index} onClick={()=>setSize(item)} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${item === size ? 'bg-primary border-primary text-white shadow-glow' : 'bg-surface-2 border-line-strong text-ink-2 hover:border-primary hover:bg-primary/15 hover:text-white'}`}>{item}</button>
+                        <button key={index} onClick={()=>setSize(item)} className={`border py-2.5 px-5 rounded-xl text-sm font-medium transition-all duration-300 ease-swift ${item === size ? 'bg-primary border-primary text-white shadow-glow' : 'bg-white border-line-strong text-ink-2 hover:border-primary hover:bg-[#F5F9FF] hover:text-primary'}`}>{item}</button>
                       ))}
                     </div>
                   </>
@@ -385,11 +385,11 @@ Please confirm my order.`;
               </>
             )}
             <div className='flex flex-col gap-2'>
-              <p className='font-medium text-white'>Quantity</p>
+              <p className='font-medium text-ink'>Quantity</p>
               <div className='flex items-center gap-3 w-fit'>
-                <button onClick={()=>setQuantity(q => Math.max(1, q - 1))} aria-label='Decrease quantity' className='w-10 h-10 border border-line-strong rounded-xl bg-surface-2 text-white text-lg font-medium hover:border-primary hover:bg-primary/20 active:scale-95 transition-all duration-300'>-</button>
-                <span className='w-12 text-center font-semibold text-lg'>{quantity}</span>
-                <button onClick={()=>setQuantity(q => q + 1)} aria-label='Increase quantity' className='w-10 h-10 border border-line-strong rounded-xl bg-surface-2 text-white text-lg font-medium hover:border-primary hover:bg-primary/20 active:scale-95 transition-all duration-300'>+</button>
+                <button onClick={()=>setQuantity(q => Math.max(1, q - 1))} aria-label='Decrease quantity' className='w-10 h-10 border border-line-strong rounded-xl bg-white text-ink text-lg font-medium hover:border-primary hover:bg-[#F5F9FF] hover:text-primary active:scale-95 transition-all duration-300'>-</button>
+                <span className='w-12 text-center font-semibold text-lg text-ink'>{quantity}</span>
+                <button onClick={()=>setQuantity(q => q + 1)} aria-label='Increase quantity' className='w-10 h-10 border border-line-strong rounded-xl bg-white text-ink text-lg font-medium hover:border-primary hover:bg-[#F5F9FF] hover:text-primary active:scale-95 transition-all duration-300'>+</button>
               </div>
             </div>
           </div>
@@ -418,7 +418,7 @@ Please confirm my order.`;
                 'Easy Exchange Policy within 7 days + technical support.',
               ].map((line) => (
                 <li key={line} className='flex items-start gap-2.5'>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4 mt-0.5 shrink-0 text-accent'>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className='w-4 h-4 mt-0.5 shrink-0 text-success-deep'>
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                   <span>{line}</span>
@@ -432,9 +432,9 @@ Please confirm my order.`;
       <div className='mt-20'>
         <div className='flex flex-wrap'>
           <b className='border border-line px-5 py-3 text-sm rounded-t-xl bg-gradient-to-b from-primary to-primary-dark text-white border-b-transparent shadow-card'>Description</b>
-          <p className='border border-line px-5 py-3 text-sm rounded-t-xl bg-surface-2 text-ink-2'>Specifications &amp; Care</p>
+          <p className='border border-line px-5 py-3 text-sm rounded-t-xl bg-[#F5F9FF] text-ink-2'>Specifications &amp; Care</p>
         </div>
-        <div className='flex flex-col gap-4 border border-line border-t-0 px-6 py-6 text-sm text-ink-3 bg-surface rounded-b-2xl shadow-card'>
+        <div className='flex flex-col gap-4 border border-line border-t-0 px-6 py-6 text-sm text-ink-3 bg-white rounded-b-2xl shadow-card'>
           <p>{productData.description}</p>
           <p className='rule-gradient my-1'></p>
           <p>Every Voltique Hub product is engineered for reliable, safe, and dependable performance. Whether you are charging a battery, stabilizing your power supply, or running your home on an inverter, we make sure it works simply and safely.</p>
@@ -479,7 +479,7 @@ Please confirm my order.`;
               <>
                 <div className='flex items-center justify-center gap-2 sm:gap-3 flex-wrap'>
                   {productData.image.map((item, index) => (
-                    <button key={index} onClick={()=>setImage(item)} className={`w-14 sm:w-16 rounded-lg border-2 overflow-hidden bg-surface-2 flex items-center justify-center transition-all ${image === item ? 'border-accent ring-2 ring-accent/40' : 'border-line opacity-60 hover:opacity-100'}`}>
+                    <button key={index} onClick={()=>setImage(item)} className={`w-14 sm:w-16 rounded-lg border-2 overflow-hidden bg-[#F5F9FF] flex items-center justify-center transition-all ${image === item ? 'border-primary ring-2 ring-primary/35' : 'border-line opacity-60 hover:opacity-100'}`}>
                       <img src={item} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} className='w-full h-auto object-contain' alt={`${productData.name} - thumbnail ${index + 1}`} />
                     </button>
                   ))}

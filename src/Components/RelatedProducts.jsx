@@ -23,7 +23,7 @@ const RelatedProducts = ({category,subCategory}) => {
     <section className='my-20 sm:my-24'>
         <Reveal className='text-center py-2 mb-6'>
             <Title text1={'RELATED'} text2={'PRODUCTS'} />
-            <h2 className='text-3xl sm:text-4xl font-semibold text-white heading-font tracking-tight'>You may also like</h2>
+            <h2 className='text-3xl sm:text-4xl font-semibold text-ink heading-font tracking-tight'>You may also like</h2>
         </Reveal>
         <RevealGroup className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
             {related.map((item,index)=>(

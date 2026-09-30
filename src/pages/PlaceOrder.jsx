@@ -6,7 +6,7 @@ import { ShopContext } from '../contexts/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const baseInputClass = 'w-full border rounded-xl py-3 px-4 text-sm text-white placeholder-ink-4 outline-none transition-all duration-200 focus:ring-4'
+const baseInputClass = 'field'
 
 const isValidName = (value) => {
   const v = value.trim();
@@ -361,7 +361,7 @@ const PlaceOrder = () => {
           <Title text1={'PAYMENT'} text2={'METHOD'}/>
           {/*Payment Method Selection */}
           <div className='flex gap-3 flex-col lg:flex-row'>
-            <div onClick={()=>setMethod('COD')} className={`flex items-center gap-3 border-2 p-3 px-4 rounded-xl cursor-pointer flex-wrap transition-all duration-300 ease-swift ${method === 'COD' ? 'border-success bg-success/10 shadow-soft' : 'border-line bg-surface-2 hover:border-success/60'}`}>
+            <div onClick={()=>setMethod('COD')} className={`flex items-center gap-3 border-2 p-3 px-4 rounded-xl cursor-pointer flex-wrap transition-all duration-300 ease-swift ${method === 'COD' ? 'border-success bg-success/10 shadow-soft' : 'border-line bg-white hover:border-success/60'}`}>
               <p className={`min-w-3.5 h-3.5 border-2 border-success rounded-full ${method === 'COD' ? 'bg-success' : ''}`}></p>
               <p className='text-ink-2 text-sm font-semibold mx-2 sm:mx-4'>CASH ON DELIVERY</p>
               <span className='text-[10px] font-medium text-success-light bg-success/20 border border-success/40 px-2 py-0.5 rounded-full uppercase tracking-wide'>Only Method</span>

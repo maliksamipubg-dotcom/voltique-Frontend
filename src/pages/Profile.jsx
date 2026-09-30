@@ -102,9 +102,9 @@ const MyReviews = () => {
 
   return (
     <div className='mt-8'>
-      <p className='text-sm font-semibold text-white mb-4'>MY REVIEWS</p>
+      <p className='text-sm font-semibold text-ink mb-4'>MY REVIEWS</p>
       {reviews.length === 0 ? (
-        <div className='card p-8 text-center bg-gradient-to-b from-surface-2 to-surface-3'>
+        <div className='card p-8 text-center bg-gradient-to-b from-[#F7FBFF] to-[#EEF6FF]'>
           <p className='text-3xl mb-2'>💬</p>
           <p className='text-sm text-ink-3'>You haven't written any reviews yet.</p>
           <p className='text-xs text-ink-3 mt-1'>You can review products after your order has been delivered.</p>
@@ -115,17 +115,17 @@ const MyReviews = () => {
             <div key={review.reviewId} className='card p-5 transition-shadow duration-500 ease-swift hover:shadow-card-hover'>
               <div className='flex items-start justify-between gap-3 flex-wrap'>
                 <div className='flex items-center gap-3 min-w-0'>
-                  {review.productImage && <img src={review.productImage} alt="" className='w-12 h-auto object-contain rounded-xl border border-line bg-surface-2 shrink-0' />}
+                  {review.productImage && <img src={review.productImage} alt="" className='w-12 h-auto object-contain rounded-xl border border-line bg-[#F5F9FF] shrink-0' />}
                   <div className='min-w-0'>
-                    <p className='font-semibold text-white text-sm break-words'>{review.productName}</p>
+                    <p className='font-semibold text-ink text-sm break-words'>{review.productName}</p>
                     <div className='flex items-center gap-2 mt-1'>
                       <span className='flex items-center gap-0.5'>
                         {[1,2,3,4,5].map((star) => (
-                          <span key={star} className={`text-sm leading-none ${star <= review.rating ? 'text-amber-400' : 'text-ink-4'}`}>★</span>
+                          <span key={star} className={`text-sm leading-none ${star <= review.rating ? 'text-amber-400' : 'text-line-strong'}`}>★</span>
                         ))}
                       </span>
                       <span className='text-xs text-ink-3'>{new Date(review.date).toLocaleDateString()}</span>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${review.status === 'Approved' ? 'bg-success/20 text-success-light' : 'bg-amber-400/15 text-amber-300'}`}>
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${review.status === 'Approved' ? 'bg-[#EAFBF1] text-success-deep' : 'bg-amber-400/15 text-[#B45309]'}`}>
                         {review.status === 'Approved' ? 'Live on product page' : 'Hidden by admin'}
                       </span>
                     </div>
@@ -142,19 +142,19 @@ const MyReviews = () => {
                   <div className='flex items-center gap-1'>
                     <span className='text-sm text-ink-3 mr-2'>Rating:</span>
                     {[1,2,3,4,5].map((star) => (
-                      <button key={star} type='button' onClick={() => setEditRating(star)} className={`text-2xl leading-none transition-transform hover:scale-110 ${star <= editRating ? 'text-amber-400' : 'text-ink-4'}`}>★</button>
+                      <button key={star} type='button' onClick={() => setEditRating(star)} className={`text-2xl leading-none transition-transform hover:scale-110 ${star <= editRating ? 'text-amber-400' : 'text-line-strong'}`}>★</button>
                     ))}
                   </div>
                   <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} maxLength={60} placeholder='Review title (optional)' className='field' />
                   <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} maxLength={500} rows={3} placeholder='Your review...' className='field resize-none' />
                   <div className='flex gap-3'>
                     <button onClick={() => saveEdit(review.reviewId)} disabled={saving} className='btn-primary btn-sm disabled:opacity-50'>SAVE</button>
-                    <button onClick={() => setEditingId(null)} className='btn btn-sm border border-line-strong text-ink-2 hover:border-primary hover:text-primary'>CANCEL</button>
+                    <button onClick={() => setEditingId(null)} className='btn btn-sm border border-line-strong bg-white text-ink-2 hover:border-primary hover:text-primary'>CANCEL</button>
                   </div>
                 </div>
               ) : (
                 <>
-                  {review.title && <p className='font-semibold text-white mt-3 text-sm'>“{review.title}”</p>}
+                  {review.title && <p className='font-semibold text-ink mt-3 text-sm'>“{review.title}”</p>}
                   <p className='text-sm text-ink-2 mt-1 leading-relaxed'>{review.description}</p>
                 </>
               )}
@@ -309,7 +309,7 @@ const Profile = () => {
                     {getInitials(name)}
                   </div>
                 )}
-                <p className='mt-4 text-lg font-semibold text-white break-words'>{user?.name}</p>
+                <p className='mt-4 text-lg font-semibold text-ink break-words'>{user?.name}</p>
                 <p className='text-sm text-ink-3 break-all'>{user?.email}</p>
                 <div className='w-full border-t border-line mt-5 pt-4 flex flex-col gap-3 text-sm'>
                   <div className='flex justify-between'>
@@ -327,7 +327,7 @@ const Profile = () => {
 
           <div className='flex-1 min-w-0'>
             <div className='card p-6'>
-              <p className='text-sm font-semibold text-white mb-5'>ACCOUNT INFORMATION</p>              <div className='flex flex-col gap-4'>
+              <p className='text-sm font-semibold text-ink mb-5'>ACCOUNT INFORMATION</p>              <div className='flex flex-col gap-4'>
                 <div className='flex flex-col gap-1.5'>
                   <label className='text-sm font-medium text-ink-2'>Full Name</label>
                   <input
@@ -336,7 +336,7 @@ const Profile = () => {
                     onBlur={()=>onBlur('name')}
                     type="text"
                     placeholder='Enter your full name'
-                    className={`w-full border rounded-xl py-3 px-4 text-sm text-white placeholder-ink-4 outline-none transition-all duration-200 focus:ring-4 ${errors.name ? 'border-danger focus:ring-red-500/15 bg-danger/10' : touched.name && !errors.name ? 'border-success focus:ring-green-500/15 bg-success/10' : 'border-line-strong focus:ring-primary/25 focus:border-primary'}`}
+                    className={`field ${errors.name ? '!border-danger focus:!ring-red-500/15' : touched.name && !errors.name ? '!border-success focus:!ring-green-500/15' : ''}`}
                   />
                   {errors.name && <p className='text-xs text-danger-light animate-rise-sm'>{errors.name}</p>}
                 </div>
@@ -349,7 +349,7 @@ const Profile = () => {
                     onBlur={()=>onBlur('phone')}
                     type="tel"
                     placeholder='03XX-XXXXXXX'
-                    className={`w-full border rounded-xl py-3 px-4 text-sm text-white placeholder-ink-4 outline-none transition-all duration-200 focus:ring-4 ${errors.phone ? 'border-danger focus:ring-red-500/15 bg-danger/10' : touched.phone && !errors.phone ? 'border-success focus:ring-green-500/15 bg-success/10' : 'border-line-strong focus:ring-primary/25 focus:border-primary'}`}
+                    className={`field ${errors.phone ? '!border-danger focus:!ring-red-500/15' : touched.phone && !errors.phone ? '!border-success focus:!ring-green-500/15' : ''}`}
                   />
                   {errors.phone && <p className='text-xs text-danger-light animate-rise-sm'>{errors.phone}</p>}
                 </div>
@@ -360,7 +360,7 @@ const Profile = () => {
                     value={email}
                     readOnly
                     type="email"
-                    className='w-full border border-line bg-surface-2 text-ink-3 rounded-xl py-3 px-4 text-sm cursor-not-allowed'
+                    className='w-full border border-line bg-[#F5F9FF] text-ink-3 rounded-xl py-3 px-4 text-sm cursor-not-allowed'
                   />
                   <p className='text-xs text-ink-3'>Email address cannot be changed.</p>
                 </div>

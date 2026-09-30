@@ -233,7 +233,7 @@ const Collections = () => {
   const resultCount = Array.isArray(filterProducts) ? filterProducts.length : 0;
 
   return (
-    <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8 border-t border-line'>
+    <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8'>
       <Seo
         title={activeCategory ? `${activeCategory} | Voltique Hub` : 'Shop All Products | Voltique Hub'}
         description={activeCategory
@@ -258,12 +258,12 @@ const Collections = () => {
           type='button'
           onClick={() => setShowFilter(!showFilter)}
           aria-expanded={showFilter}
-          className='card w-full flex items-center justify-between px-5 py-4 lg:shadow-none lg:border-0 lg:bg-transparent lg:p-0 font-semibold text-white transition-colors duration-300 hover:text-primary-bright'
+          className='card w-full flex items-center justify-between px-5 py-4 lg:shadow-none lg:border-0 lg:bg-transparent lg:p-0 font-semibold text-ink transition-colors duration-300 hover:text-primary'
         >
           <span className='text-base tracking-[0.15em]'>FILTERS</span>
-          <span className='w-8 h-8 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center lg:hidden'>
+          <span className='w-8 h-8 rounded-xl bg-primary/12 border border-primary/35 flex items-center justify-center lg:hidden'>
             <img
-              className={`h-3 transition-transform duration-500 ease-swift ${showFilter ? 'rotate-90' : ''}`}
+              className={`h-3 transition-transform duration-500 ease-swift ${showFilter ? 'rotate-90' : ''} icon-ink-dim`}
               src={assets.dropdown_icon}
               alt=""
             />
@@ -278,7 +278,7 @@ const Collections = () => {
               {categoryCounts.map(({ cat, count }, i) => (
                 <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
                   <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={cat} checked={category.includes(cat.toLowerCase())} onChange={toggleCategory} />
-                  <span className='group-hover:text-primary-bright transition-colors duration-200'>{cat}</span>
+                  <span className='group-hover:text-primary transition-colors duration-200'>{cat}</span>
                   <span className='ml-auto text-xs text-ink-3'>({count})</span>
                 </label>
               ))}
@@ -292,7 +292,7 @@ const Collections = () => {
               {brands.map((b, i) => (
                 <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
                   <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={b} onChange={toggleBrand} />
-                  <span className='group-hover:text-primary-bright transition-colors duration-200'>{b}</span>
+                  <span className='group-hover:text-primary transition-colors duration-200'>{b}</span>
                 </label>
               ))}
             </div>
@@ -331,7 +331,7 @@ const Collections = () => {
               {availabilityList.map((avail, i) => (
                 <label className='flex gap-2.5 items-center cursor-pointer group' key={i}>
                   <input className='w-3.5 h-3.5 accent-primary cursor-pointer' type="checkbox" value={avail} onChange={toggleAvailability} />
-                  <span className='group-hover:text-primary-bright transition-colors duration-200'>{avail}</span>
+                  <span className='group-hover:text-primary transition-colors duration-200'>{avail}</span>
                 </label>
               ))}
             </div>
@@ -381,7 +381,7 @@ const Collections = () => {
           ) : (
             <div className='col-span-full card py-16 px-6 text-center'>
               <div className='w-16 h-16 mx-auto rounded-2xl bg-primary/15 border border-line flex items-center justify-center mb-4'>
-                <img src={assets.search_icon} className='w-7 icon-on-dark-dim' alt='' />
+                <img src={assets.search_icon} className='w-7 icon-ink-dim' alt='' />
               </div>
               <p className='text-ink-2 font-semibold'>No products found</p>
               <p className='text-sm text-ink-3 mt-1'>Try adjusting your category, brand, or price filters.</p>

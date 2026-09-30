@@ -15,7 +15,7 @@ const Stars = ({ rating, size = 'text-base' }) => {
   return (
     <span className={`inline-flex gap-0.5 ${size}`}>
       {[1, 2, 3, 4, 5].map((star) => (
-        <span key={star} className={star <= Math.round(rating) ? 'text-amber-400' : 'text-ink-4'}>★</span>
+        <span key={star} className={star <= Math.round(rating) ? 'text-amber-400' : 'text-line-strong'}>★</span>
       ))}
     </span>
   )
@@ -178,7 +178,7 @@ const ReviewForm = ({ productId, onSaved }) => {
 
   if (!token) {
     return (
-      <div className='text-center py-10 px-6 bg-gradient-to-b from-surface-2 to-surface-3 rounded-2xl border border-dashed border-line-strong'>
+      <div className='text-center py-10 px-6 bg-gradient-to-b from-[#F7FBFF] to-[#EEF6FF] rounded-2xl border border-dashed border-line-strong'>
         <p className='text-ink-2 text-sm'>Share your experience with this product.</p>
         <button onClick={() => { sessionStorage.setItem('redirectAfterLogin', window.location.pathname + window.location.search); navigate('/login') }} className='btn-primary btn-sm mt-4'>Login to Write a Review</button>
       </div>
@@ -187,7 +187,7 @@ const ReviewForm = ({ productId, onSaved }) => {
 
   if (!eligible) {
     return (
-      <div className='text-center py-10 px-6 bg-gradient-to-b from-surface-2 to-surface-3 rounded-2xl border border-dashed border-line-strong'>
+      <div className='text-center py-10 px-6 bg-gradient-to-b from-[#F7FBFF] to-[#EEF6FF] rounded-2xl border border-dashed border-line-strong'>
         <p className='text-ink-2 text-sm'>You can review this product after your order has been delivered.</p>
       </div>
     )
@@ -195,11 +195,11 @@ const ReviewForm = ({ productId, onSaved }) => {
 
   return (
     <div className='card p-5 sm:p-6'>
-      <h4 className='font-semibold text-white mb-4'>{existingReview ? 'Edit Your Review' : 'Write a Review'}</h4>
+      <h4 className='font-semibold text-ink mb-4'>{existingReview ? 'Edit Your Review' : 'Write a Review'}</h4>
       <div className='flex items-center gap-1 mb-4'>
         <span className='text-sm text-ink-3 mr-2'>Your rating:</span>
         {[1, 2, 3, 4, 5].map((star) => (
-          <button key={star} type='button' data-review-star={star} onClick={() => setRating(star)} aria-label={`${star} star${star !== 1 ? 's' : ''}`} className={`text-2xl leading-none transition-all duration-200 hover:scale-110 ${star <= rating ? 'text-amber-400' : 'text-ink-4'}`}>★</button>
+          <button key={star} type='button' data-review-star={star} onClick={() => setRating(star)} aria-label={`${star} star${star !== 1 ? 's' : ''}`} className={`text-2xl leading-none transition-all duration-200 hover:scale-110 ${star <= rating ? 'text-amber-400' : 'text-line-strong'}`}>★</button>
         ))}
       </div>
 
@@ -369,7 +369,7 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
     <div id='reviews-section' className='mt-16 scroll-mt-24'>
       <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6'>
         <div>
-          <h3 className='text-xl font-bold text-white'>Customer Reviews</h3>
+          <h3 className='text-xl font-bold text-ink'>Customer Reviews</h3>
           <p className='text-sm text-ink-3 mt-1'>See what our customers say about this product.</p>
         </div>
         {canReview ? (
@@ -380,16 +380,16 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
           <div className='w-full sm:w-auto card px-4 py-3'>
             <p className='text-[11px] font-semibold uppercase tracking-wide text-primary mb-1'>Your Review</p>
             <Stars rating={myReview.rating} size='text-sm' />
-            {myReview.title && <p className='text-sm font-semibold text-white mt-1'>“{myReview.title}”</p>}
+            {myReview.title && <p className='text-sm font-semibold text-ink mt-1'>“{myReview.title}”</p>}
             <p className='text-xs text-ink-2 mt-1 leading-relaxed max-w-xs whitespace-pre-wrap'>{myReview.description}</p>
           </div>
         ) : null}
       </div>
 
       {totalReviews > 0 && (
-        <div className='grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 bg-gradient-to-br from-primary/15 to-accent/10 border border-line rounded-2xl p-6 mb-8'>
+        <div className='grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 bg-gradient-to-br from-primary/10 to-accent/8 border border-line rounded-2xl p-6 mb-8 shadow-card'>
           <div className='flex md:flex-col items-center md:items-start gap-4 md:gap-2'>
-            <p className='text-5xl font-bold text-white tracking-tight'>{avgRating.toFixed(1)}</p>
+            <p className='text-5xl font-bold text-ink tracking-tight'>{avgRating.toFixed(1)}</p>
             <div>
               <div className='flex items-center gap-2'>
                 <Stars rating={avgRating} />
@@ -402,7 +402,7 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
             {[5, 4, 3, 2, 1].map((star) => (
               <div key={star} className='flex items-center gap-3'>
                 <span className='text-xs text-ink-2 w-8 text-right'>{star} ★</span>
-                <div className='flex-1 h-2.5 bg-surface-3 rounded-full overflow-hidden border border-line-soft'>
+                <div className='flex-1 h-2.5 bg-[#E9F1FC] rounded-full overflow-hidden border border-line-soft'>
                   <div className='h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-full transition-[width] duration-700 ease-swift' style={{ width: `${(distribution[star] || 0) / maxCount * 100}%` }}></div>
                 </div>
                 <span className='text-xs text-ink-3 w-8'>{distribution[star] || 0}</span>
@@ -444,7 +444,7 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
           <span className='sr-only'>Loading reviews…</span>
         </div>
       ) : reviews.length === 0 ? (
-        <div className='text-center py-12 bg-gradient-to-b from-surface-2 to-surface-3 border border-line rounded-2xl'>
+        <div className='text-center py-12 bg-gradient-to-b from-[#F7FBFF] to-[#EEF6FF] border border-line rounded-2xl'>
           <p className='text-4xl mb-3'>💬</p>
           <p className='text-ink-2 text-sm'>No reviews yet. Be the first to review this product!</p>
         </div>
@@ -459,9 +459,9 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
                   </div>
                   <div className='min-w-0'>
                     <div className='flex items-center gap-2 flex-wrap'>
-                      <p className='font-semibold text-white text-sm'>{review.customerName || 'Customer'}</p>
+                      <p className='font-semibold text-ink text-sm'>{review.customerName || 'Customer'}</p>
                       {review.verified && (
-                        <span className='flex items-center gap-1 text-[10px] font-semibold bg-success/10 text-success-light border border-success/40 px-1.5 py-0.5 rounded-full'>
+                        <span className='flex items-center gap-1 text-[10px] font-semibold bg-[#EAFBF1] text-success-deep border border-success/40 px-1.5 py-0.5 rounded-full'>
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8L12 2z"/></svg>
                           Verified Purchase
                         </span>
@@ -475,7 +475,7 @@ const ReviewSection = ({ productId, productName, autoOpen = false }) => {
                   {review.updatedDate && <span className='text-[10px] text-ink-3'>· Edited</span>}
                 </div>
               </div>
-              {review.title && <p className='font-semibold text-white mt-3'>“{review.title}”</p>}
+              {review.title && <p className='font-semibold text-ink mt-3'>“{review.title}”</p>}
               <p className='text-ink-2 text-sm leading-relaxed mt-1.5 whitespace-pre-wrap'>{review.description}</p>
               <div className='mt-3 pt-3 border-t border-line flex items-center justify-between gap-3'>
                 <button onClick={() => markHelpful(review)} className='chip text-xs py-1.5 px-3'>

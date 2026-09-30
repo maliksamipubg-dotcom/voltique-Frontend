@@ -5,40 +5,40 @@
 @tailwind utilities;
 
 /* ==========================================================
-   Voltique Hub — Dark Electric Design Tokens
-   Single source of truth for the navy / electric-blue identity.
+   Voltique Hub — Light Premium Design Tokens
+   Single source of truth for the white / light-blue identity.
    ========================================================== */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
   /* Surfaces */
-  --bg-color: #07111f;
-  --bg-navy: #0b1830;
-  --card-color: #12213a;
-  --surface-2: #17263d;
-  --surface-3: #1e2f4a;
+  --bg-color: #ffffff;
+  --bg-navy: #172033;
+  --card-color: #ffffff;
+  --surface-2: #f5f9ff;
+  --surface-3: #eef6ff;
 
   /* Hairlines */
-  --border-color: rgba(148, 163, 184, 0.20);
-  --border-strong: rgba(148, 163, 184, 0.34);
+  --border-color: #dce7f5;
+  --border-strong: #c3d9f2;
 
-  /* Electric accents */
-  --primary-color: #2563eb;
-  --primary-bright: #3b82f6;
-  --primary-dark: #1d4ed8;
-  --accent-color: #22d3ee;
+  /* Brand accents */
+  --primary-color: #1677ff;
+  --primary-bright: #20bfef;
+  --primary-dark: #0e5fd8;
+  --accent-color: #20bfef;
 
   /* Text */
-  --text-main: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --text-main: #172033;
+  --text-secondary: #4a5768;
+  --text-muted: #63748b;
 
   /* Status */
-  --success: #4ade80;
-  --success-deep: #16a34a;
-  --danger: #f87171;
-  --danger-deep: #ef4444;
-  --warning: #fbbf24;
+  --success: #16a34a;
+  --success-deep: #15803d;
+  --danger: #ef4444;
+  --danger-deep: #dc2626;
+  --warning: #f59e0b;
 }
 
 a.active hr{
@@ -74,14 +74,15 @@ body{
 }
 
 ::selection{
-  background: rgba(37, 99, 235, 0.45);
-  color: #ffffff;
+  background: rgba(22, 119, 255, 0.20);
+  color: #172033;
 }
 
 /* ==========================================================
    Voltique Hub — Layout Shell
    Centralised responsive gutters so full-bleed surfaces
-   (navbar, footer) can escape the padded page container.
+   (navbar, footer, section bands) can escape the padded
+   page container.
    ========================================================== */
 .site-shell{
   padding-left: 1rem;
@@ -159,9 +160,9 @@ body{
    Voltique Hub — Surfaces & components
    ========================================================== */
 
-/* Frosted dark panel — used sparingly (nav, chips, small overlays). */
+/* Frosted light panel — used sparingly (nav, chips, small overlays). */
 .glass{
-  background: rgba(18, 33, 58, 0.72);
+  background: rgba(255, 255, 255, 0.88);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
@@ -169,7 +170,7 @@ body{
 /* Gradient hairline used to separate sections. */
 .rule-gradient{
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.45), rgba(34, 211, 238, 0.28), transparent);
+  background: linear-gradient(90deg, transparent, rgba(22, 119, 255, 0.35), rgba(32, 191, 239, 0.28), transparent);
 }
 
 /* Hover sheen sweep for premium cards. */
@@ -182,7 +183,7 @@ body{
   left: 0;
   width: 45%;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent, rgba(147, 197, 253, 0.10), transparent);
+  background: linear-gradient(100deg, transparent, rgba(22, 119, 255, 0.08), transparent);
   transform: translate3d(-120%, 0, 0);
   opacity: 0;
 }
@@ -199,7 +200,7 @@ body{
 .skeleton{
   position: relative;
   overflow: hidden;
-  background: #1b2a43;
+  background: #e9f1fc;
   border-radius: 0.75rem;
 }
 .skeleton::after{
@@ -207,49 +208,127 @@ body{
   position: absolute;
   inset: 0;
   transform: translate3d(-100%, 0, 0);
-  background: linear-gradient(90deg, rgba(148, 163, 184, 0) 0%, rgba(148, 163, 184, 0.14) 50%, rgba(148, 163, 184, 0) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0) 100%);
   animation: catalog-sheen 1.45s ease-in-out infinite;
 }
 
 /* ==========================================================
    Buttons — every variant keeps a strong background/text contrast
+   The shared base is declared once for all variants (and .btn-sm)
+   so a variant class alone is always enough to style a button.
    ========================================================== */
-.btn{
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold tracking-wide
-         transition-all duration-300 ease-swift select-none whitespace-nowrap;
+.btn,
+.btn-primary,
+.btn-dark,
+.btn-whatsapp,
+.btn-outline,
+.btn-ghost-light,
+.btn-white{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  line-height: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
 }
 .btn-primary{
-  @apply btn bg-primary text-white shadow-[0_10px_28px_-12px_rgba(37,99,235,0.8)]
-         hover:bg-primary-light hover:shadow-[0_16px_36px_-12px_rgba(37,99,235,0.9)] hover:-translate-y-0.5;
+  background-color: #1677ff;
+  color: #ffffff;
+  box-shadow: 0 10px 26px -12px rgba(22, 119, 255, 0.85);
+}
+.btn-primary:hover{
+  background-color: #0e5fd8;
+  box-shadow: 0 16px 34px -12px rgba(22, 119, 255, 0.9);
+  transform: translateY(-2px);
 }
 .btn-dark{
-  @apply btn bg-surface-3 text-white border border-line-strong
-         shadow-[0_10px_28px_-16px_rgba(2,8,23,1)]
-         hover:bg-[#24395c] hover:border-primary-light hover:-translate-y-0.5;
+  background-color: #172033;
+  color: #ffffff;
+  box-shadow: 0 10px 26px -14px rgba(23, 32, 51, 0.9);
+}
+.btn-dark:hover{
+  background-color: #0f1726;
+  transform: translateY(-2px);
 }
 .btn-whatsapp{
-  @apply btn bg-[#25D366] text-white shadow-[0_10px_28px_-14px_rgba(37,211,102,0.9)] hover:bg-[#1DA851] hover:-translate-y-0.5;
+  background-color: #25d366;
+  color: #ffffff;
+  box-shadow: 0 10px 26px -14px rgba(37, 211, 102, 0.9);
 }
+.btn-whatsapp:hover{
+  background-color: #1da851;
+  transform: translateY(-2px);
+}
+/* Secondary CTA: white canvas, navy text, blue border — never low contrast. */
 .btn-outline{
-  @apply btn border border-line-strong bg-surface-2 text-ink
-         hover:border-primary-light hover:text-primary-light hover:-translate-y-0.5 hover:shadow-glow;
+  background-color: #ffffff;
+  color: #172033;
+  border: 1.5px solid rgba(22, 119, 255, 0.45);
+}
+.btn-outline:hover{
+  border-color: #1677ff;
+  color: #1677ff;
+  background-color: #f5f9ff;
+  box-shadow: 0 10px 26px -18px rgba(22, 119, 255, 0.7);
+  transform: translateY(-2px);
 }
 .btn-ghost-light{
-  @apply btn border border-white/25 bg-white/[0.06] text-white backdrop-blur-sm hover:bg-white/15 hover:border-white/50 hover:-translate-y-0.5;
+  background-color: #ffffff;
+  color: #172033;
+  border: 1.5px solid #c3d9f2;
+}
+.btn-ghost-light:hover{
+  border-color: #1677ff;
+  color: #1677ff;
+  background-color: #f5f9ff;
+  box-shadow: 0 10px 26px -18px rgba(22, 119, 255, 0.7);
+  transform: translateY(-2px);
 }
 .btn-white{
-  @apply btn bg-white text-dark shadow-[0_12px_30px_-14px_rgba(0,0,0,0.75)] hover:-translate-y-0.5 hover:bg-white;
+  background-color: #ffffff;
+  color: #172033;
+  border: 1.5px solid #c3d9f2;
+  box-shadow: 0 8px 22px -16px rgba(23, 43, 77, 0.5);
+}
+.btn-white:hover{
+  transform: translateY(-2px);
+  border-color: #1677ff;
+  color: #1677ff;
 }
 .btn-sm{
-  @apply px-4 py-2 text-xs rounded-lg;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  border-radius: 0.5rem;
 }
 
 /* Disabled buttons: unmistakably disabled, text still readable. */
 .btn:disabled,
-.btn[disabled]{
-  background-color: #26374f !important;
-  color: #c3d0e0 !important;
-  border-color: rgba(148, 163, 184, 0.24) !important;
+.btn[disabled],
+.btn-primary:disabled,
+.btn-primary[disabled],
+.btn-dark:disabled,
+.btn-dark[disabled],
+.btn-whatsapp:disabled,
+.btn-whatsapp[disabled],
+.btn-outline:disabled,
+.btn-outline[disabled],
+.btn-ghost-light:disabled,
+.btn-ghost-light[disabled],
+.btn-white:disabled,
+.btn-white[disabled]{
+  background-color: #e7eef8 !important;
+  color: #7d8ca0 !important;
+  border-color: #dce7f5 !important;
   box-shadow: none !important;
   opacity: 1;
   cursor: not-allowed;
@@ -257,62 +336,92 @@ body{
 }
 
 /* ==========================================================
-   Cards / panels — one consistent dark design language
+   Cards / panels — one consistent light design language
    ========================================================== */
-.card{
-  @apply bg-surface border border-line rounded-2xl shadow-card;
+.card,
+.card-interactive{
+  background-color: #ffffff;
+  border: 1px solid #dce7f5;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px -6px rgba(23, 43, 77, 0.16);
 }
 .card-interactive{
-  @apply card transition-[transform,box-shadow,border-color] duration-500 ease-swift
-         hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/50;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+.card-interactive:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -28px rgba(22, 119, 255, 0.55);
+  border-color: rgba(22, 119, 255, 0.45);
 }
 
 /* ==========================================================
    Form controls
    ========================================================== */
-.field{
-  @apply w-full rounded-xl border border-line-strong bg-navy px-4 py-3 text-sm text-ink
-         placeholder:text-ink-4 outline-none transition-all duration-200
-         focus:border-primary focus:bg-surface-2 focus:ring-4 focus:ring-primary/25;
-}
+.field,
 .field-dark{
-  @apply w-full rounded-xl border border-white/20 bg-white/[0.07] px-4 py-3 text-sm text-white
-         placeholder:text-ink-3 outline-none transition-all duration-200
-         focus:border-accent focus:bg-white/[0.12] focus:ring-4 focus:ring-accent/20;
+  display: block;
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #c3d9f2;
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #172033;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+.field::placeholder,
+.field-dark::placeholder{
+  color: #93a3b8;
+}
+.field:focus,
+.field-dark:focus{
+  border-color: #1677ff;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(22, 119, 255, 0.18);
+}
+.field:disabled,
+.field-dark:disabled{
+  background-color: #f5f9ff;
+  color: #7d8ca0;
+  cursor: not-allowed;
 }
 
 /* Native select option lists must not fall back to a white canvas. */
 select option,
 select optgroup{
-  background-color: #12213a;
-  color: #f8fafc;
+  background-color: #ffffff;
+  color: #172033;
 }
 
 /* Keep native checkboxes / radios on-brand and high contrast. */
 input[type="checkbox"],
 input[type="radio"]{
-  accent-color: #2563eb;
+  accent-color: #1677ff;
 }
 
-/* Number inputs: visible spinners, light glyphs. */
+/* Number inputs: visible spinners in brand navy. */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button{
-  opacity: 0.85;
-  filter: invert(1);
+  opacity: 0.6;
 }
 input[type="number"]{
   -moz-appearance: textfield;
 }
 
-/* Autofill must not paint a white field on a dark form. */
+/* Autofill must not paint an inverted field on a light form. */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 select:-webkit-autofill{
-  -webkit-text-fill-color: #f8fafc;
-  -webkit-box-shadow: 0 0 0 1000px #0b1830 inset;
-  caret-color: #f8fafc;
+  -webkit-text-fill-color: #172033;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  caret-color: #172033;
   transition: background-color 9999s ease-in-out 0s;
 }
 
@@ -320,32 +429,75 @@ select:-webkit-autofill{
    Badges & chips
    ========================================================== */
 .badge{
-  @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  line-height: 1rem;
+  white-space: nowrap;
 }
 .chip{
-  @apply inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface-2 px-4 py-2 text-sm font-medium text-ink-2
-         transition-all duration-300 ease-swift hover:border-primary-light hover:bg-surface-3 hover:text-primary-light hover:-translate-y-0.5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid #c3d9f2;
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5768;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+.chip:hover{
+  border-color: #1677ff;
+  background-color: #f5f9ff;
+  color: #1677ff;
+  transform: translateY(-2px);
 }
 
-/* Monochrome UI glyphs (PNG) recoloured for the dark theme.
+/* Monochrome UI glyphs (PNG) recoloured for the light theme.
    Keeps the original shapes — only remaps luminance/hue. */
-.icon-on-dark{ filter: brightness(0) invert(1); }
-.icon-on-dark-dim{ filter: brightness(0) invert(1) opacity(0.72); }
-.icon-on-dark-blue{ filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(1780%) hue-rotate(196deg) brightness(102%) contrast(93%); }
-.icon-on-dark-cyan{ filter: brightness(0) saturate(100%) invert(83%) sepia(58%) saturate(1600%) hue-rotate(160deg) brightness(98%) contrast(92%); }
-.icon-on-dark-green{ filter: brightness(0) saturate(100%) invert(64%) sepia(51%) saturate(1400%) hue-rotate(87deg) brightness(97%) contrast(92%); }
-.icon-on-dark-red{ filter: brightness(0) saturate(100%) invert(45%) sepia(89%) saturate(2400%) hue-rotate(348deg) brightness(101%) contrast(94%); }
-.icon-on-dark-amber{ filter: brightness(0) saturate(100%) invert(84%) sepia(90%) saturate(1900%) hue-rotate(3deg) brightness(103%) contrast(96%); }
+.icon-light{ filter: brightness(0) invert(1); }
+.icon-ink{ filter: brightness(0.45) sepia(0.35) hue-rotate(188deg) saturate(1.8); }
+.icon-ink-dim{ filter: brightness(0.6) sepia(0.3) hue-rotate(188deg) saturate(1.5); opacity: 0.66; }
+.icon-blue{ filter: brightness(0.85) sepia(1) saturate(6) hue-rotate(190deg); }
+.icon-cyan{ filter: brightness(0.95) sepia(1) saturate(7) hue-rotate(150deg); }
+.icon-green{ filter: brightness(0.65) sepia(1) saturate(6) hue-rotate(88deg); }
+.icon-red{ filter: brightness(0.65) sepia(1) saturate(7) hue-rotate(340deg); }
+.icon-amber{ filter: brightness(0.95) sepia(1) saturate(8) hue-rotate(15deg); }
+
+/* Circuit-pattern overlay recoloured to a pale blue line-art. */
+.circuit-light{
+  filter: brightness(0) saturate(100%) invert(20%) sepia(48%) saturate(1200%) hue-rotate(182deg) brightness(102%) contrast(94%);
+}
 
 /* Section eyebrow label */
 .eyebrow{
-  @apply inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3.5 py-1.5
-         text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-light;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(22, 119, 255, 0.25);
+  background-color: rgba(22, 119, 255, 0.1);
+  padding: 0.375rem 0.875rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #0e5fd8;
 }
 
-/* Animated gradient text */
+/* Animated gradient text — deep blue into cyan, stays readable on white. */
 .text-gradient{
-  background-image: linear-gradient(100deg, #60a5fa 0%, #22d3ee 48%, #60a5fa 100%);
+  background-image: linear-gradient(100deg, #0E5FD8 0%, #17A2D4 50%, #0E5FD8 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -365,13 +517,13 @@ select:-webkit-autofill{
   will-change: transform;
 }
 .orb-blue{
-  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.42) 0%, rgba(59, 130, 246, 0.14) 46%, rgba(59, 130, 246, 0) 72%);
+  background: radial-gradient(circle at 50% 50%, rgba(22, 119, 255, 0.16) 0%, rgba(22, 119, 255, 0.06) 46%, rgba(22, 119, 255, 0) 72%);
 }
 .orb-cyan{
-  background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.34) 0%, rgba(34, 211, 238, 0.11) 46%, rgba(34, 211, 238, 0) 72%);
+  background: radial-gradient(circle at 50% 50%, rgba(32, 191, 239, 0.16) 0%, rgba(32, 191, 239, 0.05) 46%, rgba(32, 191, 239, 0) 72%);
 }
 .orb-violet{
-  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.34) 0%, rgba(99, 102, 241, 0.10) 46%, rgba(99, 102, 241, 0) 72%);
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.04) 46%, rgba(99, 102, 241, 0) 72%);
 }
 
 /* Underline link with animated indicator */
@@ -386,7 +538,7 @@ select:-webkit-autofill{
   bottom: -3px;
   height: 2px;
   border-radius: 9999px;
-  background: linear-gradient(90deg, var(--primary-bright), var(--accent-color));
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -398,7 +550,7 @@ select:-webkit-autofill{
 
 /* Keyboard focus ring (inputs keep their own field styling) */
 :where(a, button, select, summary, [role="button"]):focus-visible{
-  outline: 2px solid var(--accent-color);
+  outline: 2px solid var(--primary-color);
   outline-offset: 3px;
   border-radius: 8px;
 }
@@ -446,7 +598,7 @@ button:active{
 /* Modern Toast Styling */
 .Toastify__toast.modern-toast{
   border-radius: 12px;
-  box-shadow: 0 10px 30px -8px rgba(2, 6, 23, 0.55);
+  box-shadow: 0 14px 34px -12px rgba(23, 43, 77, 0.35);
   padding: 12px 16px;
   font-family: "Inter", sans-serif;
 }
@@ -484,7 +636,7 @@ button:active{
 }
 
 .Toastify__toast.modern-toast.Toastify__toast--info{
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #1677ff, #0e5fd8);
 }
 
 .Toastify__toast.modern-toast .Toastify__progress-bar{

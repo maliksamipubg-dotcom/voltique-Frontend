@@ -62,7 +62,7 @@ const ChangePassword = () => {
     }
   };
 
-  const inputClass = (field) => `w-full border rounded-lg py-2.5 px-4 text-sm text-white placeholder-ink-4 focus:outline-none focus:ring-2 transition ${errors[field] ? 'border-danger focus:ring-red-500/20' : touched[field] && !errors[field] ? 'border-success focus:ring-green-500/20' : 'border-line-strong focus:ring-primary/25 focus:border-primary'}`;
+  const inputClass = (field) => `field ${errors[field] ? '!border-danger focus:!ring-red-500/20' : touched[field] && !errors[field] ? '!border-success focus:!ring-green-500/20' : ''}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ const ChangePassword = () => {
         <Title text1={'CHANGE'} text2={'PASSWORD'} />
       </div>
 
-      <div className='bg-surface border border-line rounded-2xl p-6 shadow-card'>
+      <div className='bg-white border border-line rounded-2xl p-6 shadow-card'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <div className='flex flex-col gap-1.5'>
             <label className='text-sm font-medium text-ink-2'>Old Password</label>
@@ -156,7 +156,7 @@ const ChangePassword = () => {
             <button type='submit' disabled={submitting} className='btn-primary text-sm px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed'>
               {submitting ? 'UPDATING...' : 'UPDATE PASSWORD'}
             </button>
-            <button type='button' onClick={()=>navigate('/profile')} disabled={submitting} className='border border-line-strong bg-surface-2 hover:border-primary hover:bg-primary/15 text-ink-2 hover:text-white text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
+            <button type='button' onClick={()=>navigate('/profile')} disabled={submitting} className='btn-ghost-light btn-sm disabled:opacity-50 disabled:cursor-not-allowed'>
               CANCEL
             </button>
           </div>

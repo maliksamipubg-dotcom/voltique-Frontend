@@ -7,45 +7,47 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        /* Electric accents */
-        primary: "#2563eb",
-        "primary-dark": "#1d4ed8",
-        "primary-light": "#3b82f6",
-        "primary-bright": "#60a5fa",
-        accent: "#22d3ee",
-        "accent-light": "#67e8f9",
+        /* Brand — primary blue + cyan accent (light premium theme) */
+        primary: "#1677FF",
+        "primary-dark": "#0E5FD8",
+        "primary-light": "#5AA2FF",
+        "primary-bright": "#0F63DB",
+        accent: "#20BFEF",
+        "accent-light": "#7FDBF5",
+        "accent-ink": "#0B7FA6",
 
-        /* Dark navy surfaces */
-        dark: "#07111f",
-        navy: "#0b1830",
-        "navy-soft": "#101d32",
-        surface: "#12213a",
-        "surface-2": "#17263d",
-        "surface-3": "#1e2f4a",
-        background: "#07111f",
-        mist: "#0b1830",
+        /* Light surfaces */
+        dark: "#172033",
+        navy: "#172033",
+        "navy-soft": "#F5F9FF",
+        surface: "#FFFFFF",
+        "surface-2": "#F5F9FF",
+        "surface-3": "#EEF6FF",
+        background: "#FFFFFF",
+        mist: "#F5F9FF",
+        "mist-blue": "#EEF6FF",
 
         /* Hairline borders */
-        line: "#24344f",
-        "line-soft": "#1b2a43",
-        "line-strong": "#3a4d6d",
+        line: "#DCE7F5",
+        "line-soft": "#E9F1FC",
+        "line-strong": "#C3D9F2",
 
         /* Text */
-        textPrimary: "#f8fafc",
-        textSecondary: "#cbd5e1",
-        ink: "#f8fafc",
-        "ink-2": "#cbd5e1",
-        "ink-3": "#94a3b8",
-        "ink-4": "#7c8ca4",
+        textPrimary: "#172033",
+        textSecondary: "#5F6B7A",
+        ink: "#172033",
+        "ink-2": "#4A5768",
+        "ink-3": "#63748B",
+        "ink-4": "#8494A6",
 
         /* Status */
-        success: "#16a34a",
-        "success-light": "#4ade80",
-        "success-deep": "#15803d",
-        danger: "#ef4444",
-        "danger-light": "#f87171",
-        warning: "#f59e0b",
-        gold: "#fbbf24",
+        success: "#16A34A",
+        "success-light": "#15803D",
+        "success-deep": "#166534",
+        danger: "#EF4444",
+        "danger-light": "#DC2626",
+        warning: "#F59E0B",
+        gold: "#F59E0B",
       },
       fontFamily: {
         poppins: ["Inter", "sans-serif"],
@@ -55,14 +57,14 @@ module.exports = {
         mono: ["ui-monospace", "SFMono-Regular", "monospace"],
       },
       boxShadow: {
-        card: "0 8px 26px -16px rgba(2, 8, 23, 0.95)",
-        "card-hover": "0 24px 48px -22px rgba(37, 99, 235, 0.45)",
-        soft: "0 2px 12px -8px rgba(2, 8, 23, 0.9)",
-        lift: "0 30px 64px -28px rgba(2, 8, 23, 1)",
-        nav: "0 14px 38px -24px rgba(2, 8, 23, 1)",
-        glow: "0 10px 32px -12px rgba(37, 99, 235, 0.65)",
-        inset: "inset 0 1px 0 rgba(255, 255, 255, 0.07)",
-        panel: "inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(2, 8, 23, 0.6)",
+        card: "0 4px 16px -10px rgba(23, 43, 77, 0.16), 0 1px 3px -1px rgba(23, 43, 77, 0.06)",
+        "card-hover": "0 22px 44px -24px rgba(22, 119, 255, 0.40), 0 8px 18px -12px rgba(23, 43, 77, 0.14)",
+        soft: "0 2px 10px -5px rgba(23, 43, 77, 0.16)",
+        lift: "0 28px 60px -30px rgba(23, 43, 77, 0.32)",
+        nav: "0 12px 30px -20px rgba(23, 43, 77, 0.28)",
+        glow: "0 10px 26px -12px rgba(22, 119, 255, 0.55)",
+        inset: "inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+        panel: "inset 0 1px 0 rgba(255, 255, 255, 0.85)",
       },
       borderRadius: {
         "4xl": "2rem",
@@ -105,7 +107,7 @@ module.exports = {
           "70%": { transform: "scale(1.6)", opacity: "0" },
           "100%": { transform: "scale(1.6)", opacity: "0" },
         },
-        "sheen": {
+        sheen: {
           from: { transform: "translate3d(-120%, 0, 0)" },
           to: { transform: "translate3d(220%, 0, 0)" },
         },
