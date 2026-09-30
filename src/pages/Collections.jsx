@@ -10,6 +10,51 @@ import { parseSpecs } from '../utils/specs';
 
 const availabilityList = ['In Stock', 'Out of Stock'];
 
+// Category that must always sit at the very bottom of the All Products listing.
+const LAST_CATEGORY = 'accessories';
+
+// Groups products into contiguous category blocks using the existing `category`
+// field, so products of the same category are never separated. The relative
+// order inside each block is preserved, blocks appear in the order their
+// category is first seen in the incoming list (so newly added products join
+// their own category block automatically), and Accessories is always pinned
+// last. Sorting by price still applies afterwards, untouched.
+const groupByCategory = (list) => {
+  const groups = new Map();
+  (Array.isArray(list) ? list : []).forEach((item) => {
+    const name = (item && item.category ? String(item.category).trim() : '') || 'Other';
+    const key = name.toLowerCase();
+    if (!groups.has(key)) {
+      groups.set(key, { isLast: key === LAST_CATEGORY, items: [] });
+    }
+    groups.get(key).items.push(item);
+  });
+  // Array#sort is stable, so non-`isLast` groups keep first-seen category order.
+  return [...groups.values()]
+    .sort((a, b) => (a.isLast === b.isLast ? 0 : a.isLast ? 1 : -1))
+    .flatMap((group) => group.items);
+};
+
+const CatalogLoader = () => (
+  <div
+    className='w-full flex-1 flex flex-col items-center justify-center text-center py-20 min-h-[55vh] catalog-enter'
+    role='status'
+    aria-live='polite'
+    aria-busy='true'
+  >
+    <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+      <span className='w-10 h-10 sm:w-12 sm:h-12 border-4 border-slate-200 border-t-primary rounded-full animate-spin'></span>
+      <span className='text-center sm:text-left'>
+        <span className='block text-base sm:text-lg font-semibold text-gray-800'>Loading products...</span>
+        <span className='block text-xs sm:text-sm text-gray-500 mt-1'>Fetching chargers, stabilizers, inverters and accessories.</span>
+      </span>
+    </div>
+    <div className='mt-6 h-1 w-40 sm:w-56 overflow-hidden rounded-full bg-slate-200'>
+      <div className='h-full w-1/3 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 animate-pulse'></div>
+    </div>
+  </div>
+);
+
 const getStockStatus = (product) => {
   const { specs } = parseSpecs(product.description);
   const stock = specs.find((s) => ['stock', 'stock status'].includes(s.name.trim().toLowerCase()));
@@ -17,7 +62,7 @@ const getStockStatus = (product) => {
 };
 
 const Collections = () => {
-  const { products , categories, search , showSearch  } = useContext(ShopContext);
+  const { products , categories, search , showSearch, productsLoading } = useContext(ShopContext);
   const [searchParams] = useSearchParams();
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -111,7 +156,9 @@ const Collections = () => {
       productsCopy = productsCopy.filter(item => item.price <= Number(maxPrice));
     }
 
-    setFilterProducts(productsCopy);
+    // Default (relevant) listing is grouped by category so each category shows
+    // as one unbroken block with Accessories last. Price sorts bypass this.
+    setFilterProducts(groupByCategory(productsCopy));
   };
   const sortProduct = () => {
     let fpCopy = filterProducts.slice();
@@ -138,6 +185,12 @@ const Collections = () => {
     sortProduct();
 
   },[sortType])
+
+  // Show the loading screen only while the catalog is genuinely still being
+  // fetched and there is nothing to display yet. Cached/already loaded products
+  // skip it completely.
+  const showCatalogLoader = productsLoading && (!Array.isArray(products) || products.length === 0);
+
   return (
     <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 pt-8 border-t border-slate-200'>
       <Seo
@@ -156,6 +209,8 @@ const Collections = () => {
       />
       <h1 className='sr-only'>Shop Battery Chargers, Stabilizers &amp; Inverters</h1>
 
+      {showCatalogLoader ? <CatalogLoader /> : (
+      <>
       {/* Filter Options */}
       <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0'>
         <p
@@ -246,7 +301,7 @@ const Collections = () => {
         </div>
 
         {/* Map Products */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 catalog-enter'>
           {Array.isArray(filterProducts) && filterProducts.length > 0 ? (
             filterProducts.map((item, index) => (
               <ProductItem
@@ -270,6 +325,8 @@ const Collections = () => {
           )}
         </div>
       </div>
+      </>
+      )}
 
     </div>
   );

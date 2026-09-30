@@ -71,6 +71,10 @@ const ShopContextProvider = (props) =>{
     // very first paint (products appear instantly), then refreshed in the
     // background by the mount effect below.
     const [products,setProducts] = useState(() => readSessionCache(PRODUCTS_CACHE_KEY) || []);
+    // Mirrors the real state of the product request. Starts as true only when
+    // no products are available yet (no session cache), so a cached/repeat
+    // visit never shows a loading state. Cleared when the request settles.
+    const [productsLoading,setProductsLoading] = useState(() => products.length === 0);
     const [categories,setCategories] = useState(() => readSessionCache(CATEGORIES_CACHE_KEY) || []);
     const [token,setToken] = useState('')
     const [user,setUser] = useState(null)
@@ -229,6 +233,9 @@ const ShopContextProvider = (props) =>{
         // Prevent duplicate concurrent requests (e.g. StrictMode double-mount
         // or two components requesting at once) from hitting the API twice.
         if (productsRequestRef.current) return productsRequestRef.current;
+        // Only flag a load while there is nothing to show, so the background
+        // refresh of an already rendered catalog stays silent.
+        if (products.length === 0) setProductsLoading(true);
         productsRequestRef.current = (async () => {
             try {
                 const response = await axios.get( backendUrl + '/api/product/list')
@@ -244,6 +251,7 @@ const ShopContextProvider = (props) =>{
                 toast.error(error.message)
             } finally {
                 productsRequestRef.current = null;
+                setProductsLoading(false);
             }
         })();
         return productsRequestRef.current;
@@ -300,7 +308,7 @@ const ShopContextProvider = (props) =>{
     },[token])
 
     const value={
-        products,categories,currency,delivery_fee,
+        products,categories,currency,delivery_fee,productsLoading,
         search,setSearch,showSearch,setShowSearch,
         cartItems,addToCart,setCartItems,
         getCartCount,updateQuantity,
