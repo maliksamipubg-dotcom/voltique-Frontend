@@ -304,35 +304,6 @@ body{
   border-radius: 8px;
 }
 
-/* === Reduced Motion ===
-   Visitors who prefer reduced motion get the same layout with no
-   travelling/scrolling movement. Nothing is hidden. */
-@media (prefers-reduced-motion: reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Reveal content is always shown, never left invisible. */
-  .js [data-reveal],
-  .js [data-reveal].is-visible,
-  .js [data-reveal-group],
-  .js [data-reveal-group].is-visible > *{
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  /* Sheen sweeps would otherwise still show a moving highlight. */
-  .sheen::after,
-  .skeleton::after{
-    display: none !important;
-  }
-}
-
 /* === Mobile Responsiveness / Overflow Safety ===
    These rules only stop overflow and force text/images to wrap or shrink.
    They do not change layout, spacing, colors, or any desktop appearance. */

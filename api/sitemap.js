@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       throw new Error(`Upstream sitemap responded with HTTP ${upstream.status}`)
     }
     res.send(await upstream.text())
-  } catch {
+  } catch (error) {
     res.status(502).send('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>')
   }
 }

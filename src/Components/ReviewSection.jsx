@@ -229,7 +229,7 @@ const ReviewForm = ({ productId, onSaved }) => {
   )
 }
 
-const ReviewSection = ({ productId, autoOpen = false }) => {
+const ReviewSection = ({ productId, productName, autoOpen = false }) => {
   const { backendUrl, token, user, navigate } = useContext(ShopContext)
   const [reviews, setReviews] = useState([])
   const [avgRating, setAvgRating] = useState(0)

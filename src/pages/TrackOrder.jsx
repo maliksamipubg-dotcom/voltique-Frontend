@@ -203,7 +203,7 @@ const TrackOrder = () => {
                     <div key={step} className={`relative flex-1 pb-6 md:pb-0 ${index < STEPS.length - 1 ? 'md:pb-0' : ''}`}>
                       <div className='flex items-start gap-3 md:flex-col md:items-center md:gap-2 md:text-center'>
                         <div className='flex flex-col items-center'>
-                          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 transition-colors duration-500 ${reached ? 'bg-green-500 border-green-500 shadow-soft' : 'bg-white border-slate-300'}`}></div>
+                          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${reached ? 'bg-green-500 border-green-500' : 'bg-white border-slate-300'}`}></div>
                           {index < STEPS.length - 1 && (
                             <div className={`w-0.5 h-full min-h-8 md:hidden ${reached ? 'bg-green-500' : 'bg-slate-200'}`}></div>
                           )}
@@ -244,7 +244,7 @@ const TrackOrder = () => {
               <span className='text-gray-500'>Total Amount</span>
               <span className='font-semibold text-gray-800'>{currency} {order.amount}</span>
             </div>
-            <button onClick={() => navigate('/orders')} className='btn-outline btn-sm mt-5 w-full'>
+            <button onClick={() => navigate('/orders')} className='mt-5 w-full border border-slate-300 hover:border-primary text-gray-700 hover:text-primary text-sm px-4 py-2.5 rounded-lg transition-colors'>
               VIEW ALL ORDERS
             </button>
           </div>

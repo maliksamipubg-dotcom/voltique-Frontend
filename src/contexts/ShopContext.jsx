@@ -184,12 +184,13 @@ const ShopContextProvider = (props) =>{
     const getCartCount = () => {
         let totalCount = 0;
         for(const items in cartItems){
-            const sizes = cartItems[items];
-            if (!sizes) continue;
-            for(const item in sizes){
-                const quantity = sizes[item];
-                if (quantity > 0) {
-                    totalCount += quantity;
+            for(const item in cartItems[items]){
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalCount += cartItems[items][item];
+                    }
+                } catch (error) {
+                    
                 }
             }
         }
@@ -215,14 +216,14 @@ const ShopContextProvider = (props) =>{
     const getCartAmount = () => {
         let totalAmount = 0;
         for(const items in cartItems){
-            const itemInfo = products.find((product) => product._id === items);
-            if (!itemInfo) continue;
-            const sizes = cartItems[items];
-            if (!sizes) continue;
-            for(const item in sizes){
-                const quantity = sizes[item];
-                if (quantity > 0) {
-                    totalAmount += itemInfo.price * quantity;
+            let itemInfo = products.find((product) => product._id === items);
+            for(const item in cartItems[items]){
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalAmount += itemInfo.price * cartItems[items][item];
+                    }
+                } catch (error) {
+                    
                 }
             }
         }

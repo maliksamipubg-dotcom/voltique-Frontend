@@ -51,7 +51,7 @@ const Orders = () => {
     return myReviews.find(r => r.productId === item._id && r.orderId === order.orderId) || null
   }
 
-  const deleteReview = async (review) => {
+  const deleteReview = async (review, item) => {
     if (!window.confirm('Are you sure you want to delete your review?')) return
     setDeletingReview(review.reviewId)
     try {
@@ -196,7 +196,7 @@ const Orders = () => {
                             review ? (
                               <>
                                 <button onClick={() => writeReview(item)} className='chip text-xs py-1.5 px-3 text-amber-700 border-amber-200 bg-amber-50 hover:bg-amber-100'>⭐ Edit Review</button>
-                                <button onClick={() => deleteReview(review)} disabled={deletingReview === review.reviewId} className='chip text-xs py-1.5 px-3 text-red-600 border-red-200 bg-red-50 hover:bg-red-100 disabled:opacity-50'>Delete Review</button>
+                                <button onClick={() => deleteReview(review, item)} disabled={deletingReview === review.reviewId} className='chip text-xs py-1.5 px-3 text-red-600 border-red-200 bg-red-50 hover:bg-red-100 disabled:opacity-50'>🗑 Delete Review</button>
                               </>
                             ) : (
                               <>

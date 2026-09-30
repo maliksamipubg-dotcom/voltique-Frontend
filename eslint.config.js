@@ -23,22 +23,7 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]' }],
-    },
-  },
-  {
-    // A context module intentionally exports both the provider and the
-    // custom hook that reads it, so the fast-refresh rule does not apply.
-    files: ['src/contexts/**/*.jsx'],
-    rules: {
-      'react-refresh/only-export-components': 'off',
-    },
-  },
-  {
-    // Build/config files run in Node, not the browser.
-    files: ['*.config.js', 'api/**/*.js'],
-    languageOptions: {
-      globals: globals.node,
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])

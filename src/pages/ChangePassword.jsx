@@ -62,15 +62,7 @@ const ChangePassword = () => {
     }
   };
 
-  const inputClass = (field) => `w-full border rounded-xl py-3 px-4 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:ring-4 ${errors[field] ? 'border-red-500 focus:ring-red-500/15 bg-red-50/30' : touched[field] && !errors[field] ? 'border-green-500 focus:ring-green-500/15 bg-green-50/20' : 'border-slate-300 focus:ring-primary/10 focus:border-primary'}`;
-
-  const RULES = [
-    { label: 'At least 8 characters', test: (v) => v.length >= 8 },
-    { label: 'Uppercase letter', test: hasUppercase },
-    { label: 'Lowercase letter', test: hasLowercase },
-    { label: 'Number', test: hasNumber },
-    { label: 'Special character', test: hasSpecial },
-  ];
+  const inputClass = (field) => `w-full border rounded-lg py-2.5 px-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 transition ${errors[field] ? 'border-red-500 focus:ring-red-500/20' : touched[field] && !errors[field] ? 'border-green-500 focus:ring-green-500/20' : 'border-gray-300 focus:ring-blue-500/30 focus:border-primary'}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,7 +102,7 @@ const ChangePassword = () => {
         <Title text1={'CHANGE'} text2={'PASSWORD'} />
       </div>
 
-      <div className='card p-6 sm:p-7'>
+      <div className='bg-white border border-slate-200 rounded-2xl p-6 shadow-card'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <div className='flex flex-col gap-1.5'>
             <label className='text-sm font-medium text-gray-700'>Old Password</label>
@@ -122,7 +114,7 @@ const ChangePassword = () => {
               placeholder='Enter your current password'
               className={inputClass('oldPassword')}
             />
-            {errors.oldPassword && <p className='text-xs text-red-600 animate-rise-sm'>{errors.oldPassword}</p>}
+            {errors.oldPassword && <p className='text-xs text-red-600'>{errors.oldPassword}</p>}
           </div>
 
           <div className='flex flex-col gap-1.5'>
@@ -135,18 +127,14 @@ const ChangePassword = () => {
               placeholder='Enter a new password'
               className={inputClass('newPassword')}
             />
-            {errors.newPassword && <p className='text-xs text-red-600 animate-rise-sm'>{errors.newPassword}</p>}
+            {errors.newPassword && <p className='text-xs text-red-600'>{errors.newPassword}</p>}
             {!errors.newPassword && (
-              <ul className='text-xs text-gray-400 flex flex-wrap gap-2 mt-1'>
-                {RULES.map((rule) => {
-                  const passed = rule.test(newPassword);
-                  return (
-                    <li key={rule.label} className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 transition-colors duration-300 ${passed ? 'text-green-700 bg-green-50 border-green-200' : 'bg-mist border-slate-200'}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${passed ? 'bg-green-500' : 'bg-slate-300'}`}></span>
-                      {rule.label}
-                    </li>
-                  );
-                })}
+              <ul className='text-xs text-gray-400 flex flex-wrap gap-x-4 gap-y-1 mt-0.5'>
+                <li className={newPassword.length >= 8 ? 'text-green-600' : ''}>At least 8 characters</li>
+                <li className={hasUppercase(newPassword) ? 'text-green-600' : ''}>Uppercase letter</li>
+                <li className={hasLowercase(newPassword) ? 'text-green-600' : ''}>Lowercase letter</li>
+                <li className={hasNumber(newPassword) ? 'text-green-600' : ''}>Number</li>
+                <li className={hasSpecial(newPassword) ? 'text-green-600' : ''}>Special character</li>
               </ul>
             )}
           </div>
@@ -161,14 +149,14 @@ const ChangePassword = () => {
               placeholder='Re-enter your new password'
               className={inputClass('confirmPassword')}
             />
-            {errors.confirmPassword && <p className='text-xs text-red-600 animate-rise-sm'>{errors.confirmPassword}</p>}
+            {errors.confirmPassword && <p className='text-xs text-red-600'>{errors.confirmPassword}</p>}
           </div>
 
           <div className='flex flex-col sm:flex-row gap-3 mt-4'>
-            <button type='submit' disabled={submitting} className='btn-primary disabled:opacity-50 disabled:pointer-events-none'>
+            <button type='submit' disabled={submitting} className='bg-primary hover:bg-primary-dark text-white text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
               {submitting ? 'UPDATING...' : 'UPDATE PASSWORD'}
             </button>
-            <button type='button' onClick={()=>navigate('/profile')} disabled={submitting} className='btn-outline disabled:opacity-50 disabled:pointer-events-none'>
+            <button type='button' onClick={()=>navigate('/profile')} disabled={submitting} className='border border-slate-300 hover:border-primary text-gray-700 hover:text-primary text-sm px-8 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'>
               CANCEL
             </button>
           </div>
