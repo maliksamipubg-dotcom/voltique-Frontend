@@ -35,14 +35,19 @@ return (
                 loading="lazy"
                 alt={name}
             />
-            {category && (
-                <span className='badge absolute top-2.5 left-2.5 bg-navy/92 text-primary-bright border border-primary/50 backdrop-blur-sm'>
-                    {category}
+            <div className='absolute inset-x-0 top-0 p-2.5 flex items-start justify-between gap-2 pointer-events-none'>
+                {category && (
+                    <span
+                        className='badge min-w-0 max-w-[62%] bg-navy/92 text-primary-bright border border-primary/50 backdrop-blur-sm'
+                        title={category}
+                    >
+                        <span className='truncate'>{category}</span>
+                    </span>
+                )}
+                <span className={`badge shrink-0 border backdrop-blur-sm ${isOut ? 'bg-[#45060a]/90 text-danger-light border-danger/50' : 'bg-[#052e16]/90 text-success-light border-success/50'}`}>
+                    {isOut ? 'Out of Stock' : <><span className='w-1.5 h-1.5 rounded-full bg-success-light animate-pulse'></span>In Stock</>}
                 </span>
-            )}
-            <span className={`badge absolute top-2.5 right-2.5 border backdrop-blur-sm ${isOut ? 'bg-[#45060a]/90 text-danger-light border-danger/50' : 'bg-[#052e16]/90 text-success-light border-success/50'}`}>
-                {isOut ? 'Out of Stock' : <><span className='w-1.5 h-1.5 rounded-full bg-success-light animate-pulse'></span>In Stock</>}
-            </span>
+            </div>
         </div>
 
         <div className={`flex flex-col flex-1 min-w-0 ${large ? 'p-4' : 'p-3.5'}`}>

@@ -249,9 +249,9 @@ Please confirm my order.`;
               <div onClick={()=>setLightboxOpen(true)} onMouseMove={handleZoomMove} onMouseLeave={() => setZoom({ active: false, x: 50, y: 50 })} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} className='w-full rounded-2xl border border-line bg-gradient-to-b from-surface-2 to-surface-3 flex items-center justify-center overflow-hidden cursor-zoom-in group relative shadow-card hover:shadow-card-hover transition-shadow duration-500'>
                 <span className='absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent'></span>
                 <img className='w-full h-auto object-contain p-2 transition-transform duration-200' src={image} onError={(e)=>{ e.currentTarget.onerror = null; e.currentTarget.src = assets.device_charger }} alt={productData.name} fetchPriority="high" style={zoom.active ? { transform: 'scale(1.8)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined} />
-                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-card border border-line-strong backdrop-blur-sm'>
+                <span className='absolute top-3 left-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-semibold px-2.5 py-1.5 rounded-full shadow-card border border-line-strong backdrop-blur-sm hidden sm:inline-flex'>
                   <span className='w-1.5 h-1.5 rounded-full bg-primary animate-pulse'></span>
-                  {productData.image.length} view{productData.image.length !== 1 ? 's' : ''}
+                  Zoom to inspect
                 </span>
                 <span className='absolute bottom-3 right-3 flex items-center gap-1.5 bg-navy/90 text-ink text-[11px] font-medium px-2.5 py-1.5 rounded-full shadow-card border border-line-strong opacity-0 group-hover:opacity-100 transition-opacity'>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='w-3.5 h-3.5'>
