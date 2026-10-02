@@ -3,6 +3,7 @@ import { ShopContext } from '../contexts/ShopContext'
 import Title from './Title';
 import ProductItem from './ProductItem';
 import { Reveal, RevealGroup } from './Reveal';
+import ViewAllProductsButton from './ViewAllProductsButton';
 
 const LatestCollections = () => {
 
@@ -30,6 +31,11 @@ const LatestCollections = () => {
                     ))
         }
       </RevealGroup>
+
+      {/* Centred "View All Products" CTA — placed below the full product grid */}
+      <Reveal className='flex justify-center mt-10 sm:mt-14'>
+        <ViewAllProductsButton />
+      </Reveal>
     </section>
   )
 }
