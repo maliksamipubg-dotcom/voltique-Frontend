@@ -24,7 +24,7 @@ return (
         <RevealGroup className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
             {
                 bestSeller.map((item,index)=>(
-                    <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} brand={item.subCategory} models={item.sizes} description={item.description} rating={item.avgRating} reviewCount={item.reviewCount} stock={item.stock}/>
+                    <ProductItem key={index} name={item.name} id={item._id} price={item.price} discountAmount={item.discountAmount} image={item.image} category={item.category} brand={item.subCategory} models={item.sizes} description={item.description} rating={item.avgRating} reviewCount={item.reviewCount} stock={item.stock}/>
                 ))
             }
         </RevealGroup>

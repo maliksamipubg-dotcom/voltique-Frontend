@@ -14,12 +14,15 @@ const stripSpecs = (desc) => {
   return rest;
 };
 
-const ProductItem = ({id,image,name,price,category,brand,models,description,large,rating,reviewCount,stock}) => {
+const ProductItem = ({id,image,name,price,discountAmount,category,brand,models,description,large,rating,reviewCount,stock}) => {
 
     const {currency} = useContext(ShopContext);
     const hasReviews = Number(rating) > 0 && Number(reviewCount) > 0;
     const shortDescription = description ? stripSpecs(description) : '';
     const isOut = stock === 'Out of Stock';
+    const discount = Number(discountAmount) || 0;
+    const originalPrice = discount > 0 ? Number(price) + discount : null;
+    const saveAmount = discount > 0 ? discount : 0;
 
 return (
     <Link
@@ -78,8 +81,20 @@ return (
                 <p className={`${large ? 'text-xs sm:text-sm' : 'text-[11px]'} text-ink-3 mt-1.5 truncate`}>Options: {models.join(' | ')}</p>
             )}
 
-            <div className='flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 mt-auto pt-3.5 border-t border-line'>
-                <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-extrabold text-primary min-w-0`}>{currency} {price}</p>
+            <div className='flex flex-wrap items-center justify-between gap-x-2 gap-y-2 mt-auto pt-3.5 border-t border-line'>
+                <div className='flex flex-col min-w-0'>
+                    {originalPrice ? (
+                        <div className='flex items-baseline gap-1.5 flex-wrap'>
+                            <p className={`${large ? 'text-xs sm:text-sm' : 'text-[11px]'} line-through text-ink-3`}>{currency} {originalPrice}</p>
+                            <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-extrabold text-primary`}>{currency} {price}</p>
+                        </div>
+                    ) : (
+                        <p className={`${large ? 'text-base sm:text-lg' : 'text-sm'} font-extrabold text-primary min-w-0`}>{currency} {price}</p>
+                    )}
+                    {saveAmount > 0 && (
+                        <span className={`${large ? 'text-[11px] sm:text-xs' : 'text-[10px]'} text-success-deep font-medium`}>Save {currency} {saveAmount}</span>
+                    )}
+                </div>
                 <span className={`${large ? 'text-xs' : 'text-[11px]'} font-semibold bg-primary text-white border border-primary rounded-lg px-2.5 py-1.5 group-hover:bg-primary-dark group-hover:border-primary-dark group-hover:shadow-glow transition-all duration-300 ease-swift`}>
                     Add to Cart
                 </span>

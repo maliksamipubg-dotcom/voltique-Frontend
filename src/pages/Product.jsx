@@ -96,13 +96,15 @@ const Product = () => {
       toast.error('Select the required options');
       return;
     }
+    const priceText = productData.discountAmount > 0 
+      ? `Original: Rs. ${Number(productData.price) + Number(productData.discountAmount)}\nSale Price: Rs. ${productData.price}\nSave Rs: ${productData.discountAmount}` 
+      : `Price:\nRs. ${productData.price}`
     const message = `Hello, I want to order this product.
 
 Product:
 ${productData.name}
 
-Price:
-Rs. ${productData.price}
+${priceText}
 
 ${optionSize ? `Option: ${optionSize}
 
@@ -311,10 +313,29 @@ Please confirm my order.`;
               <span className='text-xs text-primary font-medium link-underline'>Be the first to review</span>
             </button>
           )}
-          <div className='mt-5 inline-flex items-baseline gap-2.5 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/12 to-accent/10 px-5 py-3'>
-            <p className='text-3xl sm:text-4xl font-bold text-primary'>{currency} {productData.price}</p>
-            <span className='text-xs font-semibold text-accent-ink'>incl. warranty</span>
-          </div>
+          {(() => {
+            const discount = Number(productData.discountAmount) || 0;
+            const originalPrice = discount > 0 ? Number(productData.price) + discount : null;
+            const saveAmount = discount > 0 ? discount : 0;
+            return (
+              <div className='mt-5'>
+                <div className='inline-flex flex-col gap-1 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/12 to-accent/10 px-5 py-3'>
+                  {originalPrice ? (
+                    <div className='flex items-baseline gap-2.5 flex-wrap'>
+                      <p className='text-lg sm:text-xl line-through text-ink-3'>{currency} {originalPrice}</p>
+                      <p className='text-3xl sm:text-4xl font-bold text-primary'>{currency} {productData.price}</p>
+                    </div>
+                  ) : (
+                    <p className='text-3xl sm:text-4xl font-bold text-primary'>{currency} {productData.price}</p>
+                  )}
+                  <div className='flex items-center gap-2 flex-wrap'>
+                    <span className='text-xs font-semibold text-accent-ink'>incl. warranty</span>
+                    {saveAmount > 0 && <span className='text-xs font-semibold text-success-deep'>Save {currency} {saveAmount}</span>}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
 
           <p className='mt-5 text-ink-3 leading-relaxed'>{descriptionText}</p>
 

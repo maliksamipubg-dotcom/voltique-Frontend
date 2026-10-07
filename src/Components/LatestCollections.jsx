@@ -27,7 +27,7 @@ const LatestCollections = () => {
       <RevealGroup className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
         {
           latestProducts.map((item,index)=>(
-            <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} category={item.category} brand={item.subCategory} models={item.sizes} description={item.description} rating={item.avgRating} reviewCount={item.reviewCount} stock={item.stock}/>
+            <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} discountAmount={item.discountAmount} category={item.category} brand={item.subCategory} models={item.sizes} description={item.description} rating={item.avgRating} reviewCount={item.reviewCount} stock={item.stock}/>
                     ))
         }
       </RevealGroup>
