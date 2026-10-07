@@ -368,6 +368,7 @@ const Collections = () => {
                 name={item.name}
                 id={item._id}
                 price={item.price}
+                discountAmount={item.discountAmount}
                 image={item.image}
                 category={item.category}
                 brand={item.subCategory}
