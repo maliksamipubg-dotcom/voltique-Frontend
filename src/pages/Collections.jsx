@@ -377,6 +377,7 @@ const Collections = () => {
                 rating={item.avgRating}
                 reviewCount={item.reviewCount}
                 stock={item.stock}
+                soldCount={item.soldCount}
               />
             ))
           ) : (

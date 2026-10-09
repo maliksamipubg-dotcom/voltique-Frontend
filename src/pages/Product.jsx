@@ -289,6 +289,9 @@ Please confirm my order.`;
               <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${inStock ? 'bg-success' : 'bg-danger'}`}></span>
               {stockStatus}
             </span>
+            {Number(productData.soldCount) > 0 && (
+              <span className='badge bg-primary/10 text-primary border border-primary/35 shadow-soft'>{Math.floor(Number(productData.soldCount))} Sold</span>
+            )}
           </div>
           <h1 className='font-semibold text-2xl sm:text-3xl mt-3.5 text-ink leading-snug tracking-tight'>{productData.name}</h1>
           {productData.avgRating > 0 ? (

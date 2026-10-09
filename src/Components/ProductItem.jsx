@@ -14,7 +14,7 @@ const stripSpecs = (desc) => {
   return rest;
 };
 
-const ProductItem = ({id,image,name,price,discountAmount,category,brand,models,description,large,rating,reviewCount,stock}) => {
+const ProductItem = ({id,image,name,price,discountAmount,category,brand,models,description,large,rating,reviewCount,stock,soldCount}) => {
 
     const {currency} = useContext(ShopContext);
     const hasReviews = Number(rating) > 0 && Number(reviewCount) > 0;
@@ -23,6 +23,7 @@ const ProductItem = ({id,image,name,price,discountAmount,category,brand,models,d
     const discount = Number(discountAmount) || 0;
     const originalPrice = discount > 0 ? Number(price) + discount : null;
     const saveAmount = discount > 0 ? discount : 0;
+    const sold = Number(soldCount) > 0 ? Math.floor(Number(soldCount)) : 0;
 
 return (
     <Link
@@ -71,6 +72,9 @@ return (
                 <span className={`${large ? 'text-xs sm:text-sm' : 'text-xs'} text-ink-3`}>
                     {hasReviews ? `(${reviewCount} review${Number(reviewCount) !== 1 ? 's' : ''})` : 'No reviews yet'}
                 </span>
+                {sold > 0 && (
+                    <span className={`${large ? 'text-xs sm:text-sm' : 'text-xs'} font-semibold text-primary`}>{sold} Sold</span>
+                )}
             </div>
 
             {shortDescription && (
