@@ -58,6 +58,17 @@ const escapeHtml = (value) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
 
+// Serialize a value for safe embedding inside an inline <script>. Escaping
+// "<", ">" and "&" (plus the line separators) makes it impossible for product
+// text to break out of the script tag or inject markup, preventing XSS.
+const serializeForScript = (value) =>
+  JSON.stringify(value === undefined ? null : value)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
+
 const getProductImage = (product) => {
   const image = Array.isArray(product.image) ? product.image.find(Boolean) : product.image
   return image || ''
@@ -191,9 +202,18 @@ const injectSeo = (html, product) => {
   return out
 }
 
+// Expose the already-fetched product to the client so the React product page
+// can render it immediately (SSR hydration) instead of waiting for the full
+// catalogue API and showing a blank screen.
+const injectProductData = (html, product) => {
+  const script = `<script>window.__PRODUCT__=${serializeForScript(product)};</script>`
+  return html.replace('</head>', `    ${script}\n  </head>`)
+}
+
 const injectHtml = (html, product) => {
   let out = html
   out = injectSeo(out, product)
+  out = injectProductData(out, product)
   out = injectIntoRoot(out, product)
   return out
 }

@@ -57,8 +57,13 @@ const Product = () => {
   const realProductId = extractProductId(productId);
   const [searchParams] = useSearchParams();
   const {products, currency ,addToCart, updateQuantity, token, navigate} = useContext(ShopContext);
-  const [productData,setProductData] = useState(false);
-  const [image, setImage] = useState('')
+  // Server-rendered product data (when present and matching this URL) lets the
+  // page paint the real product immediately instead of a blank placeholder.
+  const ssrProduct = (typeof window !== 'undefined' && window.__PRODUCT__ && String(window.__PRODUCT__._id) === String(realProductId))
+    ? window.__PRODUCT__
+    : null;
+  const [productData,setProductData] = useState(ssrProduct || false);
+  const [image, setImage] = useState(() => (ssrProduct && Array.isArray(ssrProduct.image) && ssrProduct.image[0]) ? ssrProduct.image[0] : '')
   const [size,setSize] = useState('')
   const [selected, setSelected] = useState({})
   const [quantity,setQuantity] = useState(1)
