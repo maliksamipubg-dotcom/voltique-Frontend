@@ -478,7 +478,7 @@ Please confirm my order.`;
       <ReviewSection productId={productData._id} productName={productData.name} autoOpen={searchParams.get('review') === '1'} />
 
       {/**Display related products */}
-      <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
+      <RelatedProducts category={productData.category} productId={productData._id} />
 
       {/*Product Image Lightbox */}
       {lightboxOpen && (

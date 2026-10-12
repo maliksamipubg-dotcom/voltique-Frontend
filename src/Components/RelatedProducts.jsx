@@ -4,21 +4,27 @@ import ProductItem from './ProductItem';
 import Title from './Title';
 import { Reveal, RevealGroup } from './Reveal';
 
-const RelatedProducts = ({category,subCategory}) => {
+const RelatedProducts = ({category,productId}) => {
 
     const { products } = useContext(ShopContext);
     const [related,setRelated] =useState([]);
 
     useEffect(()=>{
         if (products.length > 0) {
+            const normalize = (value) => String(value || '').trim().toLowerCase();
+            const targetCategory = normalize(category);
+            const currentId = String(productId || '');
+            // Match by product category only (across all brands), so a charger
+            // shows other chargers regardless of brand. Never include the
+            // currently opened product in its own related list.
             let productsCopy = products.slice();
-            productsCopy = productsCopy.filter((item) => category === item.category);
-            productsCopy = productsCopy.filter((item) => subCategory === item.subCategory);
+            productsCopy = productsCopy.filter((item) => normalize(item.category) === targetCategory);
+            productsCopy = productsCopy.filter((item) => String(item._id) !== currentId);
             setRelated(productsCopy.slice(0,5));
 
         }
 
-    },[products])
+    },[products, category, productId])
     return (
     <section className='my-20 sm:my-24'>
         <Reveal className='text-center py-2 mb-6'>
