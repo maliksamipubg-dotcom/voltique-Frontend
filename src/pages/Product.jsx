@@ -56,7 +56,7 @@ const Product = () => {
   const {productId} = useParams();
   const realProductId = extractProductId(productId);
   const [searchParams] = useSearchParams();
-  const {products, currency ,addToCart, updateQuantity, token, navigate} = useContext(ShopContext);
+  const {products, currency ,addToCart, updateQuantity, token, navigate, productsLoading} = useContext(ShopContext);
   // Server-rendered product data (when present and matching this URL) lets the
   // page paint the real product immediately instead of a blank placeholder.
   const ssrProduct = (typeof window !== 'undefined' && window.__PRODUCT__ && String(window.__PRODUCT__._id) === String(realProductId))
@@ -166,6 +166,11 @@ Please confirm my order.`;
   const stockStatus = stockSpec ? stockSpec.value : ((productData && productData.stock) || 'In Stock');
   const inStock = stockStatus.toLowerCase() === 'in stock';
   const currentIndex = productData ? productData.image.indexOf(image) : -1;
+  // Only treat the URL as a missing product once the catalogue has actually
+  // loaded and the id is absent from it. This avoids showing the not-found state
+  // (and its noindex directive) while the product list is still loading.
+  const productExists = products.some((item) => item._id === realProductId);
+  const notFound = !productData && !productsLoading && products.length > 0 && !productExists;
 
   const optionFields = (productData && Array.isArray(productData.options) && productData.options.length > 0) ? productData.options : [];
   const hasSizes = productData && Array.isArray(productData.sizes) && productData.sizes.length > 0;
@@ -519,6 +524,18 @@ Please confirm my order.`;
           </div>
         </div>
       )}
+    </div>
+  ) : notFound ? (
+    <div className='pt-14 pb-20 text-center max-w-xl mx-auto'>
+      <Seo
+        title="Product Not Found | Voltique Hub"
+        description="The product you are looking for is unavailable or no longer exists."
+        path={`/product/${productId}`}
+        robots="noindex, follow"
+      />
+      <h1 className='text-2xl sm:text-3xl font-semibold text-ink'>Product not found</h1>
+      <p className='mt-3 text-ink-3'>The product you are looking for is unavailable or may have been removed.</p>
+      <button onClick={() => navigate('/collections')} className='btn-primary mt-6'>Browse products</button>
     </div>
   ) : (
     <div className=' opacity-0'>

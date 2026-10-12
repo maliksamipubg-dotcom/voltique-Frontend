@@ -132,74 +132,61 @@ const injectIntoRoot = (html, product) => {
   return html.replace('<div id="root"></div>', `<div id="root">${productHtml}</div>`)
 }
 
+// Match a <meta> tag by a specific attribute value. `[^>]` never crosses a
+// closing ">" and `\s+` accepts newlines, so tags split across multiple lines
+// (as in the built index.html) are matched reliably regardless of whitespace
+// or attribute order.
+const metaPattern = (attr, key) =>
+  new RegExp(`<meta\\s+[^>]*${attr}\\s*=\\s*["']${key}["'][^>]*>`, 'i')
+
+// Replace every occurrence of an existing tag with a single canonical one
+// (removing accidental duplicates) or insert the tag into <head> if missing.
+const upsertTag = (html, pattern, tag) => {
+  if (pattern.test(html)) return html.replace(new RegExp(pattern.source, 'gi'), tag)
+  return html.replace('</head>', `    ${tag}\n  </head>`)
+}
+
+const setMeta = (html, attr, key, content) =>
+  upsertTag(html, metaPattern(attr, key), `<meta ${attr}="${key}" content="${escapeHtml(content)}" />`)
+
+const setTitle = (html, title) =>
+  upsertTag(html, /<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`)
+
+const setCanonical = (html, url) =>
+  upsertTag(
+    html,
+    /<link\s+[^>]*rel\s*=\s*["']canonical["'][^>]*>/i,
+    `<link rel="canonical" href="${escapeHtml(url)}" />`,
+  )
+
 const injectSeo = (html, product) => {
   const title = `${product.name} | ${SITE_NAME}`
   const description = buildProductDescription(product)
   const url = productUrl(product)
   const image = getProductImage(product)
 
-  const replaceAll = (input, pattern, replacement) =>
-    input.replace(new RegExp(pattern, 'g'), replacement)
-
   let out = html
-  out = replaceAll(out, /<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
-  out = replaceAll(
-    out,
-    /<meta name="description"[^>]*\/?>/,
-    `<meta name="description" content="${escapeHtml(description)}" />`,
-  )
-  out = replaceAll(
-    out,
-    /<meta name="robots"[^>]*\/?>/,
-    '<meta name="robots" content="index, follow" />',
-  )
-  out = replaceAll(
-    out,
-    /<meta property="og:title"[^>]*\/?>/,
-    `<meta property="og:title" content="${escapeHtml(title)}" />`,
-  )
-  out = replaceAll(
-    out,
-    /<meta property="og:description"[^>]*\/?>/,
-    `<meta property="og:description" content="${escapeHtml(description)}" />`,
-  )
-  out = replaceAll(
-    out,
-    /<meta property="og:url"[^>]*\/?>/,
-    `<meta property="og:url" content="${escapeHtml(url)}" />`,
-  )
-  if (image) {
-    out = replaceAll(
-      out,
-      /<meta property="og:image"[^>]*\/?>/,
-      `<meta property="og:image" content="${escapeHtml(image)}" />`,
-    )
-  }
-  out = replaceAll(
-    out,
-    /<meta name="twitter:title"[^>]*\/?>/,
-    `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
-  )
-  out = replaceAll(
-    out,
-    /<meta name="twitter:description"[^>]*\/?>/,
-    `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
-  )
-  if (image) {
-    out = replaceAll(
-      out,
-      /<meta name="twitter:image"[^>]*\/?>/,
-      `<meta name="twitter:image" content="${escapeHtml(image)}" />`,
-    )
-  }
+  out = setTitle(out, title)
+  out = setMeta(out, 'name', 'description', description)
+  out = setMeta(out, 'name', 'robots', 'index, follow')
+  out = setMeta(out, 'property', 'og:title', title)
+  out = setMeta(out, 'property', 'og:description', description)
+  out = setMeta(out, 'property', 'og:url', url)
+  if (image) out = setMeta(out, 'property', 'og:image', image)
+  out = setMeta(out, 'name', 'twitter:card', 'summary_large_image')
+  out = setMeta(out, 'name', 'twitter:title', title)
+  out = setMeta(out, 'name', 'twitter:description', description)
+  if (image) out = setMeta(out, 'name', 'twitter:image', image)
+  out = setCanonical(out, url)
 
-  const canonicalLink = `<link rel="canonical" href="${escapeHtml(url)}" />`
+  // JSON-LD is embedded in a <script> context, so serialize it with the same
+  // script-safe escaping used for window.__PRODUCT__ to prevent product text
+  // from terminating the script tag.
   const jsonLd = [productSchema(product), breadcrumbSchema(product)]
-    .map((data) => `<script type="application/ld+json">${JSON.stringify(data)}</script>`)
+    .map((data) => `<script type="application/ld+json">${serializeForScript(data)}</script>`)
     .join('\n    ')
 
-  out = out.replace('</head>', `    ${canonicalLink}\n    ${jsonLd}\n  </head>`)
-  return out
+  return out.replace('</head>', `    ${jsonLd}\n  </head>`)
 }
 
 // Expose the already-fetched product to the client so the React product page
@@ -218,6 +205,10 @@ const injectHtml = (html, product) => {
   return out
 }
 
+// Force the not-found page out of the index as a defensive fallback. Replaces
+// the existing robots tag if present, otherwise adds one before </head>.
+const withNoindex = (html) => setMeta(html, 'name', 'robots', 'noindex, follow')
+
 export default async function handler(req, res) {
   const pathParam = req.query.path || ''
   const productId = extractProductId(pathParam)
@@ -234,6 +225,19 @@ export default async function handler(req, res) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8')
       res.setHeader('Cache-Control', 'public, no-cache, no-store, must-revalidate')
       res.send(html)
+    } else {
+      res.status(502).send('Bad Gateway')
+    }
+  }
+  // The backend answered successfully but returned no product document: this is
+  // a genuinely nonexistent product, so respond 404 with a noindex page.
+  const sendNotFound = async () => {
+    const html = await originalHtml()
+    if (html) {
+      res.status(404)
+      res.setHeader('Content-Type', 'text/html; charset=utf-8')
+      res.setHeader('Cache-Control', 'public, no-cache, no-store, must-revalidate')
+      res.send(withNoindex(html))
     } else {
       res.status(502).send('Bad Gateway')
     }
@@ -265,7 +269,13 @@ export default async function handler(req, res) {
     return sendOriginal()
   }
 
-  if (!data || data.success !== true || !data.product) return sendOriginal()
+  // A failed/errored backend response (or a thrown CastError / DB outage that
+  // the API reports as success:false) must NOT be treated as a missing product,
+  // otherwise valid products could be wrongly served as 404. Fall back to the
+  // normal page instead.
+  if (!data || data.success !== true) return sendOriginal()
+
+  if (!data.product) return sendNotFound()
 
   const product = data.product
   let html = await originalHtml()

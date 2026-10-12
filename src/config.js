@@ -1,4 +1,4 @@
-const DEFAULT_BACKEND_URL = 'https://voltique-backend.vercel.app'
+const DEFAULT_BACKEND_URL = 'https://voltiquebackend.vercel.app'
 
 const normalizeUrl = (url) => {
   if (!url) return ''

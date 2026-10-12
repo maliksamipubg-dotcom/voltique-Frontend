@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://voltiquehub.vercel.app/sitemap.xml
-Sitemap: https://voltique-backend.vercel.app/sitemap.xml
+Sitemap: https://voltiquebackend.vercel.app/sitemap.xml
