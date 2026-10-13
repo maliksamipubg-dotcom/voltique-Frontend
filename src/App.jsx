@@ -12,6 +12,7 @@ import Orders from './pages/Orders'
 import TrackOrder from './pages/TrackOrder'
 import Profile from './pages/Profile'
 import ChangePassword from './pages/ChangePassword'
+import NotFound from './pages/NotFound'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import SearchBar from './Components/SearchBar'
@@ -61,6 +62,7 @@ const App = () => {
           <Route path='/track/:orderId' element={<TrackOrder/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/change-password' element={<ChangePassword/>}/>
+          <Route path='*' element={<NotFound/>}/>
         </Routes>
       </main>
       <Footer/>

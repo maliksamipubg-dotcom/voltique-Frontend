@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import { parseSpecs } from '../src/utils/specs.js'
 
 const DEFAULT_BACKEND_URL = 'https://voltiquebackend.vercel.app'
 const SITE_URL = 'https://voltiquehub.vercel.app'
@@ -38,6 +39,25 @@ const truncate = (text, max = 158) => {
   return `${clean.slice(0, max - 1).trim()}…`
 }
 
+// Product descriptions store their specifications first (serialized as
+// "Name: value. Name: value.") followed by the genuine free-text narrative.
+// Meta descriptions read better without the raw spec dump, so prefer the
+// narrative part and fall back to the full description when none is found.
+const SPEC_PREFIX = /^[^:\n]{1,100}:\s/
+
+const narrativeText = (product) => {
+  const description = String((product && product.description) || '')
+  if (!description) return ''
+  try {
+    const { specs, rest } = parseSpecs(description)
+    const narrative = String(rest || '').trim()
+    if (specs.length && narrative && !SPEC_PREFIX.test(narrative)) return narrative
+  } catch {
+    // Malformed description: fall back to the full text below.
+  }
+  return description
+}
+
 const buildProductDescription = (product) => {
   if (!product) return ''
   const headline = [
@@ -46,7 +66,7 @@ const buildProductDescription = (product) => {
     product.category || '',
     typeof product.price === 'number' ? `${CURRENCY} ${product.price}` : '',
   ].filter(Boolean).join(' · ')
-  const body = truncate(product.description, 110)
+  const body = truncate(narrativeText(product), 110)
   return truncate(`${headline}. ${body}`)
 }
 
@@ -103,6 +123,15 @@ const productSchema = (product) => {
   }
   if (product.subCategory) {
     schema.brand = { '@type': 'Brand', name: product.subCategory }
+  }
+  // Only surface ratings that genuinely exist in the product data. This mirrors
+  // the client-side productSchema so server and client JSON-LD stay identical.
+  if (Number(product.avgRating) > 0 && Number(product.reviewCount) > 0) {
+    schema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: Number(product.avgRating),
+      reviewCount: Number(product.reviewCount),
+    }
   }
   Object.keys(schema).forEach((key) => {
     if (schema[key] === undefined) delete schema[key]
@@ -172,6 +201,7 @@ const injectSeo = (html, product) => {
   out = setMeta(out, 'property', 'og:title', title)
   out = setMeta(out, 'property', 'og:description', description)
   out = setMeta(out, 'property', 'og:url', url)
+  out = setMeta(out, 'property', 'og:type', 'product')
   if (image) out = setMeta(out, 'property', 'og:image', image)
   out = setMeta(out, 'name', 'twitter:card', 'summary_large_image')
   out = setMeta(out, 'name', 'twitter:title', title)
@@ -243,7 +273,10 @@ export default async function handler(req, res) {
     }
   }
 
-  if (!productId) return sendOriginal()
+  // This handler only serves /product/* requests. A path without a valid
+  // 24-character product id (malformed or slug-only URL) is a genuine
+  // not-found, so respond 404 with a noindex page instead of a soft 200.
+  if (!productId) return sendNotFound()
 
   let response
   try {

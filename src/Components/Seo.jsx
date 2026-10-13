@@ -5,7 +5,10 @@ import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE } from '../utils/seo'
 const MANAGED_META =
   'meta[name="description"], meta[name="robots"], meta[property^="og:"], meta[name^="twitter:"]'
 const MANAGED_LINK = 'link[rel="canonical"]'
-const MANAGED_JSONLD = 'script[type="application/ld+json"]'
+// Only remove JSON-LD this component owns. The site-wide Organization block in
+// index.html is tagged with data-site-jsonld and must survive hydration, so it
+// is deliberately excluded from the selector.
+const MANAGED_JSONLD = 'script[type="application/ld+json"]:not([data-site-jsonld])'
 
 const clearManagedTags = () => {
   const head = document.head

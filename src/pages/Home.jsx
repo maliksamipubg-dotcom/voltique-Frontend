@@ -5,7 +5,7 @@ import LatestCollections from '../Components/LatestCollections'
 import BestSeller from '../Components/BestSeller'
 import OurPolicy from '../Components/OurPolicy'
 import Seo from '../Components/Seo'
-import { DEFAULT_TITLE, breadcrumbSchema, organizationSchema } from '../utils/seo'
+import { DEFAULT_TITLE, breadcrumbSchema } from '../utils/seo'
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
         title={DEFAULT_TITLE}
         description="Shop battery chargers, voltage stabilizers, power inverters and charging accessories in Pakistan. Genuine, warranty-backed power solutions from Voltique Hub with cash on delivery."
         path="/"
-        jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }])]}
+        jsonLd={[breadcrumbSchema([{ name: 'Home', path: '/' }])]}
       />
       <div className='relative'>
         {/* Hero band — soft white-to-light-blue gradient */}
