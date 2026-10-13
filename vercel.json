@@ -1,6 +1,10 @@
 {
+  "trailingSlash": false,
   "functions": {
     "api/product-page.js": {
+      "includeFiles": "dist/index.html"
+    },
+    "api/not-found.js": {
       "includeFiles": "dist/index.html"
     }
   },
@@ -14,8 +18,52 @@
       "destination": "/api/product-page?path=:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/collections",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/cart",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/placeOrder",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/orders",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/change-password",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/track/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/api/not-found?path=:path*"
     }
   ]
 }

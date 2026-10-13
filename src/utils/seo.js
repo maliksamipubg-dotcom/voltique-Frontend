@@ -1,3 +1,5 @@
+import { parseSpecs } from './specs.js'
+
 export const SITE_URL = 'https://voltiquehub.vercel.app'
 export const SITE_NAME = 'Voltique Hub'
 export const DEFAULT_TITLE = 'Voltique Hub | Battery Chargers, Stabilizers & Inverters'
@@ -44,6 +46,25 @@ export const truncate = (text, max = 158) => {
   return `${clean.slice(0, max - 1).trim()}…`
 }
 
+// Product descriptions store their specifications first (serialized as
+// "Name: value. Name: value.") followed by the genuine free-text narrative.
+// Meta descriptions read better without the raw spec dump, so prefer the
+// narrative part and fall back to the full description when none is found.
+const SPEC_PREFIX = /^[^:\n]{1,100}:\s/
+
+const narrativeText = (product) => {
+  const description = String((product && product.description) || '')
+  if (!description) return ''
+  try {
+    const { specs, rest } = parseSpecs(description)
+    const narrative = String(rest || '').trim()
+    if (specs.length && narrative && !SPEC_PREFIX.test(narrative)) return narrative
+  } catch {
+    // Malformed description: fall back to the full text below.
+  }
+  return description
+}
+
 export const buildProductDescription = (product) => {
   if (!product) return ''
   const headline = [
@@ -52,7 +73,7 @@ export const buildProductDescription = (product) => {
     product.category || '',
     typeof product.price === 'number' ? `${CURRENCY} ${product.price}` : '',
   ].filter(Boolean).join(' · ')
-  const body = truncate(product.description, 110)
+  const body = truncate(narrativeText(product), 110)
   return truncate(`${headline}. ${body}`)
 }
 
