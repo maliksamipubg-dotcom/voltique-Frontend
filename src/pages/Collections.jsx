@@ -66,23 +66,31 @@ const SkeletonFilterBlock = () => (
 // products arrive. Announced as a busy region for screen readers.
 const CatalogLoader = () => (
   <div
-    className='w-full flex-1 flex flex-col lg:flex-row gap-6 lg:gap-8 py-8 catalog-enter'
+    className='w-full flex-1 flex flex-col lg:flex-row gap-6 lg:gap-8 catalog-enter'
     role='status'
     aria-live='polite'
     aria-busy='true'
   >
     <span className='sr-only'>Loading products…</span>
 
-    <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0 hidden lg:flex flex-col gap-4' aria-hidden='true'>
-      <SkeletonFilterBlock />
-      <SkeletonFilterBlock />
-      <SkeletonFilterBlock />
-      <SkeletonFilterBlock />
+    <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0 flex flex-col gap-4' aria-hidden='true'>
+      <div className='card w-full px-5 py-4 lg:hidden'>
+        <div className='skeleton h-8 w-full'></div>
+      </div>
+      <div className='hidden lg:flex flex-col gap-4'>
+        <SkeletonFilterBlock />
+        <SkeletonFilterBlock />
+        <SkeletonFilterBlock />
+        <SkeletonFilterBlock />
+      </div>
     </aside>
 
     <div className='flex-1 min-w-0' aria-hidden='true'>
       <div className='flex items-center justify-between gap-3 mb-6'>
-        <div className='skeleton h-5 w-40'></div>
+        <div className='flex flex-col gap-2'>
+          <div className='skeleton h-6 w-40'></div>
+          <div className='skeleton h-4 w-24'></div>
+        </div>
         <div className='skeleton h-9 w-40 rounded-lg'></div>
       </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'>
