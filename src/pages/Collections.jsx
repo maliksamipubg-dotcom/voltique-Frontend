@@ -35,68 +35,45 @@ const groupByCategory = (list) => {
     .flatMap((group) => group.items);
 };
 
-const SkeletonCard = () => (
-  <div className='card overflow-hidden'>
-    <div className='skeleton w-full aspect-[4/3] rounded-none'></div>
-    <div className='p-4 flex flex-col gap-2.5'>
-      <div className='skeleton h-3 w-1/3'></div>
-      <div className='skeleton h-4 w-full'></div>
-      <div className='skeleton h-4 w-4/5'></div>
-      <div className='skeleton h-3 w-1/2 mt-1'></div>
-      <div className='flex items-center justify-between pt-3 mt-1 border-t border-line'>
-        <div className='skeleton h-4 w-20'></div>
-        <div className='skeleton h-7 w-20 rounded-lg'></div>
-      </div>
-    </div>
-  </div>
-);
-
-const SkeletonFilterBlock = () => (
-  <div className='card p-5'>
-    <div className='skeleton h-3 w-20 mb-4'></div>
-    <div className='flex flex-col gap-3'>
-      <div className='skeleton h-3.5 w-full'></div>
-      <div className='skeleton h-3.5 w-4/5'></div>
-      <div className='skeleton h-3.5 w-2/3'></div>
-    </div>
-  </div>
-);
-
-// Skeleton mirror of the real catalog layout, so nothing jumps once the
-// products arrive. Announced as a busy region for screen readers.
+// Premium loading popup shown over the catalog while the real product request
+// is in flight. Announced as a busy region for screen readers.
 const CatalogLoader = () => (
   <div
-    className='w-full flex-1 flex flex-col lg:flex-row gap-6 lg:gap-8 catalog-enter'
+    className='fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6'
     role='status'
     aria-live='polite'
     aria-busy='true'
   >
-    <span className='sr-only'>Loading products…</span>
+    <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-white/60 to-accent/10 backdrop-blur-md' aria-hidden='true' />
 
-    <aside className='w-full lg:w-[280px] lg:min-w-[280px] shrink-0 flex flex-col gap-4' aria-hidden='true'>
-      <div className='card w-full px-5 py-4 lg:hidden'>
-        <div className='skeleton h-8 w-full'></div>
-      </div>
-      <div className='hidden lg:flex flex-col gap-4'>
-        <SkeletonFilterBlock />
-        <SkeletonFilterBlock />
-        <SkeletonFilterBlock />
-        <SkeletonFilterBlock />
-      </div>
-    </aside>
+    <div className='relative w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/80 bg-white/90 px-7 py-9 text-center shadow-lift backdrop-blur-xl animate-pop-in sm:max-w-md sm:px-10 sm:py-11'>
+      <div className='pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-primary/20 blur-3xl animate-drift' aria-hidden='true' />
+      <div className='pointer-events-none absolute -bottom-12 -left-10 h-36 w-36 rounded-full bg-accent/20 blur-3xl animate-drift' aria-hidden='true' />
 
-    <div className='flex-1 min-w-0' aria-hidden='true'>
-      <div className='flex items-center justify-between gap-3 mb-6'>
-        <div className='flex flex-col gap-2'>
-          <div className='skeleton h-6 w-40'></div>
-          <div className='skeleton h-4 w-24'></div>
-        </div>
-        <div className='skeleton h-9 w-40 rounded-lg'></div>
+      <div className='relative mx-auto flex h-24 w-24 items-center justify-center sm:h-28 sm:w-28'>
+        <span className='absolute inset-0 rounded-full border border-primary/15' aria-hidden='true' />
+        <span className='absolute inset-0 rounded-full border-[3px] border-transparent border-t-primary border-r-accent animate-spin' aria-hidden='true' />
+        <span className='absolute inset-2 rounded-full border border-dashed border-accent/50 animate-[spin_6s_linear_infinite]' aria-hidden='true' />
+        <span className='absolute inset-0 flex items-center justify-center animate-float'>
+          <span className='flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-white shadow-glow sm:h-16 sm:w-16'>
+            <svg className='h-8 w-8' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.6' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true'>
+              <path d='M4.5 8.5h15l-1.2 11H5.7L4.5 8.5Z' />
+              <path d='M9 8.5V6.8a3 3 0 0 1 6 0v1.7' />
+              <path d='m12.8 11-2.6 3.6h2l-1 3.1 3-4.1h-2l1-2.6Z' fill='currentColor' stroke='none' />
+            </svg>
+          </span>
+        </span>
+        <span className='absolute -right-1 top-2 h-2.5 w-2.5 rounded-full bg-accent animate-pulse' aria-hidden='true' />
+        <span className='absolute bottom-3 -left-1 h-2 w-2 rounded-full bg-primary animate-pulse' aria-hidden='true' />
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'>
-        {Array.from({ length: 8 }).map((_, i) => (
-          <SkeletonCard key={i} />
-        ))}
+
+      <h2 className='relative mt-6 font-display text-xl font-bold tracking-tight text-ink sm:text-2xl'>Products Are Loading...</h2>
+      <p className='relative mt-2 text-sm text-ink-3'>Getting the good stuff ready for you.</p>
+
+      <div className='relative mt-6 flex items-center justify-center gap-2' aria-hidden='true'>
+        <span className='h-2 w-2 rounded-full bg-primary animate-bounce' />
+        <span className='h-2 w-2 rounded-full bg-primary/70 animate-bounce [animation-delay:120ms]' />
+        <span className='h-2 w-2 rounded-full bg-accent animate-bounce [animation-delay:240ms]' />
       </div>
     </div>
   </div>
